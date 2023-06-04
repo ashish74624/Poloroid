@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import {BrowserRouter , Navigate,Router,Route, Routes } from 'react-router-dom'
+import LogInPage from './scenes/logInPage';
+import HomePage from './scenes/homePage';
+import ProfilePage from './scenes/profilePage';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import Navbar from './scenes/Navbar';
 
 function App() {
+  const mode = useSelector((state) => state.mode)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<LogInPage/>}/>
+          <Route path='/home' element={<HomePage/>}/>
+          <Route path='/profile/:userId' element={<ProfilePage/>}/>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
