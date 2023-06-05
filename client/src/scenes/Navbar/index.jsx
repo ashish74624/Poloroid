@@ -16,7 +16,7 @@ export default function Navbar({login}) {
   return (
     <>
       
-<nav className="bg-white border-gray-200">
+<nav className="bg-[#E9FF99] border-gray-200 border border-b-black">
   <div className={`max-w-screen-xl flex flex-wrap items-center ${login?"justify-between":"justify-center"} mx-auto p-4`}>
     {
       login ? (

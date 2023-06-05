@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        // Add your font families here
+        custom: ['EB Garamond', 'serif'],
+      },
+    },
   },
   plugins: [],
 }

@@ -1,11 +1,15 @@
 import React from 'react'
 import Navbar from '../Navbar'
+import Form from './Form.tsx'
 
 export default function LogInPage() {
   return (
     <>
       <Navbar login={false}/>
-      
+      <div className='bg-[#E9FF99] h-screen w-screen'>
+      <Form/>
+      </div>
+{/*       
 <form className='w-screen flex justify-center'>
   <main className='w-[50vw]'>
     <h2 className='text-[33px] font-semibold pb-5 flex w-full justify-center'>Welcome back to Stay, where your story continues</h2>
@@ -34,7 +38,7 @@ export default function LogInPage() {
   <a href="/register" className=' text-green-500 hover:underline hover:underline-offset-1'>don't have an account yet click here</a>
   </div>
   </main>
-</form>
+</form> */}
 
     </>
   )
