@@ -36,7 +36,8 @@ const Form = () => {
         }
         if (response.ok) {
           // Registration successful, perform any necessary actions
-          navigate("/login");
+          setPageType("login");
+          // navigate("/login");
         } else {
           // Registration failed, handle the error
           const errorData = await response.json();
@@ -110,6 +111,30 @@ const Form = () => {
                 className="w-full border border-gray-300 rounded-md px-3 py-2"
               />
             </div>
+            <div className="mb-4">
+              <label htmlFor="location" className="block mb-1">
+                Location
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                className="w-full border border-gray-300 rounded-md px-3 py-2"
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="occupation" className="block mb-1">
+                Occupation
+              </label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                className="w-full border border-gray-300 rounded-md px-3 py-2"
+              />
+            </div>
             {/* Render other register fields */}
           </>
         )}
@@ -123,6 +148,7 @@ const Form = () => {
             id="email"
             name="email"
             required
+            placeholder="name@email.com"
             className="w-full border border-gray-300 rounded-md px-3 py-2"
           />
         </div>

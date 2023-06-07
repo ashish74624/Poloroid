@@ -65,7 +65,7 @@ async function startServer() {
 
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
-    /* ADD DATA ONE TIME */
+    /* ADD DATA ONE TIME */ 
     // await User.insertMany(users);
     // await Post.insertMany(posts);
   } catch (error) {
