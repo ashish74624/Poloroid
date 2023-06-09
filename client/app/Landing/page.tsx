@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import { EB_Garamond } from 'next/font/google'
+import Poster from '../Components/Poster'
 
 const ebgmd = EB_Garamond({
   subsets: ['greek-ext'],
@@ -12,10 +13,7 @@ export default function Landing() {
   return (
     <>
      <main className='flex bg-[#ECE3E1]'>
-        <div className= 'relative h-screen w-[45vw]' >
-            <Image className=' opacity-60 absolue inset-0 h-screen w-[45vw]' src={'/stay.jpg'} alt='Image' width={100} height={100} />    
-            <div className='  absolue inset-0 h-screen w-[45vw] bg-purple-900' ></div>
-        </div>  
+        <Poster/>
         <main className='flex flex-col w-[55vw] h-screen justify-center items-center space-y-10'>
           <div className='flex flex-col space-y-6'>
               <h2 className={`${ebgmd.className} text-4xl text-purple-400`}>Create Account</h2>
