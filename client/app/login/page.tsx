@@ -1,6 +1,7 @@
 import React from 'react'
 import { EB_Garamond } from 'next/font/google'
 import Poster from '../Components/Poster'
+import Link from 'next/link'
 
 const ebgmd = EB_Garamond({
   subsets: ['greek-ext'],
@@ -26,7 +27,12 @@ export default function page() {
     <label htmlFor="password" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Password</label>
     <input type="password" id="password" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-500 focus:border-purple-500 block w-full p-2.5" required/>
   </div>
-  <button type="submit" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">Submit</button>
+  <div className='flex w-full justify-between'>
+            <button type="submit" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+            <Link href={'/Landing'}>
+            <button className='text-purple-400 font-semibold text-lg hover:underline'>Register</button>
+            </Link>
+            </div>
 </form>
 
         </main>
