@@ -37,12 +37,12 @@ export default function Landing() {
         })
     })
     const data = await res.json()
-    if(data.status==="ok"){
-      revalidatePath('/login');
-    }
-    else{
-      revalidatePath('/login');
-    }
+    // if(data.status==="ok"){
+    //   revalidatePath('/login');
+    // }
+    // else{
+    //   revalidatePath('/login');
+    // }
 
 
   }
