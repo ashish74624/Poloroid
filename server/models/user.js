@@ -5,6 +5,10 @@ const User = mongoose.Schema({
     lastName :{type: String},
     email :{type:String,require:true,unique:true},
     password :{type:String,require:true},
+    profileImage: {
+        filename: String,
+        path: String,
+      },
 },
 {collection: 'Users'});
 
