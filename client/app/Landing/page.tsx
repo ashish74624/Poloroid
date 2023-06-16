@@ -1,8 +1,6 @@
 import React from 'react'
 import { EB_Garamond } from 'next/font/google'
 import Poster from '../Components/Poster'
-import Link from 'next/link'
-import Login from '../login/page'
 import Form from '../Components/Form'
 
 const ebgmd = EB_Garamond({
