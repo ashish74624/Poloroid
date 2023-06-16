@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
   app.post('/register', upload.single('profileImage'), async (req, res) => {
     const { firstName, lastName, email, password } = req.body;
     const { filename, path } = req.file;
-  
+    
     try {
       const newPassword = await bcrypt.hash(password, 10);
       const newUser = await User.create({
@@ -46,33 +46,36 @@ const storage = multer.diskStorage({
         password: newPassword, // Use the correct field name for the hashed password
         profileImage: {
           filename,
-          path,
+          // path : path.replace(/\\/g, '/'),
+          path : path.replace(/\\/g, '/'),
         },
       });
       await newUser.save();
       res.json({ status: 'ok' });
-    } catch (err) {
+    } catch (err) { 
       res.json({ status: 'error', error: err });
     }
   });
-
-app.post('/login', async (req, res) => {
-    const { email, password } = req.body;
   
+  app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    
     try {
       const user = await User.findOne({ email: email });
-  
+      
       if (!user) {
         res.json({ status: 'error', error: 'Invalid Login' });
       } else {
         const isPasswordValid = await bcrypt.compare(password, user.password);
-  
+        
         if (isPasswordValid) {
+          const imageUrl = `http://localhost:3001/uploads/${user.profileImage.filename}`;
           const token = jwt.sign(
             {
               email: user.email,
               firstName: user.firstName,
-              lastName: user.lastName
+              lastName: user.lastName,
+              profileImage: imageUrl 
             },
             'secretpassword'
           );
