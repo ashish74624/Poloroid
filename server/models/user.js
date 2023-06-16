@@ -6,8 +6,7 @@ const User = mongoose.Schema({
     email :{type:String,require:true,unique:true},
     password :{type:String,require:true},
     profileImage: {
-        filename: String,
-        path: String,
+        type:String
       },
 },
 {collection: 'Users'});
