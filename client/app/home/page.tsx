@@ -14,12 +14,13 @@ export default async function Home() {
       console.log(profileImage);
       if (profileImage) {
         const email = decoded.email;
-        const imgElement = <div> <img src={`http:localhost:3001/${profileImage.path}`} alt="Profile Image" /></div>
+        const pimg = decoded.profileImage
         // Render the image component in your JSX/TSX code
       console.log(email);
       return (
         <>
-          {email}{imgElement}
+          {email}
+          <img src={pimg} alt='Profile Image'/>
         </>
       )
     }} 
