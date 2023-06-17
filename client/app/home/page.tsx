@@ -1,41 +1,34 @@
 'use client'
+
 import React from 'react'
 import getToken from '../lib/getToken'
+import Link from 'next/link'
 import jwt from 'jsonwebtoken'
+import Navbar from '../Components/Navbar'
+import Sidebar from '../Components/Sidebar'
 
-export default async function Home() {
-
-  const token = getToken();
-  if(token){
-    console.log(token);
-    const decoded = jwt.decode(token) 
-    if (typeof decoded === 'object' && decoded !== null) {
-      const profileImage = decoded.profileImage
-      console.log(profileImage);
-      if (profileImage) {
-        const email = decoded.email;
-        const pimg = decoded.profileImage
-        // Render the image component in your JSX/TSX code
-      console.log(email);
-      return (
-        <>
-          {email}
-          <img src={pimg} alt='Profile Image'/>
-        </>
-      )
-    }} 
-    else {
-      console.error('Decoded token is not an object');
-    }
-		// if (!decoded) {
-		// 	localStorage.removeItem('token')
-		// }
-	}
-  else{
-    return(
+export default function home() {
+  let token = getToken()
+  if(!token){
+    return (
       <>
-        Coudn't find token        
+      <main className='h-screen w-screen flex flex-col justify-center items-center'>
+        Loading...
+      </main>
       </>
+    )
+  }
+  const data = jwt.decode(token);
+  if(typeof data === 'object' && data !== null){
+    const email = data.email;
+    const userImg = data.profileImage;
+    return(
+      <body className='bg-[#ECE3E1]'>
+        <Navbar userImg={userImg}/>
+        <div>
+          <Sidebar/>
+        </div>
+      </body>
     )
   }
 }
