@@ -6,6 +6,8 @@ import Link from 'next/link'
 import jwt from 'jsonwebtoken'
 import Navbar from '../Components/Navbar'
 import Sidebar from '../Components/Sidebar'
+import Post from '../Components/Post'
+// import Upload from '../Components/Upload'
 
 export default function home() {
   let token = getToken()
@@ -25,9 +27,11 @@ export default function home() {
     return(
       <body className='bg-[#ECE3E1]'>
         <Navbar userImg={userImg}/>
-        <div>
+        <main className='flex'>
           <Sidebar/>
-        </div>
+          <Post userImg={userImg}/>
+          {/* <Upload/> */}
+        </main>
       </body>
     )
   }
