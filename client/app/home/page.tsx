@@ -29,7 +29,7 @@ export default function home() {
         <Navbar userImg={userImg}/>
         <main className='flex'>
           <Sidebar/>
-          <Post userImg={userImg}/>
+          <Post userImg={userImg} userEmail={email}/>
           {/* <Upload/> */}
         </main>
       </body>

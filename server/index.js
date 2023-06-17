@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import multer from "multer";
 import bodyParser from 'body-parser';
+import Post from './models/post.js'
 
 
 
@@ -86,6 +87,19 @@ const storage = multer.diskStorage({
   
   app.post('/posts', async(req,res)=>{
     console.log(req.body);
+    try{
+
+      const post = await Post({
+        email: req.body.email,
+        caption: req.body.caption,
+        image: req.body.file,
+      })
+      await post.save()
+      return res.json({ status: 'ok' });
+    }
+    catch (err) {  
+      return res.json({ status: 'error', error: err });
+    }
   })
 
 
