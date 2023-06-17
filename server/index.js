@@ -84,6 +84,10 @@ const storage = multer.diskStorage({
     }
   });
   
+  app.post('/posts', async(req,res)=>{
+    console.log(req.body);
+  })
+
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server Started on port : ${process.env.PORT}`)
