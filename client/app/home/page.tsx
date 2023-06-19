@@ -5,13 +5,7 @@ import getToken from '../lib/getToken';
 import jwt from 'jsonwebtoken';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
-import Post from '../Components/Post';
 import Image from 'next/image';
-import convertToBase64 from '../lib/convertToBase64';
-import MyIcon from '../Components/MyIcon';
-import Modal from '../Components/Modal';
-import { useVisible } from '../Context/VisibilityContext';
-import PostCard from '../Components/PostCard';
 
 interface Post {
   _id: string;
@@ -37,48 +31,10 @@ export default function Home() {
   const data = jwt.decode(token);
   if (typeof data === 'object' && data !== null) {
     const [posts, setPosts] = useState<Post[]>([]);
-    const [file, setFile] = useState('');
-    const [caption,setCaption] = useState('');
-    const [text, setText] = useState(false)
-    const { visibilty,setVisibility }:any = useVisible();
-    const [modal,setModal] = useState(true);
-
-    
-
-    const handleImageSelect = async(event:any) => {
-        const base64 = await convertToBase64(event.target.files[0]);
-        setFile(base64 as string);
-        };
-
-        
 
     const email = data.email;
     const firstName= data.firstName;
     const lastName= data.lastName;
-    const postData= async()=>{
-      const res = await fetch('http://localhost:3001/post',{
-          method:"POST",
-          headers:{
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              firstName : firstName,
-              lastName: lastName, 
-              email :email,
-              caption,
-              file
-          })
-      })
-
-  const data = await res.json()
-  if(data.status === 'ok'){
-      // alert("Post Success")
-      setCaption('')
-      setFile('')
-      
-  }
-
-}
 
     useEffect(() => {
       const getPosts = async () => {
@@ -103,7 +59,6 @@ export default function Home() {
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
-            {/* <PostCard img={userImg} firstName={firstName} lastName={lastName}/> */}
             {posts.map((post) => (
               <div
                 key={post._id}
@@ -139,5 +94,4 @@ export default function Home() {
     );
   }
 
-  return null;
 }
