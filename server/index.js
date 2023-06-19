@@ -59,7 +59,6 @@ const storage = multer.diskStorage({
     
     try {
       const user = await User.findOne({ email: email });
-      
       if (!user) {
         res.json({ status: 'error', error: 'Invalid Login' });
       } else {
@@ -71,7 +70,7 @@ const storage = multer.diskStorage({
               email: user.email,
               firstName: user.firstName,
               lastName: user.lastName,
-              profileImage: user.profileImage 
+              profileImage: user.profileImage,
             },
             'secretpassword'
           );
@@ -85,22 +84,38 @@ const storage = multer.diskStorage({
     }
   });
   
-  app.post('/posts', async(req,res)=>{
+  app.post('/post', async(req,res)=>{
     console.log(req.body);
     try{
-
-      const post = await Post({
+      // console.log(req.body.firstName)
+      const post = await Post.create({
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
         email: req.body.email,
         caption: req.body.caption,
-        image: req.body.file,
+        image: req.body.file, 
       })
       await post.save()
       return res.json({ status: 'ok' });
     }
     catch (err) {  
+      console.log("error while uploading")
       return res.json({ status: 'error', error: err });
-    }
+    } 
   })
+
+
+  app.get('/posts/:email', async(req,res)=>{
+
+    const {email} = req.params;
+    try{
+      const posts = await Post.find({email})
+      console.log(posts)
+      res.json(posts);
+    }catch(err){
+      console.log("Error");
+    }
+  })   
 
 
 app.listen(process.env.PORT,()=>{
