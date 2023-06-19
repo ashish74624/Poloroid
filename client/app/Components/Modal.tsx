@@ -5,12 +5,14 @@ import Image from 'next/image'
 import { useState } from 'react'
 import convertToBase64 from '../lib/convertToBase64'
 import MyIcon from './MyIcon'
+import { useVisible } from '../Context/VisibilityContext'
 
-export default function Modal({userImg,userEmail,userFirstName,userLastName,visible}:any) {
+export default function Modal({userImg,userEmail,userFirstName,userLastName}:any) {
 
     const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
-    const [text, setText] = useState(false)
+    const [text, setText] = useState(false);
+    const {visibilty,setVisibility}:any = useVisible()
 
     
 
@@ -45,8 +47,8 @@ export default function Modal({userImg,userEmail,userFirstName,userLastName,visi
     }
   return (
     <>
-      <div className={``}>
-        <section className={`mt-0  fixed top-0 z-30 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+      <div className={`${visibilty}`}>
+        <section className={`mt-0 fixed top-0 z-30 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
             {file?
             (<>
