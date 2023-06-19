@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
 import Image from 'next/image';
+import Post from '../Components/Post';
 
 interface Post {
   _id: string;
@@ -59,7 +60,8 @@ export default function Home() {
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
-            {posts.map((post) => (
+            <Post id={'1'} firstName={'Ashish'} lastName={'Kumar'} image={userImg} caption='Summer 2015' />
+            {/* {posts.map((post) => (
               <div
                 key={post._id}
                 className="w-[30vw] h-max bg-[#f5f5f7] rounded-xl flex flex-col my-4"
@@ -86,7 +88,7 @@ export default function Home() {
                   Like
                 </button>
               </div>
-            ))}
+            ))} */}
           </div>
         </section>
       </section>

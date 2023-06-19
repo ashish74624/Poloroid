@@ -1,33 +1,23 @@
 import React from 'react'
-import { EB_Garamond } from 'next/font/google'
-import Poster from '../Components/Poster'
-import Form from '../Components/Form'
+import { Comfortaa } from 'next/font/google'
 
-const ebgmd = EB_Garamond({
-  subsets: ['greek-ext'],
-  weight: '500',
-
-})
-
-
-
-export default function Landing() {
-
+const Comf = Comfortaa({
+    subsets:['cyrillic'],
+    weight:'400'
+  })
   
 
-
+export default function Landing() {
   return (
     <>
-     <main className='flex bg-[#ECE3E1]'>
-        <Poster/>
-        <section className=' flex flex-col w-[55vw] h-screen items-center mt-16 space-y-10'>
-          <div className='flex flex-col space-y-6'>
-              <h2 className={`${ebgmd.className} text-4xl text-purple-400`}>Create Account</h2>
-          </div>
-
-        <Form/>  
-        </section>
-     </main> 
+     <main className='bg-[#71B1D1] h-screen w-screen flex flex-col pt-44 items-center space-y-5'>
+        <h1 className={`${Comf.className} text-8xl text-[#f5f5f7]`}>polaroid</h1>
+        <p className='text-[#f5f5f7] text-lg'>Where your memories are always in focus</p>
+        <div>
+            <button className='bg-[#f5f5f7] w-max h-10 px-4  rounded-lg mx-3 text-[#71b1d1]  hover:bg-gray-300'>Login</button>
+            <button className='bg-[#f5f5f7] w-max h-10 px-4  rounded-lg mx-3 text-[#71b1d1]  hover:bg-gray-300'>Sign up</button>
+        </div>
+    </main> 
     </>
   )
 }
