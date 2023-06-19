@@ -11,6 +11,7 @@ import convertToBase64 from '../lib/convertToBase64';
 import MyIcon from '../Components/MyIcon';
 import Modal from '../Components/Modal';
 import { useVisible } from '../Context/VisibilityContext';
+import PostCard from '../Components/PostCard';
 
 interface Post {
   _id: string;
@@ -40,6 +41,7 @@ export default function Home() {
     const [caption,setCaption] = useState('');
     const [text, setText] = useState(false)
     const { visibilty,setVisibility }:any = useVisible();
+    const [modal,setModal] = useState(true);
 
     
 
@@ -97,11 +99,11 @@ export default function Home() {
     return (
       <main className='relative w-screen h-screen'>
       <section className="bg-[#F8F8F8] pb-10 w-screen h-screen overflow-y-scroll overflow-x-hidden mt-16">
-        <Navbar userImg={userImg} />
+        <Navbar userImg={userImg} firstName={firstName} lastName={lastName} email={email} />
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
-            <Post userImg={userImg} userEmail={email} userFirstName={firstName} userLastName={lastName} />
+            {/* <PostCard img={userImg} firstName={firstName} lastName={lastName}/> */}
             {posts.map((post) => (
               <div
                 key={post._id}
