@@ -16,9 +16,9 @@ export default function Landing() {
         <p className='text-[#f5f5f7] text-lg'>Where your memories are always in focus</p>
         <div>
             <Link href={'/login'}>
-            <button className='bg-[#f5f5f7] w-max h-10 px-4  rounded-md mx-3 text-[#71b1d1]  hover:bg-gray-300'>Login</button></Link>
+            <button className='bg-[#f5f5f7] w-max h-10 px-4  rounded-md mx-3 text-[#71b1d1]  hover:shadow-md transition duration-200 ease-in hover:shadow-[#F8C732] '>Login</button></Link>
             <Link href={'/register'}>
-            <button className='bg-[#f5f5f7] w-max h-10 px-4  rounded-md mx-3 text-[#71b1d1]  hover:bg-gray-300'>Sign up</button></Link>
+            <button className='bg-[#f5f5f7] w-max h-10 px-4  rounded-md mx-3 text-[#71b1d1] hover:shadow-md transition duration-200 ease-in hover:shadow-[#F8C732]'>Sign up</button></Link>
         </div>
     </main> 
     </>

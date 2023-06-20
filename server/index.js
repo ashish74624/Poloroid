@@ -91,7 +91,7 @@ const storage = multer.diskStorage({
   });
   
   app.post('/post', async(req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     try{
       // console.log(req.body.firstName)
       const post = await Post.create({
@@ -116,7 +116,7 @@ const storage = multer.diskStorage({
     const {email} = req.params;
     try{
       const posts = await Post.find({email})
-      console.log(posts)
+      // console.log(posts)
       res.json(posts);
     }catch(err){
       console.log("Error");

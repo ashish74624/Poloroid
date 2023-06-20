@@ -60,35 +60,12 @@ export default function Home() {
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
-            <Post id={'1'} firstName={'Ashish'} lastName={'Kumar'} image={userImg} caption='Summer 2015' />
-            {/* {posts.map((post) => (
-              <div
-                key={post._id}
-                className="w-[30vw] h-max bg-[#f5f5f7] rounded-xl flex flex-col my-4"
-              >
-                <button className="bg-blue-100 hover:bg-blue-200 text-blue-500 w-full flex justify-center rounded-t-xl items-center font-light h-12 mb-7">
-                  {post.firstName || 'John'} {post.lastName || 'Doe'}
-                </button>
-                <span className="w-[30vw] flex flex-col items-center">
-                  <div className="w-[22vw] border-[#1d1d1f] border shadow-xl">
-                    <Image
-                      className="w-[22vw] h-[45vh]"
-                      unoptimized={true}
-                      src={post.image}
-                      alt="hello"
-                      width={100}
-                      height={100}
-                    />
-                    <caption className="px-1 w-[21.9vw] h-16 flex justify-center items-center bg-[#f7f5f3]">
-                      {post.caption}
-                    </caption>
-                  </div>
-                </span>
-                <button className="text-red-500 bg-red-200 hover:bg-red-300 w-full h-10 mt-7 rounded-b-xl">
-                  Like
-                </button>
-              </div>
-            ))} */}
+            {/* <Post id={'1'} firstName={'Ashish'} lastName={'Kumar'} image={userImg} caption='Summer 2015' /> */}
+            {posts.map((post) => (
+              <>
+                <Post id={post._id} firstName={post.firstName} lastName={post.lastName} image={post.image} caption={post.caption}/>
+              </>
+            ))}
           </div>
         </section>
       </section>
