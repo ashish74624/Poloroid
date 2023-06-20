@@ -18,7 +18,13 @@ app.use(express.json({ limit: '10mb' }));
 app.use(bodyParser.json({ limit: '10mb' })); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.URL);  
+mongoose.connect(process.env.URL)
+.then(() => {
+  console.log('Connected to MongoDB');
+})
+.catch((error) => {
+  console.error('Failed to connect to MongoDB', error);
+});
 const db = mongoose.connection
 
 const storage = multer.diskStorage({
