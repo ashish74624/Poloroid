@@ -24,12 +24,7 @@ export default function Form() {
 
     const handleRegister=async(event: FormEvent)=>{
         event.preventDefault()
-        // const firstName = formData.get('firstName') 
-        // const lastName = formData.get('lastName') 
-        // const email = formData.get('email') 
-        // const password = formData.get('password') 
-        // const profileImage = formData.get('profileImage');
-    
+        
         try{
         
             const res = await fetch('http://localhost:3001/register',{
@@ -53,8 +48,6 @@ export default function Form() {
         }catch(err){
             // alert(err.message)
         }
-        
-    
       }
 
       async function handleLogin(formData: FormData) {
