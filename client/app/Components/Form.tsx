@@ -104,7 +104,7 @@ export default function Form() {
                 <div className='flex w-full justify-between'>
                     <button type="submit" className="text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
                     <button className='text-purple-400 font-semibold text-lg hover:underline'
-                     onClick={()=>{setLogin(false)}}
+                     onClick={()=>{setLogin(false)}} 
                      >Register
                     </button>
                 </div>
