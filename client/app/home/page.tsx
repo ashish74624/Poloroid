@@ -5,8 +5,8 @@ import getToken from '../lib/getToken';
 import jwt from 'jsonwebtoken';
 import Navbar from '../Components/Navbar';
 import Sidebar from '../Components/Sidebar';
-import Image from 'next/image';
 import Post from '../Components/Post';
+import userDefaultImage from '@/public/userDefaultImage.webp'
 
 interface Post {
   _id: string;
@@ -56,11 +56,10 @@ export default function Home() {
     return (
       <main className='relative w-screen h-screen'>
       <section className="bg-[#F8F8F8] pb-10 w-screen h-screen overflow-y-scroll overflow-x-hidden mt-16">
-        <Navbar userImg={userImg} firstName={firstName} lastName={lastName} email={email} />
+        <Navbar userImg={userImg || userDefaultImage} firstName={firstName} lastName={lastName} email={email} />
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
-            {/* <Post id={'1'} firstName={'Ashish'} lastName={'Kumar'} image={userImg} caption='Summer 2015' /> */}
             {posts.map((post) => (
               <>
                 <Post id={post._id} firstName={post.firstName} lastName={post.lastName} image={post.image} caption={post.caption}/>
