@@ -3,7 +3,7 @@
 import { ReactNode, createContext,useContext,useState } from "react"
 
 export const VisibilityContext = createContext({
-    visibilty:"hello",
+    visibilty:"hidden",
     setVisibility:()=>{}
 })
 
