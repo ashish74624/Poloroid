@@ -73,10 +73,7 @@ const storage = multer.diskStorage({
         if (isPasswordValid) {
           const token = jwt.sign(
             {
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              profileImage: user.profileImage,
+              user: user
             },
             'secretpassword'
           );
@@ -95,9 +92,7 @@ const storage = multer.diskStorage({
     try{
       // console.log(req.body.firstName)
       const post = await Post.create({
-        firstName:req.body.firstName,
-        lastName:req.body.lastName,
-        email: req.body.email,
+        user:req.body.user,
         caption: req.body.caption,
         image: req.body.file, 
       })
@@ -122,6 +117,17 @@ const storage = multer.diskStorage({
       console.log("Error");
     }
   })   
+
+  app.get('/allposts', async(req,res)=>{
+    try{
+      let posts=await Post.find().populate('user').exec();
+      console.log(posts);
+      return res.json(posts);
+    }
+    catch(err){
+      console.log("Error while fetching all posts");
+    }
+  })
 
 
 app.listen(process.env.PORT,()=>{

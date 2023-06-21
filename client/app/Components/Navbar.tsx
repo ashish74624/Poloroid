@@ -12,17 +12,17 @@ const Com = Comfortaa({
 })
 
 interface NavbarProps {
+  id:any;
   firstName: string;
   lastName: string;
   email: string;
   userImg: string;
 }
 
-export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) {
+export default function Navbar({id,firstName,lastName,email,userImg,}:NavbarProps) {
   const [visible,setVisible] = useState('hidden');
   const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
-    const [text, setText] = useState(false);
 
     
 
@@ -38,9 +38,7 @@ export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) 
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    firstName: firstName,
-                    lastName:lastName, 
-                    email : email,
+                    user:id,
                     caption,
                     file
                 })

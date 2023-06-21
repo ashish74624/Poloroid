@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 const Post = mongoose.Schema({
-    firstName :{type: String },
-    lastName :{type: String},
-    email :{type:String,require:true},
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Users',
+        required:true
+    },
     caption:{type:String},
     image:{type:String}
 },

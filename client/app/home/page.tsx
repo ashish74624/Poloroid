@@ -33,22 +33,34 @@ export default function Home() {
   if (typeof data === 'object' && data !== null) {
     const [posts, setPosts] = useState<Post[]>([]);
 
-    const email = data.email;
-    const firstName= data.firstName;
-    const lastName= data.lastName;
+    const email = data.user.email;
+    const firstName= data.user.firstName;
+    const lastName= data.user.lastName;
+    const id = data.user._id;
 
     useEffect(() => {
-      const getPosts = async () => {
-        try {
-          const response = await fetch(`http://localhost:3001/posts/${email}`);
-          const articles = await response.json();
-          setPosts(articles);
-        } catch (error) {
-          console.log(error);
-        }
-      };
+      // const getPosts = async () => {
+      //   try {
+      //     const response = await fetch(`http://localhost:3001/posts/${email}`);
+      //     const articles = await response.json();
+      //     setPosts(articles);
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // };
 
-      getPosts();
+      // getPosts();
+      const getAllPost= async()=>{
+        try{
+          const res = await fetch('http://localhost:3001/allposts');
+          const data = await res.json()
+          setPosts(data);
+        }
+        catch(err){
+          console.log("Error in fetching posts from the frontEnd");
+      }
+    }
+    getAllPost();
     }, []);
 
     const userImg = data.profileImage;
@@ -56,7 +68,7 @@ export default function Home() {
     return (
       <main className='relative w-screen h-screen'>
       <section className="bg-[#F8F8F8] pb-10 w-screen h-screen overflow-y-scroll overflow-x-hidden mt-16">
-        <Navbar userImg={userImg || userDefaultImage} firstName={firstName} lastName={lastName} email={email} />
+        <Navbar userImg={userImg || userDefaultImage} id={id} firstName={firstName} lastName={lastName} email={email} />
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
