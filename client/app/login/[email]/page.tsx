@@ -46,7 +46,7 @@ export default async function Home({params:{email}}:Params) {
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
             <Suspense fallback={<PostSkel/>}>
-              <Post email={email}/>
+              <Post userImg={userData.profileImage || userDefaultImage} email={email}/>
             </Suspense>
           </div>
         </section> 
