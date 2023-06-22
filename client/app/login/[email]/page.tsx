@@ -4,7 +4,6 @@ import Navbar from '@/app/Components/Navbar';
 import Sidebar from '@/app/Components/Sidebar';
 import Post from '@/app/Components/Post';
 import userDefaultImage from '@/public/userDefaultImage.webp'
-import PostF1 from '@/app/Components/PostF1';
 import PostSkel from '@/app/Components/PostSkel';
 
 interface UserData {
@@ -47,7 +46,7 @@ export default async function Home({params:{email}}:Params) {
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
             <Suspense fallback={<PostSkel/>}>
-              <PostF1 email={email}/>
+              <Post email={email}/>
             </Suspense>
           </div>
         </section> 

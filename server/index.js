@@ -117,6 +117,7 @@ const storage = multer.diskStorage({
   })
 
 
+  
   app.get('/posts/:email', async(req,res)=>{
 
     const {email} = req.params;
@@ -127,7 +128,31 @@ const storage = multer.diskStorage({
     }catch(err){
       console.log("Error");
     }
-  })    
+  })     
+
+  app.get('/postsData/:email', async(req,res)=>{
+
+    const {email} = req.params;
+    try{
+      const posts = await Post.find({email}).select('-image')
+      // console.log(posts)
+      res.json(posts);
+    }catch(err){
+      console.log("Error");
+    }
+  })  
+
+  app.get('/postsImage/:email', async(req,res)=>{
+    const {email} = req.params;
+    try{
+      let image = await Post.find({email}).select('image');
+      res.json(image);
+    }
+    catch(err){
+      console.log("Error while fetching posts images")
+    }
+  }
+  )
 
   app.get('/data/:email', async(req,res)=>{
     const {email} = req.params;
