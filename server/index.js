@@ -52,11 +52,11 @@ const storage = multer.diskStorage({
         password: newPassword, // Use the correct field name for the hashed password
         profileImage: req.body.file
       }); 
-      await newUser.save();
+      await newUser.save();   
       return res.json({ status: 'ok' });
     } catch (err) {  
       return res.json({ status: 'error', error: err });
-    }
+    }   
   });
   
   app.post('/login', async (req, res) => {
@@ -80,7 +80,13 @@ const storage = multer.diskStorage({
             },
             'secretpassword'
           );
-          res.json({ status: 'ok', user: token });
+          const userWithoutPassword = {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            profileImage: user.profileImage,
+          };
+          res.json({ status: 'ok', user: userWithoutPassword });
         } else {
           res.json({ status: 'error', error: 'Invalid Login' });
         }
@@ -121,7 +127,20 @@ const storage = multer.diskStorage({
     }catch(err){
       console.log("Error");
     }
-  })   
+  })    
+
+  app.get('/data/:email', async(req,res)=>{
+    const {email} = req.params;
+    try{
+      // let data = await User.findOne({ email }).select('name');
+      let data = await User.findOne({ email }).select('-password');
+      res.json(data);
+      // console.log(data);
+    }
+    catch(err){
+      console.log("Error in getting user details");
+    }  
+  })
 
 
 app.listen(process.env.PORT,()=>{
