@@ -30,8 +30,8 @@ export default function Login() {
     console.log(data.status);
   
     if (data.user) {
-      localStorage.setItem('token', data.user);
-      router.push('/home');
+      // localStorage.setItem('token', data.user);
+      router.push(`/login/${data.user.email}`);
     } else {
       console.log('Error');
     }

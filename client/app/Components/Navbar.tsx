@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Comfortaa } from 'next/font/google'
 import MyIcon from './MyIcon'
 import convertToBase64 from '../lib/convertToBase64'
+import { StaticImageData } from 'next/image'
 
 const Com = Comfortaa({
   subsets:['cyrillic'],
@@ -15,7 +16,7 @@ interface NavbarProps {
   firstName: string;
   lastName: string;
   email: string;
-  userImg: string;
+  userImg: string | StaticImageData ;
 }
 
 export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) {
@@ -62,6 +63,9 @@ export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) 
       <div className='w-[80vw] h-16  flex justify-between mx-auto '>
         <span className={`${Com.className}  text-3xl  bg-clip-text text-[#71B1D1] pt-2`}>polaroid</span>
         <span className=' flex '>
+          <span className='text-black'>
+          {firstName}
+          </span>
           <Link href={'/dashboard'}>
           <Image className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={userImg} alt ={"Helo"} width={100} height={100}/>
           </Link>
@@ -89,7 +93,7 @@ export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) 
             <div className='w-[22vw] h-[60vh] px-5 pt-5 flex flex-col items-center bg-[#F8F8F8]'>
                 <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[297px] h-[347px]  cursor-pointer bg-[#1d1d1f]">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                     <p className="mb-2 text-sm text-gray-50 "><span className="font-semibold">Click to upload</span></p>
                 </div>
                 <input id="dropzone-file" type="file" className="hidden" onChange={handleImageSelect} />
