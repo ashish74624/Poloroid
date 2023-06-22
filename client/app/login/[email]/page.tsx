@@ -1,10 +1,11 @@
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import Navbar from '@/app/Components/Navbar';
 import Sidebar from '@/app/Components/Sidebar';
 import Post from '@/app/Components/Post';
 import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostF1 from '@/app/Components/PostF1';
+import PostSkel from '@/app/Components/PostSkel';
 
 interface UserData {
   firstName: string;
@@ -25,10 +26,6 @@ interface Post {
     image: string;
     email: string;
   }
-async function getUserPost(email:string):Promise<Post>{
-  const res = await fetch(`http://localhost:3001/posts/${email}`);
-  return res.json()
-}
 
 
 type Params={
@@ -49,12 +46,9 @@ export default async function Home({params:{email}}:Params) {
         <section className="flex">
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
-            {/* {[postData].map((post) => (
-              <>
-                <Post id={post._id} firstName={post.firstName} lastName={post.lastName} image={post.image} caption={post.caption}/>
-              </>
-            ))} */}
-            <PostF1 email={email}/>
+            <Suspense fallback={<PostSkel/>}>
+              <PostF1 email={email}/>
+            </Suspense>
           </div>
         </section> 
       </section>
