@@ -27,7 +27,7 @@ interface Post {
   }
 
 
-export default async function Post({email}:any) {
+export default async function Post({userImg,email}:any) {
     const [posts, setPosts] = useState<Post[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
@@ -64,7 +64,7 @@ export default async function Post({email}:any) {
             <div className='my-5'>
     <div key={post._id} className='bg-[#71B1D1] w-max h-max px-6 pt-3 pb-4 rounded-t '>
       <div className='flex space-x-3 mb-4'>
-        <Image className='w-8 h-8 rounded-full' src={post.image} alt='User Profile' width={100} height={100}/>
+        <Image className='w-8 h-8 rounded-full' src={userImg} alt='User Profile' width={100} height={100}/>
         <p className='text-white mb-1 hover:underline cursor-pointer w-max'>{post.firstName || 'John'} {post.lastName || 'Doe'}</p>
       </div>
       <div className='relative w-[22vw] h-[58vh] px-6 pt-5 flex flex-col items-center bg-white   border border-[#1d1d1f] shadow-xl'>
