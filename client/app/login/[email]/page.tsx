@@ -6,17 +6,7 @@ import Post from '@/app/Components/Post';
 import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
 
-interface UserData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  profileImage: string;
-}
 
-async function getUserData(email:string):Promise<UserData>{
-  const res = await fetch(`http://localhost:3001/data/${email}`);
-  return res.json()
-}
 interface Post {
     _id: string;
     firstName:string;
@@ -35,7 +25,8 @@ type Params={
 
 export default async function Home({params:{email}}:Params) {
   // const [posts, setPosts] = useState<Post[]>([]);
-    const userData = await getUserData(email);
+    const res = await fetch(`http://localhost:3001/data/${email}`);
+    const userData = await res.json()
     
   return (
     <>
@@ -46,7 +37,7 @@ export default async function Home({params:{email}}:Params) {
           <Sidebar />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
             <Suspense fallback={<PostSkel/>}>
-              <Post userImg={userData.profileImage || userDefaultImage} email={email}/>
+              <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
           </div>
         </section> 
