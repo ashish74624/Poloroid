@@ -123,7 +123,7 @@ const storage = multer.diskStorage({
     const {email} = req.params;
     try{
       const posts = await Post.find({email})
-      // console.log(posts)
+      console.log(posts) 
       res.json(posts);
     }catch(err){
       console.log("Error");
@@ -135,7 +135,7 @@ const storage = multer.diskStorage({
     const {email} = req.params;
     try{
       const posts = await Post.find({email}).select('-image')
-      // console.log(posts)
+      console.log(posts)
       res.json(posts);
     }catch(err){
       console.log("Error");
@@ -146,6 +146,7 @@ const storage = multer.diskStorage({
     const {email} = req.params;
     try{
       let image = await Post.find({email}).select('image');
+      
       res.json(image);
     }
     catch(err){
