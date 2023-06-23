@@ -7,6 +7,7 @@ import { Kaushan_Script } from 'next/font/google';
 import { Amatic_SC } from 'next/font/google';
 import PostSkel from './PostSkel';
 import userDefaultImage from '@/public/userDefaultImage.webp'
+import loading from '../loading';
 
 const ks = Kaushan_Script({
     subsets:['latin'],
@@ -45,41 +46,31 @@ interface Post {
   }
 
 
-export default async function Post({userImg,email}:any) {
+export default async function Post({email}:any) {
+  if(email !== undefined){
     const [posts, setPosts] = useState<Post[]>([]);
     const [data, setData] = useState<Post[]>([]);
-    const [go,setGo] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isDataLoading,setIsDataLoading] = useState(true);
 
     useEffect(()=>{
-      const getPostData=async()=>{
-        let res = await fetch(`http://localhost:3001/postsData/${email}`);
-        
-          let data = await res.json()
-        
+      const getPosts= async()=>{
+
+        let res = await fetch(`http://localhost:3001/posts/${email}`); 
+        let data = await res.json();
         setPosts(data);
-        setIsDataLoading(false)
+        setIsLoading(false)
       }
-      getPostData();
+        
+      getPosts();
 
     },[email]);
-    useEffect(()=>{
-     const getData=async()=>{
-      let res = await fetch(`http://localhost:3001/posts/${email}`); 
-      let data = await res.json();
-      setPosts(data);
-      setIsLoading(false);
-
-    }
-    getData();
-   },[]);
  
     
   return (
     <>
       {
-        isDataLoading?
+        isLoading ?
         (
         <>
           <PostSkel/>
@@ -87,17 +78,19 @@ export default async function Post({userImg,email}:any) {
         ):
         (
           <>
-          {posts.map((post)=>{
+            {posts.map((post)=>{
             return(
             <>
             <div className='my-5'>
     <div key={post._id} className='bg-[#71B1D1] w-max h-max px-6 pt-3 pb-4 rounded-t '>
       <div className='flex space-x-3 mb-4'>
-        <Image className='w-8 h-8 rounded-full' src={userImg} alt='User Profile' width={100} height={100}/>
+        <Image className='w-8 h-8 rounded-full' src={userDefaultImage} alt='User Profile' width={100} height={100}/>
         <p className='text-white mb-1 hover:underline cursor-pointer w-max'>{post.firstName || 'John'} {post.lastName || 'Doe'}</p>
       </div>
       <div className='relative w-[22vw] h-[58vh] px-6 pt-5 flex flex-col items-center bg-white   border border-[#1d1d1f] shadow-xl'>
-                <Image className='w-[297px] h-[347px] overflow-hidden' src={post.image || userDefaultImage} alt='Hello' width={100} height={100} />
+                <Image className='w-[297px] h-[347px] overflow-hidden' src={post.image } alt='Hello' width={100} height={100}
+                placeholder='blur' blurDataURL={'LEHLk~WB2yk8pyo0adR*.7kCMdnj'} loading={'lazy'}
+                />
                 <div className="">
                 <p className={` ${ks.className} w-[21.8vw] h-16 px-4 bg-white flex justify-center items-center`}>{post.caption}</p>
                 </div>
@@ -110,7 +103,8 @@ export default async function Post({userImg,email}:any) {
         })}
           </>
         )
-        }
-        </>
-        )
-      }  
+      }
+      </>
+  )
+      }
+    }
