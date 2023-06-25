@@ -5,7 +5,9 @@ const Post = mongoose.Schema({
     lastName :{type: String},
     email :{type:String,require:true},
     caption:{type:String},
-    image:{type:String}
+    image:{type:String},
+    like:{type:Number,default:0},
+    isLiked:{type:Boolean,default:false}
 },
 {collection:'posts'}
 ) 
