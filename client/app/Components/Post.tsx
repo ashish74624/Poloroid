@@ -3,6 +3,19 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import PostSkel from './PostSkel';
+import { Kaushan_Script } from 'next/font/google';
+import { Amatic_SC } from 'next/font/google';
+
+const ks = Kaushan_Script({
+  subsets:['latin'],
+  weight:'400'
+})
+
+const as = Amatic_SC({
+subsets:['hebrew'],
+weight:'700'
+})
+
 
 interface Post {
   _id: string;
@@ -93,14 +106,14 @@ const PostComponent: React.FC<Props> = ({ userImg, email }) => {
                     height={100}
                   />
                   <div className="">
-                    <p className="w-[21.8vw] h-16 px-4 bg-white flex justify-center items-center">
+                    <p className={`${ks.className} w-[21.8vw] h-16 px-4 bg-white flex justify-center items-center`}>
                       {post.caption}
                     </p>
                   </div>
                 </div>
               </div>
               <button
-                className="text-3xl w-[386px] rounded-b py-1 h-max text-[#F8C732] bg-[#71B1D1] hover:bg-[#77a4bc] transition duration-300"
+                className={` ${as.className} text-3xl w-[386px] rounded-b py-1 h-max text-[#F8C732] bg-[#71B1D1] hover:bg-[#77a4bc] transition duration-300`}
                 onClick={() => handleLike(post._id)}
               >
                 Like {post.like}
