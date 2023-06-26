@@ -32,28 +32,52 @@ export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) 
         setFile(base64 as string);
         };
 
-        const postData= async()=>{
-            const res = await fetch('http://localhost:3001/post',{
-                method:"POST",
-                headers:{
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    firstName: firstName,
-                    lastName:lastName, 
-                    email : email,
-                    caption,
-                    file
-                })
-            })
+      //   const postData= async()=>{
+      //       const res = await fetch('http://localhost:3001/post',{
+      //           method:"POST",
+      //           headers:{
+      //               "Content-Type": "application/json",
+      //           },
+      //           body: JSON.stringify({
+      //               firstName: firstName,
+      //               lastName:lastName, 
+      //               email : email,
+      //               caption,
+      //               file
+      //           })
+      //       })
 
-        const data = await res.json()
-        if(data.status === 'ok'){
-            // alert("Post Success")
-            setCaption('')
-            setFile('')
+      //   const data = await res.json()
+      //   if(data.status === 'ok'){
+      //       // alert("Post Success")
+      //       setCaption('')
+      //       setFile('')
             
+      //   }
+      // }
+
+      const imageUpload = async()=>{
+        const res = await fetch(`http://localhost:3001/upload`,{
+          method:'POST',
+          headers:{
+              "Content-type":"application/json"
+          },
+          body: JSON.stringify({
+            firstName: firstName,
+            lastName:lastName, 
+            email : email,
+            caption,
+            image:file,
+          })
         }
+        )
+        const data = await res.json();
+        if(data.status === 'ok'){
+          // alert("Post Success")
+          setCaption('')
+          setFile('')
+          
+      }
       }
     
 
@@ -102,7 +126,7 @@ export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) 
             </>)}
 
         <button className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-[#71B1D1] font-semibold'
-        onClick={postData}
+        onClick={imageUpload}
         >Post</button>
         <button className='fixed top-[0.5rem] right-[138px] rotate-45'
         onClick={()=>{setVisible('hidden')}}

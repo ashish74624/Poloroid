@@ -8,15 +8,34 @@ import jwt from 'jsonwebtoken';
 import multer from "multer";
 import bodyParser from 'body-parser';
 import Post from './models/post.js'
-
-
+import fileUpload from 'express-fileupload';
+import { v2 as cloudinary } from 'cloudinary';
 
 const app = express();
+
+app.use(fileUpload());
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: 'your_cloud_name',
+  api_key: 'your_api_key',
+  api_secret: 'your_api_secret'
+});
+
+
+
 dotenv.config();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(bodyParser.json({ limit: '10mb' })); 
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.SECRET
+});
 
 mongoose.connect(process.env.URL)
 .then(() => {
@@ -39,10 +58,53 @@ const storage = multer.diskStorage({
   
   const upload = multer({ storage: storage });
 
+  app.post('/upload' , async(req,res)=>{
+    try {
+      if (!req.body.image) {
+        return res.status(400).json({ error: 'No image data provided' });
+      }
+  
+      const result = await cloudinary.uploader.upload(req.body.image);
+  
+      const newPost = new Post({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email, 
+        caption: req.body.caption,
+        image: result.public_id,
+      });
+  
+      await newPost.save();
+  
+      res.json({ status:'ok', public_id: result.public_id, url: result.secure_url });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Image upload failed' });
+    }
+  });
+
+
+  app.get('/getImages/:email', async (req, res) => {
+    try {
+      const { email } = req.params;
+  
+      const posts = await Post.find({ email: email }); 
+  
+      const images = posts.map(post => ({ 
+        public_id: post.image,
+        url: `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/${post.image}`
+      }));
+  
+      res.json(posts);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Failed to retrieve images' });
+    }
+  });
+  
 
   app.post('/register', async (req, res) => {
     // console.log(req.body)
-    
     try {
       const newPassword = await bcrypt.hash(req.body.password, 10);
       const newUser = await User.create({
@@ -142,30 +204,6 @@ const storage = multer.diskStorage({
     }
   })  
 
-  app.get('/postsImage/:email', async(req,res)=>{
-    const {email} = req.params;
-    try{
-      let image = await Post.find({email}).select('image');
-      res.json(image);
-    }
-    catch(err){
-      console.log("Error while fetching posts images")
-    }
-  }
-  )
-
-  app.get('/data/:email', async(req,res)=>{
-    const {email} = req.params;
-    try{
-      // let data = await User.findOne({ email }).select('name');
-      let data = await User.findOne({ email }).select('-password');
-      res.json(data);
-      // console.log(data);
-    }
-    catch(err){
-      console.log("Error in getting user details");
-    }  
-  })
 
   app.put('/like/:id', async (req, res) => {
     const id = req.params.id;
