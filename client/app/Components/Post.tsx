@@ -33,7 +33,7 @@ interface Props {
   email: string;
 }
 
-const PostComponent: React.FC<Props> = ({ userImg, email }) => {
+const Post = ({ userImg, email }:any) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -41,7 +41,7 @@ const PostComponent: React.FC<Props> = ({ userImg, email }) => {
     const getPosts = async () => {
       try {
         if (email) {
-          const response = await fetch(`http://localhost:3001/posts/${email}`);
+          const response = await fetch(`http://localhost:3001/getImages/${email}`);
           const articles = await response.json();
           setPosts(articles);
           setIsLoading(false);
@@ -98,9 +98,10 @@ const PostComponent: React.FC<Props> = ({ userImg, email }) => {
                   </p>
                 </div>
                 <div className="relative w-[22vw] h-[58vh] px-6 pt-5 flex flex-col items-center bg-white border border-[#1d1d1f] shadow-xl">
-                  <Image
+                  <img
                     className="w-[297px] h-[347px] overflow-hidden"
-                    src={post.image}
+                    src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${post.image}`}
+
                     alt="Hello"
                     width={100}
                     height={100}
@@ -113,7 +114,7 @@ const PostComponent: React.FC<Props> = ({ userImg, email }) => {
                 </div>
               </div>
               <button
-                className={` ${as.className} text-3xl w-[386px] rounded-b py-1 h-max text-[#F8C732] bg-[#71B1D1] hover:bg-[#77a4bc] transition duration-300`}
+                className={` ${as.className} text-3xl w-[386px] rounded-b py-1 h-max text-white bg-[#71B1D1] hover:bg-[#77a4bc] transition duration-300`}
                 onClick={() => handleLike(post._id)}
               >
                 Like {post.like}
@@ -126,4 +127,4 @@ const PostComponent: React.FC<Props> = ({ userImg, email }) => {
   );
 };
 
-export default PostComponent;
+export default Post;
