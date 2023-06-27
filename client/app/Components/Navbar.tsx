@@ -61,7 +61,7 @@ export default function Navbar({firstName,lastName,email,userImg}:NavbarProps) {
     <>
     <nav className=' border-b border-gray-600 fixed top-0 z-20 bg-[#F8F8F8] w-screen'>
       <div className='w-[80vw] h-16  flex justify-between mx-auto '>
-        <span className={`${Com.className}  text-3xl  bg-clip-text text-[#71B1D1] pt-2`}>polaroid</span>
+        <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] pt-2`}>polaroid</span>
         <span className=' flex '>
           <Link href={'/dashboard'}>
           <Image className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={userImg} alt ={"Helo"} width={100} height={100}/>

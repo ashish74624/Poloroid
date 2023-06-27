@@ -84,7 +84,7 @@ export default function Post({userImg,email}:any) {
         <>
           {posts.map((post) => (
             <div className="my-5" key={post._id}>
-              <div className="bg-[#71B1D1] w-max h-max px-6 pt-3 pb-4 rounded-t">
+              <div className="bg-[#58b8e8] w-max h-max px-6 pt-3 pb-4 rounded-t">
                 <div className="flex space-x-3 mb-4">
                   <Image
                     className="w-8 h-8 rounded-full"
@@ -114,7 +114,7 @@ export default function Post({userImg,email}:any) {
                 </div>
               </div>
               <button
-                className={` ${as.className} text-3xl w-[386px] rounded-b py-1 h-max text-white bg-[#71B1D1] hover:bg-[#77a4bc] transition duration-300`}
+                className={` ${as.className} text-3xl w-[386px] rounded-b py-1 h-max text-white bg-[#58b8e8] hover:bg-[#77a4bc] transition duration-300`}
                 onClick={() => handleLike(post._id)}
               >
                 Like {post.like}
