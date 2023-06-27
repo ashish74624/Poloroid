@@ -104,6 +104,7 @@ const storage = multer.diskStorage({
         lastName:req.body.lastName,
         email:req.body.email,
         password: newPassword, // Use the correct field name for the hashed password
+        place: req.body.place,
         profileImage: req.body.file
       }); 
       await newUser.save();   
@@ -180,7 +181,7 @@ const storage = multer.diskStorage({
       return res.json({ status: 'error', error: err });
     } 
   })
-  
+
 
   app.put('/like/:id', async (req, res) => {
     const id = req.params.id;

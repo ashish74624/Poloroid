@@ -5,7 +5,16 @@ import Image from 'next/image'
 export default function UserCard({id}:any) {
 
   const sendNotification= async(id:any) => {
-    const res = await fetch(`http://localhost:3001/sendNotifiaction/${id}`);
+    const res = await fetch(`http://localhost:3001/sendNotifiaction/${id}`,{
+      method:'PUT',
+      headers:{
+        "Content-Type": "application/json",
+      },
+      body:JSON.stringify({
+        id: id,
+        name:"Friend"
+      })
+    });
     const data = await res.json();
   }
   return (
