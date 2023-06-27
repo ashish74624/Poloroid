@@ -8,6 +8,14 @@ const User = mongoose.Schema({
     profileImage: {
         type:String
       },
+    friend : [{type: mongoose.Schema.Types.ObjectId , ref:'user'}] ,
+    notifications :[{
+      sender : {
+        id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
+        name :{type:String , required:true},
+        profilePicture : String
+      }
+    }] 
 },
 {collection: 'Users'});
 

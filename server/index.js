@@ -180,33 +180,7 @@ const storage = multer.diskStorage({
       return res.json({ status: 'error', error: err });
     } 
   })
-
-
   
-  app.get('/posts/:email', async(req,res)=>{
-
-    const {email} = req.params;
-    try{
-      const posts = await Post.find({email})
-      // console.log(posts)
-      res.json(posts);
-    }catch(err){
-      console.log("Error");
-    }
-  })     
-
-  app.get('/postsData/:email', async(req,res)=>{
-
-    const {email} = req.params;
-    try{
-      const posts = await Post.find({email}).select('-image')
-      // console.log(posts)
-      res.json(posts);
-    }catch(err){
-      console.log("Error");
-    }
-  })  
-
 
   app.put('/like/:id', async (req, res) => {
     const id = req.params.id;
