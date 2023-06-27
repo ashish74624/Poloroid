@@ -5,6 +5,7 @@ import Sidebar from '@/app/Components/Sidebar';
 import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
 import Post from '@/app/Components/Post';
+import RightSidebar from '@/app/Components/RightSidebar';
 
 
 interface Post {
@@ -41,6 +42,7 @@ export default async function Home({params:{email}}:Params) {
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
           </div>
+          <RightSidebar/>
         </section> 
       </section>
       </main>
