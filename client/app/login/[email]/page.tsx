@@ -2,9 +2,9 @@
 import React, { Suspense } from 'react'
 import Navbar from '@/app/Components/Navbar';
 import Sidebar from '@/app/Components/Sidebar';
-import Post from '@/app/Components/Post';
 import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
+import Post from '@/app/Components/Post';
 
 
 interface Post {
@@ -27,6 +27,7 @@ export default async function Home({params:{email}}:Params) {
   // const [posts, setPosts] = useState<Post[]>([]);
     const res = await fetch(`http://localhost:3001/data/${email}`);
     const userData = await res.json()
+    console.log(userData.firstName)
     
   return (
     <>

@@ -33,7 +33,7 @@ interface Props {
   email: string;
 }
 
-const Post = ({ userImg, email }:any) => {
+export default function Post({userImg,email}:any) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -127,4 +127,3 @@ const Post = ({ userImg, email }:any) => {
   );
 };
 
-export default Post;

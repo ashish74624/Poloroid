@@ -71,14 +71,14 @@ const storage = multer.diskStorage({
       res.json({ status:'ok', public_id: result.public_id, url: result.secure_url });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Image upload failed' });
+      res.json({ error: 'Image upload failed' });
     }
   });
 
 
   app.get('/getImages/:email', async (req, res) => {
     try {
-      const { email } = req.params;
+      const email  = req.params.email;
   
       const posts = await Post.find({ email: email }); 
   
@@ -149,6 +149,17 @@ const storage = multer.diskStorage({
       res.json({ status: 'error', error: err.message });
     }
   });
+
+  app.get('/data/:email' , async(req,res)=>{
+    const email = req.params.email;
+    try{
+      let user=await User.findOne({email: email});
+      return res.json(user);
+    }catch(err){
+      console.log("Coudn't fetch User data");
+    }
+
+  })
   
   app.post('/post', async(req,res)=>{
     // console.log(req.body);
