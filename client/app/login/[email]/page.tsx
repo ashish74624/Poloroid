@@ -32,6 +32,7 @@ export default async function Home({params:{email}}:Params) {
     
   return (
     <>
+    
       <main className='relative w-screen h-screen'>
       <section className="bg-[#F8F8F8] pb-10 w-screen h-screen overflow-y-scroll overflow-x-hidden mt-16">
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} />
@@ -42,7 +43,7 @@ export default async function Home({params:{email}}:Params) {
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
           </div>
-          <RightSidebar/>
+          <RightSidebar email={userData.email}/>
         </section> 
       </section>
       </main>

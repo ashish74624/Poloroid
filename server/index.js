@@ -220,7 +220,50 @@ const storage = multer.diskStorage({
     }
   });
   
-  
+  app.put('/sendNotifiaction/:id', async(req,res)=>{
+    const id = req.params.id;
+    try{
+      const friend = await User.findOne({_id:id});
+      const user = await User.findOneAndUpdate(
+        {email: req.body.email},
+        {$push:
+          {notifications:
+            {sender:
+              {
+                id:id,
+                name:friend.firstName
+              }
+            }
+          }
+        },
+        {new:true}// This ensures that the updated user document is returned in the user variable.
+        );
+        
+    }catch(err){
+      console.log("Error in sending notification")
+    }
+  })
+
+  app.get('/getFriendSuggestions/:email', async(req,res)=>{
+    const email = req.params.email;
+    try{
+      const user = await User.findOne({email:email});
+      const place = user.place;
+      const friends = await User.find({ place: {$regex: new RegExp(place,'i')}, email: { $ne: email } }); // $ne: ensures that the user with email same as the one provided will not be retured 
+      res.json(friends)
+    }catch(err){
+      console.log('Error suggesting friends');
+    }
+  })
+
+  app.get('/notifications/:email', async(req,res)=>{
+    const email = req.params.email;
+    try{
+      const user = await User.findOne({email: email});
+      const notification = user.notifications
+      console.log(notification);
+    }catch(err){}
+  })
 
 
 app.listen(process.env.PORT,()=>{
