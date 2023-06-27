@@ -19,7 +19,7 @@ interface NavbarProps {
   userImg: string | StaticImageData ;
 }
 
-export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) {
+export default function Navbar({firstName,lastName,email,userImg}:NavbarProps) {
   const [visible,setVisible] = useState('hidden');
   const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
@@ -32,35 +32,11 @@ export default function Navbar({firstName,lastName,email,userImg,}:NavbarProps) 
         setFile(base64 as string);
         };
 
-      //   const postData= async()=>{
-      //       const res = await fetch('http://localhost:3001/post',{
-      //           method:"POST",
-      //           headers:{
-      //               "Content-Type": "application/json",
-      //           },
-      //           body: JSON.stringify({
-      //               firstName: firstName,
-      //               lastName:lastName, 
-      //               email : email,
-      //               caption,
-      //               file
-      //           })
-      //       })
-
-      //   const data = await res.json()
-      //   if(data.status === 'ok'){
-      //       // alert("Post Success")
-      //       setCaption('')
-      //       setFile('')
-            
-      //   }
-      // }
-
       const imageUpload = async()=>{
         const res = await fetch(`http://localhost:3001/upload`,{
           method:'POST',
           headers:{
-              "Content-type":"application/json"
+              "Content-Type":"application/json"
           },
           body: JSON.stringify({
             firstName: firstName,
