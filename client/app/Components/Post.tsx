@@ -4,16 +4,16 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import PostSkel from './PostSkel';
 import { Kaushan_Script } from 'next/font/google';
-import { Amatic_SC } from 'next/font/google';
+import { Nixie_One } from 'next/font/google';
 
 const ks = Kaushan_Script({
   subsets:['latin'],
   weight:'400'
 })
 
-const as = Amatic_SC({
-subsets:['hebrew'],
-weight:'700'
+const No = Nixie_One({
+  weight:'400',
+  subsets:['latin']
 })
 
 
@@ -114,7 +114,7 @@ export default function Post({userImg,email}:any) {
                 </div>
               </div>
               <button
-                className={` ${as.className} text-3xl w-[386px] rounded-b py-1 h-max text-white bg-[#58b8e8] hover:bg-[#77a4bc] transition duration-300`}
+                className={`${No.className} text-3xl w-[386px] rounded-b py-1 h-max text-white bg-[#58b8e8] hover:bg-[#4cc3ff] transition duration-300`}
                 onClick={() => handleLike(post._id)}
               >
                 Like {post.like}
