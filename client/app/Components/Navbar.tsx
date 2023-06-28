@@ -6,6 +6,8 @@ import { Comfortaa } from 'next/font/google'
 import MyIcon from './MyIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
+import userDefaultImage from '@/public/userDefaultImage.webp'
+
 
 const Com = Comfortaa({
   subsets:['cyrillic'],
@@ -13,13 +15,14 @@ const Com = Comfortaa({
 })
 
 interface NavbarProps {
-  firstName: string;
-  lastName: string;
-  email: string;
-  userImg: string | StaticImageData ;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  userImg?: string | StaticImageData;
+  navData :boolean;
 }
 
-export default function Navbar({firstName,lastName,email,userImg}:NavbarProps) {
+export default function Navbar({firstName,lastName,email,userImg,navData}:NavbarProps) {
   const [visible,setVisible] = useState('hidden');
   const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
@@ -60,16 +63,29 @@ export default function Navbar({firstName,lastName,email,userImg}:NavbarProps) {
   return (
     <>
     <nav className=' border-b border-gray-600 fixed top-0 z-20 bg-[#F8F8F8] w-screen'>
-      <div className='w-[80vw] h-16  flex justify-between mx-auto '>
+      <div className={`w-[80vw] h-16  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
         <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] pt-2`}>polaroid</span>
-        <span className=' flex '>
+        {
+          navData?
+          (
+          <>
+          <span className=' flex '>
           <Link href={'/dashboard'}>
-          <Image className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={userImg} alt ={"Helo"} width={100} height={100}/>
+          <Image className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={userImg || userDefaultImage} alt ={"Helo"} width={100} height={100}/>
           </Link>
           <button onClick={()=>{setVisible('')}}>
             <MyIcon/>
           </button>
         </span>
+          </>
+          )
+          :
+          (
+          <>
+          </>
+          )
+        }
+        
       </div>
       </nav>
       <div className={`${visible}`}>

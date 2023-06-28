@@ -38,7 +38,7 @@ export default function RightSidebar({email}:RightSidebarProps) {
           {friend.map((friend)=>(
       <>
       <li key={friend._id}>
-        <UserCard profileImage={friend.profileImage} id={friend._id} firstName={friend.firstName} lastName={friend.lastName} email={email} />
+        <UserCard profileImage={friend.profileImage} id={friend._id} firstName={friend.firstName} lastName={friend.lastName} emailOfUser={email}  />
       </li>
       </>
     ))}
