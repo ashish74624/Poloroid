@@ -232,7 +232,7 @@ const storage = multer.diskStorage({
               {
                 id:user._id,
                 name:user.firstName,
-                profileImage: user.profileImage
+                profilePicture: user.profileImage
               }
             }
           }
