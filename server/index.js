@@ -223,24 +223,26 @@ const storage = multer.diskStorage({
   app.put('/sendNotifiaction/:id', async(req,res)=>{
     const id = req.params.id;
     try{
-      const friend = await User.findOne({_id:id});
-      const user = await User.findOneAndUpdate(
-        {email: req.body.email},
+      const user = await User.findOne({email:req.body.emailOfUser});
+      const friend = await User.findOneAndUpdate(
+        {_id: id},
         {$push:
           {notifications:
             {sender:
               {
-                id:id,
-                name:friend.firstName
+                id:user._id,
+                name:user.firstName,
+                profileImage: user.profileImage
               }
             }
           }
         },
         {new:true}// This ensures that the updated user document is returned in the user variable.
         );
-        
+      return res.json({status:"ok", msg:"Notifiaction sent sucessfully"}) ; 
     }catch(err){
       console.log("Error in sending notification")
+      return res.json({status:"error", msg : "Error in sending notification"});
     }
   })
 
@@ -249,7 +251,10 @@ const storage = multer.diskStorage({
     try{
       const user = await User.findOne({email:email});
       const place = user.place;
-      const friends = await User.find({ place: {$regex: new RegExp(place,'i')}, email: { $ne: email } }); // $ne: ensures that the user with email same as the one provided will not be retured 
+      const friends = await User.find({ place: {$regex: new RegExp(place,'i')}, 
+      email: { $ne: email }, 
+      'notifications.sender.id':{$ne : user._id} //This line ensures that the friends I have already requested are not retured again by using $ne
+    }); // $ne: ensures that the user with email or userId same as the one provided will not be retured 
       res.json(friends)
     }catch(err){
       console.log('Error suggesting friends');
@@ -261,7 +266,8 @@ const storage = multer.diskStorage({
     try{
       const user = await User.findOne({email: email});
       const notification = user.notifications
-      console.log(notification);
+      // console.log(notification);
+      return res.json(notification)
     }catch(err){}
   })
 

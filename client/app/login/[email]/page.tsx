@@ -28,16 +28,15 @@ export default async function Home({params:{email}}:Params) {
   // const [posts, setPosts] = useState<Post[]>([]);
     const res = await fetch(`http://localhost:3001/data/${email}`);
     const userData = await res.json()
-    console.log(userData.firstName)
     
   return (
     <>
     
       <main className='relative w-screen h-screen'>
       <section className="bg-[#F8F8F8] pb-10 w-screen h-screen overflow-y-scroll overflow-x-hidden mt-16">
-        <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} />
+        <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
         <section className="flex">
-          <Sidebar />
+          <Sidebar home={'bg-opacity-100'} notifications={'bg-opacity-60'} email={email} />
           <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
             <Suspense fallback={<PostSkel/>}>
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
