@@ -29,7 +29,7 @@ export default async function Notifications({params:{email}}:Params) {
           {
               notification.map((data:any)=>(
                 <>
-                <NotfCard friendName={data.sender.name} friendImage={data.sender.profileImage || userDefaultImage}/>
+                <NotfCard friendName={data.sender.name} friendImage={data.sender.profilePicture || userDefaultImage}/>
               </>
               ))
           }    
