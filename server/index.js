@@ -266,8 +266,8 @@ const storage = multer.diskStorage({
     try{
       const user = await User.findOne({email: email});
       const notification = user.notifications
-      // console.log(notification);
-      return res.json(notification)
+      console.log(notification);
+      return res.json({status:'ok', msg:notification})
     }catch(err){}
   })
 

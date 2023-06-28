@@ -15,7 +15,8 @@ type Params={
 export default async function Notifications({params:{email}}:Params) {
     
   const res = await fetch(`http://localhost:3001/notifications/${email}`);
-  const notification = await res.json();
+  const data = await res.json();
+  const notification = data.msg;
 
   return (
     <section className=' h-screen w-screen bg-[#F8F8F8]'>
@@ -26,22 +27,12 @@ export default async function Notifications({params:{email}}:Params) {
       <div className='ml-[19vw] w-[50vw] '>
         <Suspense fallback={<NotfSkel/>}>
           {
-            notification.sender?(
-            <>
-              <NotfCard friendName={notification.sender.name} friendImage={notification.sender.profileImage || userDefaultImage}/>
-            </>
-            )
-            :
-            (
-            <>
-              <div className='mt-4 w-[45vw] h-[85vh] rounded-lg bg-white shadow flex justify-center items-center'>
-                No Notifications at the Moment 
-            </div>
-            </>
-            )
-            
-
-          }
+              notification.map((data:any)=>(
+                <>
+                <NotfCard friendName={data.sender.name} friendImage={data.sender.profileImage || userDefaultImage}/>
+              </>
+              ))
+          }    
         </Suspense>
       </div>
     </section>
