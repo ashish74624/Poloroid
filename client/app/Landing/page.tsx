@@ -11,7 +11,7 @@ const Comf = Comfortaa({
 export default function Landing() {
   return (
     <>
-     <main className='bg-[#71B1D1] h-screen w-screen flex flex-col pt-44 items-center space-y-5'>
+     <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-44 items-center space-y-5'>
         <h1 className={`${Comf.className} text-8xl text-[#f5f5f7]`}>polaroid</h1>
         <p className='text-[#f5f5f7] text-lg'>Where your memories are always in focus</p>
         <div>
