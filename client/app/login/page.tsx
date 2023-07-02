@@ -47,7 +47,7 @@ export default function Login() {
 
   return (
     <>
-     <main className='bg-[#71B1D1] h-screen w-screen flex flex-col pt-32 items-center space-y-8'>
+     <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-32 items-center space-y-8'>
       <h3 className={` ${Comf.className} text-white text-5xl`}>Welcome Back</h3>
         {/* Form */}
         <div className='bg-[#f5f5f7] w-[25vw] h-max py-8 rounded-xl px-8 shadow-xl shadow-gray-600'>
