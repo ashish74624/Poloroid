@@ -59,7 +59,7 @@ export default function Register() {
 
   return (
     <>
-      <main className='bg-[#71B1D1] h-screen w-screen flex flex-col pt-7 items-center space-y-5'>
+      <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-7 items-center space-y-5'>
       <h3 className='text-white text-5xl'>Welcome to <span className={`${Comf.className}`}>polaroid</span></h3>
       <div className='bg-[#f5f5f7] w-[25vw] h-max py-8 rounded-xl px-8 shadow-xl shadow-gray-600'>
         
