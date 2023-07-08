@@ -16,6 +16,9 @@ const User = mongoose.Schema({
         name :{type:String , required:true},
         profilePicture : String
       },
+      sentTo : {
+        id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
+      },
       default: []
     }] 
 },
