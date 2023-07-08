@@ -6,6 +6,7 @@ import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
 import Post from '@/app/Components/Post';
 import RightSidebar from '@/app/Components/RightSidebar';
+import Lorem from '@/app/Components/Lorem';
 
 
 interface Post {
@@ -25,27 +26,23 @@ type Params={
 }
 
 export default async function Home({params:{email}}:Params) {
-  // const [posts, setPosts] = useState<Post[]>([]);
     const res = await fetch(`http://localhost:3001/data/${email}`);
     const userData = await res.json()
     
   return (
-    <>
-    
-      <main className='relative w-screen h-screen'>
-      <section className="bg-[#F8F8F8] pb-10 w-screen h-screen overflow-y-scroll overflow-x-hidden mt-16">
+    <main className='h-screem w-screen overflow-hidden'>
+      <nav>
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
-        <section className="flex">
-          <Sidebar home={'bg-opacity-100'} notifications={'bg-opacity-60'} email={email} />
-          <div className="w-[50vw] flex flex-col items-center ml-[19vw]">
+      </nav>
+      <section className=' h-[91vh] w-screen grid grid-cols-5'>
+        <div className=' border-r border-gray-600'><Sidebar email={userData.email}/></div>
+        <div className=' col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
             <Suspense fallback={<PostSkel/>}>
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
-          </div>
-          <RightSidebar email={userData.email}/>
-        </section> 
+        </div>
+        <div className='border-l border-gray-600 overflow-x-hidden overflow-y-scroll'><RightSidebar email={userData.email}/></div>
       </section>
-      </main>
-    </>
+    </main>
   )
 }

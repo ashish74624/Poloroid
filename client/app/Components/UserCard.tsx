@@ -32,8 +32,8 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
   return (
         <>
         
-          <div className="w-[20vw] bg-white border border-gray-300 rounded-lg shadow ">
-            <div className="flex flex-col items-center pb-10">
+          <div className="w-[16vw] bg-white border border-gray-300 rounded-lg shadow ">
+            <div className="flex flex-col items-center pb-6">
                 <Image className="w-24 h-24 mb-3 rounded-full shadow-lg mt-6" src={profileImage} alt="Friend" width={100} height={100}/>
                 <h5 className="mb-1 text-xl font-medium text-gray-900 ">{firstName} {lastName}</h5>
                 {
@@ -49,7 +49,7 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
                   :
                   (
                   <>
-                    <div className="flex mt-4 space-x-3 md:mt-6">
+                    <div className="flex mt-2 space-x-3">
                     <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#58b8e8] rounded-lg hover:bg-[#4cc3ff] focus:ring-4 focus:outline-none focus:ring-blue-300 "
                     onClick={sendNotification}
                     >Add friend</button>
