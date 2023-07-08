@@ -62,8 +62,8 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
 
   return (
     <>
-    <nav className=' border-b border-gray-600 fixed top-0 z-20 bg-[#F8F8F8] w-screen'>
-      <div className={`w-[80vw] h-16  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
+    <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
+      <div className={`w-[80vw] h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
         
           <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] mt-3`}>
           <Link href={`/login/${email}`}>
@@ -95,7 +95,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
       </div>
       </nav>
       <div className={`${visible}`}>
-        <section className={`mt-0 fixed top-0 z-30 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+        <section className={`mt-0  bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
             {file?
             (<>

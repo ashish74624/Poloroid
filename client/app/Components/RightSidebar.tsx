@@ -29,7 +29,7 @@ export default function RightSidebar({email}:RightSidebarProps) {
     getFriendSuggestions(email);
   },[email])
   return (
-    <ul className=' overflow-y-scroll h-[94vh] z-10 fixed w-[25vw] border border-gray-600 flex flex-col items-center space-y-2 pt-4 right-0'>
+    <ul className=' overflow-y-scroll  flex flex-col items-center space-y-2 pt-4 right-0'>
       <h3 className='text-xl mb-2'>People you may know</h3>
       {
           isData ?

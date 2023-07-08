@@ -20,13 +20,14 @@ export default async function Notifications({params:{email}}:Params) {
     const notification = data.msg;
 
     return (
-      <section className=' h-screen w-screen bg-[#F8F8F8]'>
-        <Navbar navData={false}/>
-        <div className='mt-16'>
-        <Sidebar home={'bg-opacity-60'} notifications={'bg-opacity-100'} email={email}/>
-        </div>
-        <div className='ml-[19vw] w-[50vw] '>
-          <Suspense fallback={<NotfSkel/>}>
+      <main className='h-screem w-screen overflow-hidden'>
+      <nav>
+        <Navbar navData={false} />
+      </nav>
+      <section className=' h-[91vh] w-screen grid grid-cols-5'>
+        <div className=' border-r border-gray-600'><Sidebar/></div>
+        <div className=' col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
+        <Suspense fallback={<NotfSkel/>}>
             {
                 notification.map((data:any)=>(
                   <>
@@ -36,7 +37,9 @@ export default async function Notifications({params:{email}}:Params) {
             }    
           </Suspense>
         </div>
+        <div className='overflow-hidden'></div>
       </section>
+    </main>
     )
   }
 else{
