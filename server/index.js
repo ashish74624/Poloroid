@@ -239,6 +239,19 @@ const storage = multer.diskStorage({
         },
         {new:true}// This ensures that the updated user document is returned in the user variable.
         );
+        const updateUser= await User.findOneAndUpdate(
+          {email:req.body.emailOfUser},
+          {$push:
+            {notifications:
+              {
+                sentTo:{
+                  id: friend._id
+                }
+              }
+          }
+          },
+          {new:true}
+        );
       return res.json({status:"ok", msg:"Notifiaction sent sucessfully"}) ; 
     }catch(err){
       console.log("Error in sending notification")
@@ -253,7 +266,8 @@ const storage = multer.diskStorage({
       const place = user.place;
       const friends = await User.find({ place: {$regex: new RegExp(place,'i')}, 
       email: { $ne: email }, 
-      'notifications.sender.id':{$ne : user._id} //This line ensures that the friends I have already requested are not retured again by using $ne
+      'notifications.sender.id':{$ne : user._id}, //This line ensures that the friends I have already requested are not retured again by using $ne
+      'notifications.sentTo.id':{$ne : user._id}
     }); // $ne: ensures that the user with email or userId same as the one provided will not be retured 
       res.json(friends)
     }catch(err){
