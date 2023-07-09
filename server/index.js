@@ -267,7 +267,8 @@ const storage = multer.diskStorage({
       const friends = await User.find({ place: {$regex: new RegExp(place,'i')}, 
       email: { $ne: email }, 
       'notifications.sender.id':{$ne : user._id}, //This line ensures that the friends I have already requested are not retured again by using $ne
-      'request.sentTo.id':{$ne : user._id}
+      'request.sentTo.id':{$ne : user._id},
+      'friends.id':{$ne:user._id}
     }); // $ne--not equal: ensures that the user with email or userId same as the one provided will not be retured 
       res.json(friends)
     }catch(err){
@@ -290,9 +291,8 @@ const storage = multer.diskStorage({
     const email = req.params.email;
     try{
       let friendID= req.body.friendID;
-      // let friendName= req.body.friendName;
-      // let friendImage= req.body.friendImage;
       console.log(friendID)
+      const user1 =  await User.findOne({email:email});
       const user = await User.findOneAndUpdate({email:email},
         {
           $push:{
@@ -307,6 +307,10 @@ const storage = multer.diskStorage({
         }},
         {new:true}
         ); 
+      const friend = await User.findOneAndUpdate({_id:friendID},
+        { $push: { friends: { id: user1._id } } },
+        {new:true}
+        )  
         res.json({status:'ok',msg:'Friend Added'})
     }
     catch(err){
