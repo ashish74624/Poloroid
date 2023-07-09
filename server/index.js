@@ -268,7 +268,7 @@ const storage = multer.diskStorage({
       email: { $ne: email }, 
       'notifications.sender.id':{$ne : user._id}, //This line ensures that the friends I have already requested are not retured again by using $ne
       'request.sentTo.id':{$ne : user._id}
-    }); // $ne: ensures that the user with email or userId same as the one provided will not be retured 
+    }); // $ne--not equal: ensures that the user with email or userId same as the one provided will not be retured 
       res.json(friends)
     }catch(err){
       console.log('Error suggesting friends');
@@ -280,9 +280,38 @@ const storage = multer.diskStorage({
     try{
       const user = await User.findOne({email: email});
       const notification = user.notifications
-      console.log(notification);
+      // console.log(notification);
       return res.json({status:'ok', msg:notification})
     }catch(err){}
+  })
+
+
+  app.put('/addFriend/:email',async(req,res)=>{
+    const email = req.params.email;
+    try{
+      let friendID= req.body.friendID;
+      // let friendName= req.body.friendName;
+      // let friendImage= req.body.friendImage;
+      console.log(friendID)
+      const user = await User.findOneAndUpdate({email:email},
+        {
+          $push:{
+          friends:{
+            id:friendID
+          }},
+          
+          $pull:{
+          notifications:{
+            'sender.id': friendID
+          }
+        }},
+        {new:true}
+        ); 
+        res.json({status:'ok',msg:'Friend Added'})
+    }
+    catch(err){
+      console.log("Unable to add friend request")
+    }
   })
 
 
