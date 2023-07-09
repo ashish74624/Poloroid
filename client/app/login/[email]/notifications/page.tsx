@@ -18,7 +18,7 @@ export default async function Notifications({params:{email}}:Params) {
   const data = await res.json();
   if(data.status==='ok'){
     const notification = data.msg;
-
+    if(notification.length!==0){
     return (
       <section className=' h-screen w-screen bg-[#F8F8F8]'>
         <Navbar email={email} navData={false}/>
@@ -27,7 +27,7 @@ export default async function Notifications({params:{email}}:Params) {
             {
                 notification.map((data:any)=>(
                   <>
-                  <NotfCard friendName={data.sender.name} friendImage={data.sender.profilePicture || userDefaultImage}/>
+                  <NotfCard friendID={data.sender.id} email={email} friendName={data.sender.name} friendImage={data.sender.profilePicture || userDefaultImage}/>
                 </>
                 ))
             }    
@@ -36,12 +36,26 @@ export default async function Notifications({params:{email}}:Params) {
       </section>
     )
   }
+  else{
+    return(
+      <>
+        <section className=' h-screen w-screen bg-[#F8F8F8]'>
+        <Navbar email={email} navData={false}/>
+          <div className='w-screen h-[70vh] flex justify-center items-center'>
+            You Currently have no Notifications
+          </div>
+        </section>
+      </>
+    )
+  }
+  
+}
 else{
   return(
     <>
       <section className=' h-screen w-screen bg-[#F8F8F8]'>
-        <Navbar navData={false}/>
-        <div className='ml-[19vw] w-[50vw] h-[75vh] flex justify-center items-center'>
+      <Navbar email={email} navData={false}/>
+        <div className='w-screen h-[70vh] flex justify-center items-center'>
           You Currently have no Notifications
         </div>
       </section>
