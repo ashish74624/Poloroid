@@ -16,11 +16,14 @@ const User = mongoose.Schema({
         name :{type:String , required:true},
         profilePicture : String
       },
+      
+      default: []
+    }] ,
+    request:[{
       sentTo : {
         id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
       },
-      default: []
-    }] 
+    }]
 },
 {collection: 'Users'});
 

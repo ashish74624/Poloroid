@@ -14,20 +14,16 @@ type Params={
 
 export default async function Notifications({params:{email}}:Params) {
     
-  const res = await fetch(`http://localhost:3001/notifications/${email}`);
+  const res = await fetch(`http://localhost:3001/notifications/${email}`,{cache:'no-store'});
   const data = await res.json();
   if(data.status==='ok'){
     const notification = data.msg;
 
     return (
-      <main className='h-screem w-screen overflow-hidden'>
-      <nav>
-        <Navbar navData={false} />
-      </nav>
-      <section className=' h-[91vh] w-screen grid grid-cols-5'>
-        <div className=' border-r border-gray-600'><Sidebar/></div>
-        <div className=' col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
-        <Suspense fallback={<NotfSkel/>}>
+      <section className=' h-screen w-screen bg-[#F8F8F8]'>
+        <Navbar email={email} navData={false}/>
+        <div className='w-screen flex flex-col items-center'>
+          <Suspense fallback={<NotfSkel/>}>
             {
                 notification.map((data:any)=>(
                   <>
@@ -37,9 +33,7 @@ export default async function Notifications({params:{email}}:Params) {
             }    
           </Suspense>
         </div>
-        <div className='overflow-hidden'></div>
       </section>
-    </main>
     )
   }
 else{
@@ -47,9 +41,6 @@ else{
     <>
       <section className=' h-screen w-screen bg-[#F8F8F8]'>
         <Navbar navData={false}/>
-        <div className='mt-16'>
-        <Sidebar home={'bg-opacity-60'} notifications={'bg-opacity-100'} email={email}/>
-        </div>
         <div className='ml-[19vw] w-[50vw] h-[75vh] flex justify-center items-center'>
           You Currently have no Notifications
         </div>
@@ -59,4 +50,3 @@ else{
 }
 
   }
- 
