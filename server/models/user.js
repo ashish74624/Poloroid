@@ -9,7 +9,7 @@ const User = mongoose.Schema({
         type:String
       },
     place :{type:String},
-    friends: { id: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], default: [] },
+    friends: { type: [{id:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }}], default: [] },
     notifications :[{
       sender : {
         id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
