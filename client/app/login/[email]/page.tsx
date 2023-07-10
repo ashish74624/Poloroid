@@ -1,4 +1,3 @@
-
 import React, { Suspense } from 'react'
 import Navbar from '@/app/Components/Navbar';
 import Sidebar from '@/app/Components/Sidebar';
