@@ -34,7 +34,7 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
         
           <div className="w-[16vw] bg-white border border-gray-300 rounded-lg shadow ">
             <div className="flex flex-col items-center pb-6">
-                <Image className="w-24 h-24 mb-3 rounded-full shadow-lg mt-6" src={profileImage} alt="Friend" width={100} height={100}/>
+                <img className="w-24 h-24 mb-3 rounded-full shadow-lg mt-6" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${profileImage}`} alt="Friend" width={100} height={100}/>
                 <h5 className="mb-1 text-xl font-medium text-gray-900 ">{firstName} {lastName}</h5>
                 {
                   request

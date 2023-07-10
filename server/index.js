@@ -99,13 +99,14 @@ const storage = multer.diskStorage({
     // console.log(req.body)
     try {
       const newPassword = await bcrypt.hash(req.body.password, 10);
+      const result = await cloudinary.uploader.upload(req.body.file);
       const newUser = await User.create({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
         email:req.body.email,
         password: newPassword, // Use the correct field name for the hashed password
         place: req.body.place,
-        profileImage: req.body.file
+        profileImage: result.public_id
       }); 
       await newUser.save();   
       return res.json({ status: 'ok' });

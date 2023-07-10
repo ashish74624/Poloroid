@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import PostSkel from './PostSkel';
 import { Kaushan_Script } from 'next/font/google';
 import { Nixie_One } from 'next/font/google';
@@ -86,9 +85,9 @@ export default function Post({userImg,email}:any) {
             <div className="my-5" key={post._id}>
               <div className="bg-[#58b8e8] w-max h-max px-6 pt-3 pb-4 rounded-t">
                 <div className="flex space-x-3 mb-4">
-                  <Image
+                  <img
                     className="w-8 h-8 rounded-full"
-                    src={userImg}
+                    src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${userImg}`}
                     alt="User Profile"
                     width={100}
                     height={100}

@@ -78,7 +78,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           <>
           <span className=' flex '>
           <Link href={'/dashboard'}>
-          <Image className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={userImg || userDefaultImage} alt ={"Helo"} width={100} height={100}/>
+          <img className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
           </Link>
           <button onClick={()=>{setVisible('')}}>
             <MyIcon/>
