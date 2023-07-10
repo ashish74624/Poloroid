@@ -81,12 +81,7 @@ const storage = multer.diskStorage({
       const email  = req.params.email;
   
       const posts = await Post.find({ email: email }); 
-  
-      const images = posts.map(post => ({ 
-        public_id: post.image,
-        url: `https://res.cloudinary.com/${process.env.CLOUD_NAME}/image/upload/${post.image}`
-      }));
-  
+      
       res.json(posts);
     } catch (error) {
       console.error(error);
