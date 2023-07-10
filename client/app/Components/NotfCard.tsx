@@ -21,6 +21,19 @@ export default async function NotfCard({friendImage,friendName,email,friendID}:a
       window.location.reload()
     }
   }
+
+  const rejectRequest= async()=>{
+    const res = await fetch(`http://localhost:3001/rejectRequest/${friendID}`,{
+      method:"PUT",
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify({email:email})
+    });
+    if(res.ok){
+      window.location.reload()
+    }
+  }
     
         return (
             <>
@@ -36,7 +49,9 @@ export default async function NotfCard({friendImage,friendName,email,friendID}:a
                     >
                         Accept
                     </button>
-                    <button className='bg-red-500 hover:bg-red-700 transition duration-300 px-7 text-white py-2 rounded-lg'>Reject</button>
+                    <button className='bg-red-500 hover:bg-red-700 transition duration-300 px-7 text-white py-2 rounded-lg'
+                    onClick={()=>{rejectRequest() }}
+                    >Reject</button>
                 </span>
               </section>
             </>
