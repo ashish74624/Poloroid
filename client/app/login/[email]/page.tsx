@@ -6,7 +6,6 @@ import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
 import Post from '@/app/Components/Post';
 import RightSidebar from '@/app/Components/RightSidebar';
-import Lorem from '@/app/Components/Lorem';
 
 
 interface Post {
@@ -25,9 +24,25 @@ type Params={
     }
 }
 
+async function getData(email:string){
+  const res = await fetch(`http://localhost:3001/data/${email}`);
+  return res.json()
+}
+
+
+async function getFriendSuggestions(email:string){
+  const res = await fetch(`http://localhost:3001/getFriendSuggestions/${email}`);
+  return res.json()
+}
+
 export default async function Home({params:{email}}:Params) {
-    const res = await fetch(`http://localhost:3001/data/${email}`);
-    const userData = await res.json()
+
+  const data = getData(email);
+  const sideData = getFriendSuggestions(email);
+
+  const [userData, rightSideBarData] = await Promise.all([data,sideData])
+    
+    // const userData = await res.json()
     
   return (
     <main className='h-screem w-screen overflow-hidden'>
@@ -41,7 +56,14 @@ export default async function Home({params:{email}}:Params) {
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
         </div>
-        <div className='border-l border-gray-600 overflow-x-hidden overflow-y-scroll'><RightSidebar email={userData.email}/></div>
+        <div className='border-l border-gray-600 overflow-x-hidden overflow-y-scroll'>
+        <h3 className='text-xl mb-2 mt-3 mx-12'>People you may know</h3>
+          {rightSideBarData.map((rightSideBarData:any)=>(
+            <>
+            <RightSidebar profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} email={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
+            </>
+          ))}
+          </div>
       </section>
     </main>
   )
