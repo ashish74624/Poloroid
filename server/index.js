@@ -68,7 +68,7 @@ const storage = multer.diskStorage({
   
       await newPost.save();
   
-      res.json({ status:'ok', public_id: result.public_id, url: result.secure_url });
+      res.json({ status:'ok' });
     } catch (error) {
       console.error(error);
       res.json({ error: 'Image upload failed' });
@@ -81,7 +81,7 @@ const storage = multer.diskStorage({
       const email  = req.params.email;
   
       const posts = await Post.find({ email: email }); 
-      
+
       res.json(posts);
     } catch (error) {
       console.error(error);
