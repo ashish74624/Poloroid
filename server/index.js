@@ -122,15 +122,7 @@ const storage = multer.diskStorage({
         const isPasswordValid = await bcrypt.compare(password, user.password);
         
         if (isPasswordValid) {
-          const token = jwt.sign(
-            {
-              email: user.email,
-              firstName: user.firstName,
-              lastName: user.lastName,
-              profileImage: user.profileImage,
-            },
-            'secretpassword'
-          );
+          
           const userWithoutPassword = {
             email: user.email,
             firstName: user.firstName,
