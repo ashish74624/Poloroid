@@ -339,7 +339,38 @@ const storage = multer.diskStorage({
 }
   )
 
+  app.put('/rejectRequest/:id', async(req,res)=>{
+    let id = req.params.id;
+    let email1 = req.body.email;
+    let email= email1.replace('%40','@')
+    console.log(email)
+    try{
+      const user = await User.findOneAndUpdate({email:email},{
+        $pull:{
+          notifications:{
+            'sender.id':id // This is how pull works
+          }
+        }
+      })
 
+      const friend = await User.findOneAndUpdate({_id:id},{
+        $push:{
+          rejectedBy:{
+            id:user._id
+          }
+        },
+        $pull:{
+          request:{
+            'sentTo.id':user._id
+          }
+        }
+      })
+    return res.status(200).json({msg:"Request Rejected"})
+    }
+    catch(err){
+      console.log("Unable to reject request")
+    }  
+  })
 
 
 app.listen(process.env.PORT,()=>{
