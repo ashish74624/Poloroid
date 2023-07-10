@@ -10,20 +10,23 @@ const User = mongoose.Schema({
       },
     place :{type:String},
     friends: { type: [{id:{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }}], default: [] },
-    notifications :[{
-      sender : {
-        id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
+    notifications :{
+      type:[
+        {sender : {
+        id : {type: mongoose.Schema.Types.ObjectId , ref:'User'},
         name :{type:String , required:true},
         profilePicture : String
-      },
+      }}
+    ],
       
       default: []
-    }] ,
-    request:[{
-      sentTo : {
-        id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
-      },
-    }],
+    },
+    request:{
+      type:[{sentTo : {
+        id : {type: mongoose.Schema.Types.ObjectId , ref:'User'},
+      }}],
+      default: []
+    },
     rejectedBy:{ type:[{id:{type:mongoose.Schema.Types.ObjectId, ref:'User'}}], default:[] }
 },
 {collection: 'Users'});
