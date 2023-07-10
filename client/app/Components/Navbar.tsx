@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Comfortaa } from 'next/font/google'
 import MyIcon from './MyIcon'
+import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
 import userDefaultImage from '@/public/userDefaultImage.webp'
@@ -95,7 +96,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
       </div>
       </nav>
       <div className={`${visible}`}>
-        <section className={`mt-0  bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+        <section className={`mt-0 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
             {file?
             (<>
@@ -126,9 +127,9 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         <button className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-[#71B1D1] font-semibold'
         onClick={imageUpload}
         >Post</button>
-        <button className='fixed top-[0.5rem] right-[138px] rotate-45'
+        <button className='fixed top-[0.5rem] right-4 rotate-45'
         onClick={()=>{setVisible('hidden')}}
-        ><MyIcon/></button>
+        ><CutIcon/></button>
       </section>
       </div> 
     </>
