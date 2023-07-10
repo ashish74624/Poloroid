@@ -23,7 +23,8 @@ const User = mongoose.Schema({
       sentTo : {
         id : {type: mongoose.Schema.Types.ObjectId , ref:'user'},
       },
-    }]
+    }],
+    rejectedBy:{ type:[{id:{type:mongoose.Schema.Types.ObjectId, ref:'User'}}], default:[] }
 },
 {collection: 'Users'});
 

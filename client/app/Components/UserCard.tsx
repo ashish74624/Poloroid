@@ -13,6 +13,7 @@ interface UserCard{
 export default function UserCard({profileImage,id,firstName,lastName,emailOfUser}:UserCard) {
   
   const [request,setRequest] = useState(false);
+  const [reject, setReject] = useState(false);
 
   const sendNotification= async() => {
     const res = await fetch(`http://localhost:3001/sendNotifiaction/${id}`,{
@@ -29,6 +30,22 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
       setRequest(true);
     }
   }
+
+  const removeSuggestion= async()=>{
+    const res = await fetch(`http://localhost:3001/removeSuggestion/${id}`,{
+      method:"PUT",
+      headers:{
+        'content-type':"application/json",
+      },
+      body: JSON.stringify({email:emailOfUser})
+    });
+    
+    const data = res.json();
+    if(res.ok){
+      setReject(true);
+    }
+  }
+
   return (
         <>
         
@@ -48,14 +65,26 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
                   )
                   :
                   (
-                  <>
+                    reject?
+                    (
+                    <>
+                    <div className='w-40 py-2 mt-4 bg-[#58b8e8] text-white flex justify-center rounded-lg'>
+                      Suggestion Removed 
+                    </div>
+                    </>)
+                    :
+                    (
+                    <>
                     <div className="flex mt-2 space-x-3">
                     <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-[#58b8e8] rounded-lg hover:bg-[#4cc3ff] focus:ring-4 focus:outline-none focus:ring-blue-300 "
                     onClick={sendNotification}
                     >Add friend</button>
-                    <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 ">Remove</button>
+                    <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 "
+                    onClick={removeSuggestion}
+                    >Remove</button>
                 </div>
-                  </>
+                  </>)
+                  
                   )
                 }
                 

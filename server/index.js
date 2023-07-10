@@ -269,7 +269,8 @@ const storage = multer.diskStorage({
       email: { $ne: email }, 
       'notifications.sender.id':{$ne : user._id}, //This line ensures that the friends I have already requested are not retured again by using $ne
       'request.sentTo.id':{$ne : user._id},
-      'friends.id':{$ne:user._id}
+      'friends.id':{$ne:user._id},
+      'rejectedBy.id':{$ne:user._id}
     }); // $ne--not equal: ensures that the user with email or userId same as the one provided will not be retured 
       res.json(friends)
     }catch(err){
@@ -317,7 +318,28 @@ const storage = multer.diskStorage({
     catch(err){
       console.log("Unable to add friend request")
     }
-  })
+  });
+
+  app.put('/removeSuggestion/:id', async(req,res)=>{
+    const id = req.params.id;
+    const email = req.body.email;
+    try{
+      const user = await User.findOne({email:email});
+      const friend = await User.findOneAndUpdate({_id:id},{
+        $push:{
+          rejectedBy:{
+            id: user._id
+          }
+        }
+      });
+      res.status(200).json({msg:"Removed suggestion"})
+  }catch(err){
+    console.log("Unable to remove suggestion")
+  }
+}
+  )
+
+
 
 
 app.listen(process.env.PORT,()=>{
