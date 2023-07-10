@@ -122,7 +122,7 @@ const storage = multer.diskStorage({
         const isPasswordValid = await bcrypt.compare(password, user.password);
         
         if (isPasswordValid) {
-          
+
           const userWithoutPassword = {
             email: user.email,
             firstName: user.firstName,
@@ -318,7 +318,9 @@ const storage = multer.diskStorage({
             id: user._id
           }
         }
-      });
+        },
+        {new:true}
+      );
       res.status(200).json({msg:"Removed suggestion"})
   }catch(err){
     console.log("Unable to remove suggestion")
@@ -338,7 +340,9 @@ const storage = multer.diskStorage({
             'sender.id':id // This is how pull works
           }
         }
-      })
+        },
+        {new:true}
+        )
 
       const friend = await User.findOneAndUpdate({_id:id},{
         $push:{
@@ -351,7 +355,9 @@ const storage = multer.diskStorage({
             'sentTo.id':user._id
           }
         }
-      })
+        },
+        {new:true}
+        )
     return res.status(200).json({msg:"Request Rejected"})
     }
     catch(err){
