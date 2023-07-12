@@ -25,6 +25,7 @@ interface Post {
   email: string;
   like: number;
   isLiked: boolean;
+  userProfile:string;
 }
 
 interface Props {
@@ -40,7 +41,7 @@ export default function Post({userImg,email}:any) {
     const getPosts = async () => {
       try {
         if (email) {
-          const response = await fetch(`http://localhost:3001/getImages/${email}`);
+          const response = await fetch(`http://localhost:3001/allPost/${email}`);
           const articles = await response.json();
           setPosts(articles);
           setIsLoading(false);
@@ -87,7 +88,7 @@ export default function Post({userImg,email}:any) {
                 <div className="flex space-x-3 mb-4">
                   <img
                     className="w-8 h-8 rounded-full"
-                    src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${userImg}`}
+                    src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${post.userProfile}`}
                     alt="User Profile"
                     width={100}
                     height={100}

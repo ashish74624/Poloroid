@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
-const Post = mongoose.Schema({
+const Post = new mongoose.Schema({
     firstName :{type: String },
     lastName :{type: String},
     email :{type:String,require:true},
+    userProfile:{type:String},
+    friends: { type: [{ id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } }], default: [] },
     caption:{type:String},
     image:{type:String},
     like:{type:Number,default:0},

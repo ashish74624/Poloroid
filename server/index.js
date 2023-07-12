@@ -57,11 +57,13 @@ const storage = multer.diskStorage({
       }
   
       const result = await cloudinary.uploader.upload(req.body.image);
-  
+      const user = await User.findOne({email:req.body.email});
       const newPost = new Post({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email, 
+        userProfile: user.profileImage,
+        place: user.place,
         caption: req.body.caption,
         image: result.public_id,
       });
@@ -297,9 +299,19 @@ const storage = multer.diskStorage({
         {new:true}
         ); 
       const friend = await User.findOneAndUpdate({_id:friendID},
-        { $push: { friends: { id: user1._id } } },
+        { $push: { friends: { id: user1._id } } ,
+        $pull:{
+          request:{'sentTo.id':user1._id}
+        }},
         {new:true}
-        )  
+        );
+      const posts = await Post.findOneAndUpdate({email:email},
+        { $push: { friends: { id: friendID } } },
+        {new:true})  
+      const posts2 = await Post.findOneAndUpdate({email:friend.email},
+        { $push: { friends: { id: user1._id } } },
+        {new:true})  
+
         res.json({status:'ok',msg:'Friend Added'})
     }
     catch(err){
@@ -363,6 +375,25 @@ const storage = multer.diskStorage({
     catch(err){
       console.log("Unable to reject request")
     }  
+  });
+
+  app.get('/allPost/:email', async(req,res)=>{
+    const email = req.params.email;
+    try{
+      const user = await User.findOne({email:email});
+      const posts = await Post.find({
+        $or:[
+          {email:email},
+        {'friends.id':user._id}
+        ]
+      }
+      )
+      posts.reverse()
+      // console.log(posts)
+      return res.status(200).json(posts);
+    }catch(err){
+      console.log('All post nnnnnnnot done')
+    }
   })
 
 
