@@ -8,8 +8,8 @@ const Post = new mongoose.Schema({
     friends: { type: [{ id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } }], default: [] },
     caption:{type:String},
     image:{type:String},
-    like:{type:Number,default:0},
-    isLiked:{type:Boolean,default:false}
+    likes:{type:Number,default:0},
+    likedBy : { type: [{ id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } }], default: [] } 
 },
 {collection:'posts'}
 ) 

@@ -173,43 +173,66 @@ const storage = multer.diskStorage({
   })
 
 
-  app.put('/like/:id', async (req, res) => {
-    const id = req.params.id;
+  // app.put('/like/:id', async (req, res) => {
+  //   const id = req.params.id;
   
-    try {
-      const p = await Post.findOne({ _id: id });
+  //   try {
+  //     const p = await Post.findOne({ _id: id });
   
-      if (!p.isLiked) {
-        const post = await Post.findOneAndUpdate(
-          { _id: id },
-          { $inc: { like: 1 }, $set: { isLiked: true } },
-          { new: true }
+  //     if (!p.isLiked) {
+  //       const post = await Post.findOneAndUpdate(
+  //         { _id: id },
+  //         { $inc: { like: 1 }, $set: { isLiked: true } },
+  //         { new: true }
+  //       );
+  
+  //       if (!post) {
+  //         return res.json({ status: 'error', msg: 'Post not found' });
+  //       }
+  
+  //       return res.json({ status: 'ok', msg: 'Post liked', post });
+  //     } else {
+  //       const updatedPost = await Post.findOneAndUpdate(
+  //         { _id: id },
+  //         { $inc: { like: -1 }, $set: { isLiked: false } },
+  //         { new: true }
+  //       );
+  
+  //       if (!updatedPost) {
+  //         return res.json({ status: 'error', msg: 'Post not found' });
+  //       }
+  
+  //       return res.json({ status: 'ok', msg: 'Post disliked', post: updatedPost });
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     return res.json({ status: 'error', msg: 'An error occurred' });
+  //   }
+  // });
+  
+  app.put('/like/:id', async(req,res)=>{
+    let postId = req.params.id;
+    const email = req.body.emailOfUser
+    try{
+      const user = await User.findOne({email:email});
+      const post = await Post.findOneAndUpdate({_id:postId},{
+        $inc:{
+          likes: post.likedBy.id.includes(user._id) ? -1:1
+        },        
+        $addToSet:{
+          'likedBy.id': user._id//$addToSet operator adds a value to an array only if it doesn't already exist in the array.
+        } 
+      },
+      {new:true}
         );
-  
-        if (!post) {
-          return res.json({ status: 'error', msg: 'Post not found' });
-        }
-  
-        return res.json({ status: 'ok', msg: 'Post liked', post });
-      } else {
-        const updatedPost = await Post.findOneAndUpdate(
-          { _id: id },
-          { $inc: { like: -1 }, $set: { isLiked: false } },
-          { new: true }
-        );
-  
-        if (!updatedPost) {
-          return res.json({ status: 'error', msg: 'Post not found' });
-        }
-  
-        return res.json({ status: 'ok', msg: 'Post disliked', post: updatedPost });
-      }
-    } catch (error) {
-      console.log(error);
-      return res.json({ status: 'error', msg: 'An error occurred' });
+
     }
-  });
-  
+    catch(err){
+      console.log("Error liking post")
+    }
+  })
+
+
   app.put('/sendNotifiaction/:id', async(req,res)=>{
     const id = req.params.id;
     try{
