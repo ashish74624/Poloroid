@@ -23,7 +23,7 @@ interface Post {
   caption: string;
   image: string;
   email: string;
-  like: number;
+  likes: number;
   isLiked: boolean;
   userProfile:string;
 }
@@ -61,6 +61,9 @@ export default function Post({userImg,email}:any) {
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          emailOfUser: email
+        })
       });
 
       if (response.ok) {
@@ -117,7 +120,7 @@ export default function Post({userImg,email}:any) {
                 className={`${No.className} text-3xl w-[386px] rounded-b py-1 h-max text-white bg-[#58b8e8]  hover:text-[#F8C732] transition duration-300`}
                 onClick={() => handleLike(post._id)}
               >
-                Like {post.like}
+                Like {post.likes}
               </button>
             </div>
           ))}
