@@ -210,27 +210,41 @@ const storage = multer.diskStorage({
   //   }
   // });
   
-  app.put('/like/:id', async(req,res)=>{
+  app.put('/like/:id', async (req, res) => {
     let postId = req.params.id;
-    const email = req.body.emailOfUser
-    try{
-      const user = await User.findOne({email:email});
-      const post = await Post.findOneAndUpdate({_id:postId},{
-        $inc:{
-          likes: post.likedBy.id.includes(user._id) ? -1:1
-        },        
-        $addToSet:{
-          'likedBy.id': user._id//$addToSet operator adds a value to an array only if it doesn't already exist in the array.
-        } 
-      },
-      {new:true}
-        );
+    const email = req.body.emailOfUser;
+    try {
+      const user = await User.findOne({ email: email });
+      const post = await Post.findOne({ _id: postId });
+  
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found' });
+      }
+  
+      // Check if the user has already liked the post
+      const isLiked = post.likedBy.some((likedUser) => likedUser.id.equals(user._id));
+  
+      if (isLiked) {
+        // User has already liked the post, decrement the like count and remove from likedBy
+        post.likes -= 1;
+        post.likedBy = post.likedBy.filter((likedUser) => !likedUser.id.equals(user._id));
+      } else {
+        // User has not liked the post, increment the like count and add to likedBy
+        post.likes += 1;
+        post.likedBy.push({ id: user._id });
+      }
+  
+      // Save the updated post
+      await post.save();
+  
+      res.status(200).json(post);
+    } catch (err) {
+      console.error("Error Liking post");
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
-    }
-    catch(err){
-      console.log("Error liking post")
-    }
-  })
 
 
   app.put('/sendNotifiaction/:id', async(req,res)=>{
