@@ -65,14 +65,27 @@ export default function Post({userImg,email}:any) {
           emailOfUser: email
         })
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const updatedPost = await response.json();
-        setPosts((prevPosts) =>
-          prevPosts.map((post) =>
-            post._id === updatedPost.post._id ? updatedPost.post : post
-          )
-        );
+        const updatedPosts = posts.map((post) => {
+          if (post._id === id) {
+            if(data.msg==='liked'){
+              return {
+                ...post,// the spread syntax is used to create another array
+                likes: post.likes+1 // the 'likes' part of the post is changed and then this modified post is returned in the form of updatedPosts
+              }
+            }
+            else if(data.msg==='disliked'){
+              return {
+                ...post,
+                likes: post.likes-1
+              }
+            }
+            
+          }
+          return post;
+        });
+        setPosts(updatedPosts);
       }
     } catch (error) {
       console.log(error);
