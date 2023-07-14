@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import User from './models/user.js'
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import multer from "multer";
 import bodyParser from 'body-parser';
 import Post from './models/post.js'
@@ -93,7 +92,6 @@ const storage = multer.diskStorage({
   
 
   app.post('/register', async (req, res) => {
-    // console.log(req.body)
     try {
       const newPassword = await bcrypt.hash(req.body.password, 10);
       const result = await cloudinary.uploader.upload(req.body.file);
@@ -113,7 +111,6 @@ const storage = multer.diskStorage({
   });
   
   app.post('/login', async (req, res) => {
-    // console.log(req.body)
     const { email, password } = req.body;
     
     try {
@@ -153,9 +150,7 @@ const storage = multer.diskStorage({
   })
   
   app.post('/post', async(req,res)=>{
-    // console.log(req.body);
     try{
-      // console.log(req.body.firstName)
       const post = await Post.create({
         firstName:req.body.firstName,
         lastName:req.body.lastName,
@@ -173,42 +168,6 @@ const storage = multer.diskStorage({
   })
 
 
-  // app.put('/like/:id', async (req, res) => {
-  //   const id = req.params.id;
-  
-  //   try {
-  //     const p = await Post.findOne({ _id: id });
-  
-  //     if (!p.isLiked) {
-  //       const post = await Post.findOneAndUpdate(
-  //         { _id: id },
-  //         { $inc: { like: 1 }, $set: { isLiked: true } },
-  //         { new: true }
-  //       );
-  
-  //       if (!post) {
-  //         return res.json({ status: 'error', msg: 'Post not found' });
-  //       }
-  
-  //       return res.json({ status: 'ok', msg: 'Post liked', post });
-  //     } else {
-  //       const updatedPost = await Post.findOneAndUpdate(
-  //         { _id: id },
-  //         { $inc: { like: -1 }, $set: { isLiked: false } },
-  //         { new: true }
-  //       );
-  
-  //       if (!updatedPost) {
-  //         return res.json({ status: 'error', msg: 'Post not found' });
-  //       }
-  
-  //       return res.json({ status: 'ok', msg: 'Post disliked', post: updatedPost });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //     return res.json({ status: 'error', msg: 'An error occurred' });
-  //   }
-  // });
   
   app.put('/like/:id', async (req, res) => {
     let postId = req.params.id;
@@ -221,23 +180,25 @@ const storage = multer.diskStorage({
         return res.status(404).json({ error: 'Post not found' });
       }
   
-      // Check if the user has already liked the post
-      const isLiked = post.likedBy.some((likedUser) => likedUser.id.equals(user._id));
+      const isLiked = post.likedBy.some((likedUser) => likedUser.id.equals(user._id));//.some() is a JavaScript array method that tests whether at least one element in the array satisfies the provided callback function --- iterates over each element of the array until it finds an element that satisfies the callback function-- returns true or false
   
       if (isLiked) {
-        // User has already liked the post, decrement the like count and remove from likedBy
         post.likes -= 1;
-        post.likedBy = post.likedBy.filter((likedUser) => !likedUser.id.equals(user._id));
+        post.likedBy = post.likedBy.filter((likedUser) => !likedUser.id.equals(user._id));//.filter() applies to each element of the and filters out the elements that pass the condition provided in the call back function (which it takes as an arg)-- in this case we check if likedBy has the user._id in it and we use ! to remove it
+
+        //  ALSO: .filter() does not change the original array it creates a new array
+        // In this case that new array created by the .filter() replaces the old one
+        await post.save();
+        res.status(200).json({msg:'disliked',post:post});
       } else {
-        // User has not liked the post, increment the like count and add to likedBy
         post.likes += 1;
         post.likedBy.push({ id: user._id });
+        await post.save();
+        res.status(200).json({msg:'liked',post:post});
       }
   
-      // Save the updated post
-      await post.save();
   
-      res.status(200).json(post);
+      
     } catch (err) {
       console.error("Error Liking post");
       res.status(500).json({ error: 'Internal server error' });
@@ -309,7 +270,6 @@ const storage = multer.diskStorage({
     try{
       const user = await User.findOne({email: email});
       const notification = user.notifications
-      // console.log(notification);
       return res.json({status:'ok', msg:notification})
     }catch(err){}
   })
@@ -319,7 +279,6 @@ const storage = multer.diskStorage({
     const email = req.params.email;
     try{
       let friendID= req.body.friendID;
-      console.log(friendID)
       const user1 =  await User.findOne({email:email});
       const user = await User.findOneAndUpdate({email:email},
         {
@@ -381,7 +340,6 @@ const storage = multer.diskStorage({
     let id = req.params.id;
     let email1 = req.body.email;
     let email= email1.replace('%40','@')
-    console.log(email)
     try{
       const user = await User.findOneAndUpdate({email:email},{
         $pull:{
@@ -425,8 +383,7 @@ const storage = multer.diskStorage({
         ]
       }
       )
-      posts.reverse()
-      // console.log(posts)
+      posts.reverse() 
       return res.status(200).json(posts);
     }catch(err){
       console.log('All post nnnnnnnot done')
