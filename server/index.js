@@ -90,7 +90,6 @@ const storage = multer.diskStorage({
     }
   });
   
-
   app.post('/register', async (req, res) => {
     try {
       const newPassword = await bcrypt.hash(req.body.password, 10);
@@ -388,6 +387,34 @@ const storage = multer.diskStorage({
     }catch(err){
       console.log('All post nnnnnnnot done')
     }
+  });
+
+  app.get('/friends/:email', async(req,res)=>{
+    const email=req.params.email;
+    try{
+      const user =await User.findOne({email:email}).populate('friends.id') //What populate does is that it gets all the data of the users in friends array using thier id's (that's why we have ref:'User' in thier schema fields)
+
+      if(user.friends.length>0){
+
+        //In th below code user.friends array is already populated with all thier details
+        const friendsDetails = user.friends.map((friend)=>{
+          return{
+            firstName: friend.id.firstName,
+            lastName: friend.id.lastName,
+            email: friend.id.email,
+            profileImage: friend.id.profileImage
+          }
+        })
+        res.status(200).json({msg:"friends Found",friends:friendsDetails});
+      }
+      else{
+        res.status(200).json({msg:"Nofriends"});
+      }
+
+
+    }catch(err){
+      console.log('Friends not found');
+    }  
   })
 
 

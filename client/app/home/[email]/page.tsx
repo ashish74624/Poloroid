@@ -49,7 +49,9 @@ export default async function Home({params:{email}}:Params) {
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
       <section className=' h-[91vh] w-screen grid grid-cols-5'>
-        <div className=' border-r border-gray-600'><Sidebar email={userData.email}/></div>
+        <div className=' border-r border-gray-600'>
+          <Sidebar email={userData.email}/>
+        </div>
         <div className=' col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
             <Suspense fallback={<PostSkel/>}>
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
