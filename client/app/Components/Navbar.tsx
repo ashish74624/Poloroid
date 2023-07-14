@@ -7,7 +7,6 @@ import MyIcon from './MyIcon'
 import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
-import userDefaultImage from '@/public/userDefaultImage.webp'
 
 
 const Com = Comfortaa({
@@ -67,7 +66,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
       <div className={`w-[80vw] h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
         
           <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] mt-3`}>
-          <Link href={`/login/${email}`}>
+          <Link href={`/home/${email}`}>
             polaroid
           </Link>  
             </span>
@@ -96,7 +95,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
       </div>
       </nav>
       <div className={`${visible}`}>
-        <section className={`mt-0 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+        <section className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
             {file?
             (<>

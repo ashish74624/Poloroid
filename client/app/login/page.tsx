@@ -38,7 +38,7 @@ export default function Login() {
   
     if (data.user) {
       // localStorage.setItem('token', data.user);
-      router.push(`/login/${data.user.email}`);
+      router.push(`/home/${data.user.email}`);
     } else {
       console.log('Error');
     }

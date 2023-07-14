@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
-import Navbar from '../../../Components/Navbar';
+import Navbar from '@/app/Components/Navbar';
 import userDefaultImage from '@/public/userDefaultImage.webp'
-import Sidebar from '../../../Components/Sidebar';
 import NotfCard from '@/app/Components/NotfCard';
 import NotfSkel from '@/app/Components/NotfSkel';
 
