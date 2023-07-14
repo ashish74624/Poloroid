@@ -22,6 +22,7 @@ export default async function Notifications({params:{email}}:Params) {
       <section className=' h-screen w-screen bg-[#F8F8F8]'>
         <Navbar email={email} navData={false}/>
         <div className='w-screen flex flex-col items-center'>
+        <h1 className='text-gray-800 text-3xl font-mono'>Notifications</h1>
           <Suspense fallback={<NotfSkel/>}>
             {
                 notification.map((data:any)=>(
