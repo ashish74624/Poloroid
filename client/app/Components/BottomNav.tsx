@@ -62,30 +62,32 @@ export default function BottomNav({firstName,lastName,email}:any) {
            <div>
         <section className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
-            {file?
+        {file?
             (<>
-             <div className='relative w-[22vw] h-[58vh] px-6 pt-5 flex flex-col items-center bg-[#F8F8F8]'>
-                <Image className='w-[297px] h-[347px]' src={file} alt='Hello' width={100} height={100} />
-                <div className="">
-                <input className='w-[22vw] h-16 px-4' type="text" name="caption" id="" placeholder='Enter Caption' onChange={(e)=>{ setCaption(e.target.value)}} />
-                <button className=' transition duration-200 ease-in-out absolute text-white top-8 right-9 rounded-full hover:bg-black/30 px-4 py-2' onClick={()=>{setFile('')}}>X</button>
-                </div>
+             <div className="bg-white w-[40vh] h-[55vh] md:w-[30vw] md:h-[50vh] lg:w-[22vw] lg:h-[60vh] flex flex-col">
+            <div className="relative">
+                <button className="px-3 py-1 rounded-full transition hover:bg-black text-white bg-black/50 absolute top-8 right-8"
+                onClick={()=>{setFile('')}}
+                >X</button>
+                <Image src={file} className="flex flex-col items-center justify-center  w-[35vh]   h-[43vh] md:w-[26vw] md:h-[39vh] lg:w-[19vw] mt-[3vh] lg:h-[48vh]  cursor-pointer bg-[#1d1d1f] overflow-hidden mx-auto  "alt='Hello' width={100} height={100}/>
             </div>
+            <input className="bg-white flex-grow pl-4" type="text"  name="caption" placeholder='Enter Caption' onChange={(e)=>{ setCaption(e.target.value)}} />
+        </div>
             </>)
             :
             (<>
-            <div className='w-[22vw] h-[60vh] px-5 pt-5 flex flex-col items-center bg-[#F8F8F8]'>
-                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[297px] h-[347px]  cursor-pointer bg-[#1d1d1f]">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                    <svg aria-hidden="true" className="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                    <p className="mb-2 text-sm text-gray-50 "><span className="font-semibold">Click to upload</span></p>
+            <div className="bg-white w-[40vh] h-[55vh] md:w-[30vw] md:h-[50vh] lg:w-[22vw] lg:h-[60vh] flex flex-col">
+            <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[35vh]   h-[43vh] md:w-[26vw] md:h-[39vh] lg:w-[19vw] mt-[3vh] lg:h-[48vh]  cursor-pointer bg-[#1d1d1f] mx-auto">
+                <div className=" flex flex-col justify-start items-center">
+                    <svg className="h-10 w-10 mx-auto text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                    </svg>
+                    <p className="mb-2 text-sm text-gray-50 font-semibold">Click to upload</p>
                 </div>
                 <input id="dropzone-file" type="file" className="hidden" onChange={handleImageSelect} />
             </label>
-            <div className="">
-                <input className='w-[21.9vw] h-16 px-4' type="text" name="caption" id="" placeholder='Enter Caption' onChange={(e)=>{ setCaption(e.target.value)}} />
-            </div>
-            </div>
+            <input className="bg-white flex-grow pl-4" type="text" name="caption" id="" placeholder='Enter Caption' onChange={(e)=>{ setCaption(e.target.value)}} />
+        </div>
             </>)}
 
         <button className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-[#71B1D1] font-semibold'
