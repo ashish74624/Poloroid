@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
+import GithubLogo from './GithubLogo'
 
 export default function Sidebar({email}:any) {
   return (
@@ -24,6 +25,15 @@ export default function Sidebar({email}:any) {
                 FAQ
               </li>
             </Link>
+            <a href="https://github.com/ashish74624/MERNsocial" target='_blank'>
+            <li className="px-4 bg-[#181717] hover:bg-white hover:border hover:border-black hover:text-black transition py-1 text-white rounded-lg w-[15vw] flex justify-center text-lg">
+              <div className='flex space-x-2 h-10'>
+                <span className=''><GithubLogo/></span>
+                <span className=' self-center'>GitHub</span>
+              </div>
+                
+              </li>
+            </a>
         </ul>
       </main>
     </>
