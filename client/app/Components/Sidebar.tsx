@@ -19,6 +19,11 @@ export default function Sidebar({email}:any) {
                 Notifications
               </li>
             </Link>
+            <Link href={`/faq/${email}`}>
+              <li className="px-4 py-2 bg-[#58b8e8]  text-white rounded-lg w-[15vw]  flex justify-center  text-lg">
+                FAQ
+              </li>
+            </Link>
         </ul>
       </main>
     </>
