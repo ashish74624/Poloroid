@@ -5,6 +5,8 @@ import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
 import Post from '@/app/Components/Post';
 import RightSidebar from '@/app/Components/RightSidebar';
+import BottomNav from '@/app/Components/BottomNav';
+import UserCard from '@/app/Components/UserCard';
 
 
 interface Post {
@@ -41,23 +43,34 @@ export default async function Home({params:{email}}:Params) {
 
   const [userData, rightSideBarData] = await Promise.all([data,sideData])
     
-    // const userData = await res.json()
+   
     
   return (
-    <main className='h-screem w-screen overflow-hidden'>
+    <main className='h-screem w-screen overflow-hidden'> 
       <nav>
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
-      <section className=' h-[91vh] w-screen grid grid-cols-5'>
-        <div className=' border-r border-gray-600'>
+      <section className=' h-[91vh] w-screen grid grid-cols-4 lg:grid-cols-5'>
+        <div className='h-[91vh] overflow-y-scroll border-r border-gray-600 hidden md:block'>
           <Sidebar email={userData.email}/>
+          <div className='lg:hidden mt-3  border-black border-t flex flex-col items-center space-y-2 pt-2 '>
+            <h1>People You may know</h1>
+            <div className='space-y-2 '>
+            {rightSideBarData.map((rightSideBarData:any)=>(
+              <>
+            <UserCard profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} emailOfUser={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
+            </>
+          ))}
+          
+          </div>
+          </div>
         </div>
         <div className=' col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
             <Suspense fallback={<PostSkel/>}>
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
         </div>
-        <div className='border-l border-gray-600 overflow-x-hidden overflow-y-scroll'>
+        <div className='lg:block hidden border-l border-gray-600 overflow-x-hidden overflow-y-scroll'>
         <h3 className='text-xl mb-2 mt-3 mx-12'>People you may know</h3>
           {rightSideBarData.map((rightSideBarData:any)=>(
             <>
@@ -66,6 +79,9 @@ export default async function Home({params:{email}}:Params) {
           ))}
           </div>
       </section>
+      <div className='md:hidden inline'>
+        <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName}/>
+      </div>
     </main>
   )
 }
