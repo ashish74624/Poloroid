@@ -26,7 +26,6 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
   const [visible,setVisible] = useState('hidden');
   const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
-    const [text, setText] = useState(false);
 
     
 
@@ -63,9 +62,9 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
   return (
     <>
     <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
-      <div className={`w-[80vw] h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
+      <div className={`w-[80vw] h-[8vh] lg:h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
         
-          <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] mt-3`}>
+          <span className={`${Com.className} text-2xl  lg:text-3xl  bg-clip-text text-[#58b8e8] mt-3`}>
           <Link href={`/home/${email}`}>
             polaroid
           </Link>  
@@ -77,10 +76,10 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           <>
           <span className=' flex '>
           <Link href={'/dashboard'}>
-          <img className="w-12 h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
+          <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
           </Link>
-          <button onClick={()=>{setVisible('')}}>
-            <MyIcon/>
+          <button className='w-10 h-10 lg:w-12 lg:h-12 text-white mt-2 rounded-full bg-[#F8C732]' onClick={()=>{setVisible('')}}>
+            Post
           </button>
         </span>
           </>
