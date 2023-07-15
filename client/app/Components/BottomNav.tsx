@@ -1,40 +1,25 @@
 'use client'
-import React, { useState } from 'react'
-import Image from 'next/image'
+import React,{useState} from 'react'
+import HomeIcon from './HomeIcon'
 import Link from 'next/link'
-import { Comfortaa } from 'next/font/google'
-import MyIcon from './MyIcon'
+import AddIcon from './AddIcon'
+import Menubtn from './Menubtn'
+import Image from 'next/image'
 import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
-import { StaticImageData } from 'next/image'
 
-
-const Com = Comfortaa({
-  subsets:['cyrillic'],
-  weight:'400'
-})
-
-interface NavbarProps {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  userImg?: string | StaticImageData;
-  navData :boolean;
-}
-
-export default function Navbar({firstName,lastName,email,userImg,navData}:NavbarProps) {
-  const [visible,setVisible] = useState('hidden');
-  const [file, setFile] = useState('');
+export default function BottomNav({firstName,lastName,email}:any) {
+    const [visible,setVisible] = useState(false);
+    const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
-
-    
 
     const handleImageSelect = async(event:any) => {
         const base64 = await convertToBase64(event.target.files[0]);
         setFile(base64 as string);
         };
 
-      const imageUpload = async()=>{
+
+    const imageUpload = async()=>{
         const res = await fetch(`http://localhost:3001/upload`,{
           method:'POST',
           headers:{
@@ -44,7 +29,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
             firstName: firstName,
             lastName:lastName, 
             email : email,
-            caption,
+            caption:caption,
             image:file,
           })
         }
@@ -57,43 +42,24 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           
       }
       }
-    
-
   return (
     <>
-    <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
-      <div className={`w-[80vw] h-[8vh] lg:h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto`}>
-        
-          <span className={`${Com.className} text-2xl  lg:text-3xl  bg-clip-text text-[#58b8e8] mt-3`}>
-          <Link href={`/home/${email}`}>
-            polaroid
-          </Link>  
-            </span>
-        
-        {
-          navData?
-          (
-          <>
-          <span className=' flex '>
-          <Link href={'/dashboard'}>
-          <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 mt-2 border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
-          </Link>
-          <button className='hidden md:block w-10 h-10 lg:w-12 lg:h-12 text-white mt-2 rounded-full bg-[#F8C732]' onClick={()=>{setVisible('')}}>
-            Post
-          </button>
-        </span>
-          </>
-          )
-          :
-          (
-          <>
-          </>
-          )
-        }
-        
-      </div>
-      </nav>
-      <div className={`${visible}`}>
+    <div className='  bg-yellow-200 fixed left-[40vw] z-40 bottom-0 px-4 rounded-full'>
+        <div className='flex w-40 h-12 py-2  items-center justify-between'>
+            <Link href={`/home/${email}`}>
+            <span className=''><HomeIcon/></span>
+            </Link>
+            <button onClick={()=>{setVisible(!visible)}}>
+                <AddIcon/>
+            </button>
+            <button>
+                <Menubtn/>
+            </button>
+        </div>
+    </div> 
+    {visible && (
+        <>
+           <div>
         <section className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
             {file?
@@ -126,10 +92,12 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         onClick={imageUpload}
         >Post</button>
         <button className='fixed top-[0.5rem] right-4 rotate-45'
-        onClick={()=>{setVisible('hidden')}}
+        onClick={()=>{setVisible(!visible)}}
         ><CutIcon/></button>
       </section>
       </div> 
+        </>
+    ) }
     </>
   )
 }
