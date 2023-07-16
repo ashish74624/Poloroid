@@ -7,6 +7,7 @@ import Menubtn from './Menubtn'
 import Image from 'next/image'
 import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
+import FriendsIcon from '../Icons/FriendsIcon'
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);
@@ -43,9 +44,9 @@ export default function BottomNav({firstName,lastName,email}:any) {
       }
       }
   return (
-    <>
-    <div className='  bg-yellow-200 fixed left-[40vw] z-40 bottom-0 px-4 rounded-full'>
-        <div className='flex w-40 h-12 py-2  items-center justify-between'>
+    <main className='fixed w-screen z-40 bottom-0'>
+    <div className='  bg-yellow-200  mx-auto px-4  w-max rounded-full'>
+        <div className='flex w-60 h-12 py-2  items-center justify-between'>
             <Link href={`/home/${email}`}>
             <span className=''><HomeIcon/></span>
             </Link>
@@ -54,6 +55,9 @@ export default function BottomNav({firstName,lastName,email}:any) {
             </button>
             <button>
                 <Menubtn/>
+            </button>
+            <button>
+                <FriendsIcon/>
             </button>
         </div>
     </div> 
@@ -100,6 +104,6 @@ export default function BottomNav({firstName,lastName,email}:any) {
       </div> 
         </>
     ) }
-    </>
+    </main>
   )
 }
