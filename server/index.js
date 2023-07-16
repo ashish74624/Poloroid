@@ -209,8 +209,10 @@ const storage = multer.diskStorage({
 
   app.put('/sendNotifiaction/:id', async(req,res)=>{
     const id = req.params.id;
+    const email1= req.body.emailOfUser
+    let email= email1.replace('%40','@')
     try{
-      const user = await User.findOne({email:req.body.emailOfUser});
+      const user = await User.findOne({email:email});
       const friend = await User.findOneAndUpdate(
         {_id: id},
         {$push:
@@ -316,7 +318,8 @@ const storage = multer.diskStorage({
 
   app.put('/removeSuggestion/:id', async(req,res)=>{
     const id = req.params.id;
-    const email = req.body.email;
+    const email1= req.body.email;
+    let email= email1.replace('%40','@')
     try{
       const user = await User.findOne({email:email});
       const friend = await User.findOneAndUpdate({_id:id},{

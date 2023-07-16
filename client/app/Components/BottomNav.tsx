@@ -10,11 +10,13 @@ import convertToBase64 from '../lib/convertToBase64'
 import FriendsIcon from '../Icons/FriendsIcon'
 import { AnimatePresence,motion } from 'framer-motion'
 import Sidebar from './Sidebar'
+import Suggest from './Suggest'
 
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);
     const [side,setSide] = useState(false);
+    const [friend,setFriend] = useState(false);
     const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
 
@@ -69,9 +71,11 @@ export default function BottomNav({firstName,lastName,email}:any) {
             <button onClick={()=>{setSide(!side)}}>
                 <Menubtn/>
             </button>
+            <Link href={`/ppl/${email}`}>
             <button>
                 <FriendsIcon/>
             </button>
+            </Link>
         </div>
     </div> 
     {visible && (
@@ -144,7 +148,6 @@ export default function BottomNav({firstName,lastName,email}:any) {
         </AnimatePresence>    
         </>
     )}
-
     </main>
   )
 }
