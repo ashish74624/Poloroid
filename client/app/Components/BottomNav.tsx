@@ -8,6 +8,8 @@ import Image from 'next/image'
 import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import FriendsIcon from '../Icons/FriendsIcon'
+import { AnimatePresence,motion } from 'framer-motion'
+
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);
@@ -43,6 +45,15 @@ export default function BottomNav({firstName,lastName,email}:any) {
           
       }
       }
+
+      const backdrpV = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+        },
+      }
+
+
   return (
     <main className='fixed w-screen z-40 bottom-0'>
     <div className='  bg-yellow-200  mx-auto px-4  w-max rounded-full'>
@@ -63,7 +74,13 @@ export default function BottomNav({firstName,lastName,email}:any) {
     </div> 
     {visible && (
         <>
-           <div>
+        <AnimatePresence>
+           <motion.div
+            variants={backdrpV}
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+           >
         <section className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
         {file?
@@ -101,7 +118,8 @@ export default function BottomNav({firstName,lastName,email}:any) {
         onClick={()=>{setVisible(!visible)}}
         ><CutIcon/></button>
       </section>
-      </div> 
+      </motion.div> 
+      </AnimatePresence>
         </>
     ) }
     </main>
