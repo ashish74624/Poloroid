@@ -50,8 +50,8 @@ export default async function Home({params:{email}}:Params) {
       <nav>
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
-      <section className=' h-[91vh] w-screen grid grid-cols-4 lg:grid-cols-5'>
-        <div className='h-[91vh] overflow-y-scroll border-r border-gray-600 hidden md:block'>
+      <section className=' h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 '>
+        <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block'>
           <Sidebar email={userData.email}/>
           <div className='lg:hidden mt-3  border-black border-t flex flex-col items-center space-y-2 pt-2 '>
             <h1>People You may know</h1>
@@ -61,11 +61,10 @@ export default async function Home({params:{email}}:Params) {
             <UserCard profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} emailOfUser={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
             </>
           ))}
-          
           </div>
           </div>
         </div>
-        <div className=' col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
+        <div className=' md:col-span-3  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
             <Suspense fallback={<PostSkel/>}>
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
