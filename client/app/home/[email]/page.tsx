@@ -50,7 +50,7 @@ export default async function Home({params:{email}}:Params) {
       <nav>
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
-      <section className=' h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 '>
+      <section className=' h-[93vh] lg:h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 '>
         <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block'>
           <Sidebar email={userData.email}/>
           <div className='lg:hidden mt-3  border-black border-t flex flex-col items-center space-y-2 pt-2 '>
