@@ -14,7 +14,7 @@ export default async function Friends({params:{email}}:Params) {
         if(data.msg==='Nofriends'){
             return(
                 <>
-                    <Navbar navData={false}/>
+                    <Navbar email={email} navData={false}/>
                     <section className='h-[91vh] w-screen flex justify-center items-center'>
                         You have No friends
                     </section>

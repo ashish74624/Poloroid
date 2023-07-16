@@ -9,10 +9,12 @@ import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import FriendsIcon from '../Icons/FriendsIcon'
 import { AnimatePresence,motion } from 'framer-motion'
+import Sidebar from './Sidebar'
 
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);
+    const [side,setSide] = useState(false);
     const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
 
@@ -64,7 +66,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
             <button onClick={()=>{setVisible(!visible)}}>
                 <AddIcon/>
             </button>
-            <button>
+            <button onClick={()=>{setSide(!side)}}>
                 <Menubtn/>
             </button>
             <button>
@@ -122,6 +124,27 @@ export default function BottomNav({firstName,lastName,email}:any) {
       </AnimatePresence>
         </>
     ) }
+
+    {side &&(
+        <>
+        <AnimatePresence>
+            <motion.section
+            variants={backdrpV}
+            initial="hidden"
+            animate="visible"
+            exit="hidden" className='bg-black/50 h-screen w-screen fixed rounded z-50 top-0 flex justify-center items-center'>
+                <div className='bg-white w-max h-max px-2 pb-40 rounded-lg'>
+                    <Sidebar email={email}/>
+                </div>
+                <button className='fixed top-[0.5rem] right-4 rotate-45'
+                onClick={()=>{setSide(!side)}}>
+                    <CutIcon/>
+                </button>
+            </motion.section>
+        </AnimatePresence>    
+        </>
+    )}
+
     </main>
   )
 }
