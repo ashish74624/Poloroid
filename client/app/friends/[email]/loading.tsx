@@ -11,9 +11,9 @@ export default function loading() {
   return (
     <>
      <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
-      <div className={`w-[80vw] h-[9vh]  flex justify-center mx-auto`}>
+      <div className={`w-[80vw] h-[9vh]  flex justify-center mx-auto items-center`}>
         
-          <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] mt-3`}>
+          <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] `}>
             polaroid
             </span>
             </div>
