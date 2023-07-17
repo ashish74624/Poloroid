@@ -25,8 +25,8 @@ interface NavbarProps {
 export default function Navbar({firstName,lastName,email,userImg,navData}:NavbarProps) {
   const [visible,setVisible] = useState(false);
   const [file, setFile] = useState('');
-    const [caption,setCaption] = useState('');
-
+  const [caption,setCaption] = useState('');
+  const [logoutbtn,setLogOutBtn] = useState(false);
     
 
     const handleImageSelect = async(event:any) => {
@@ -82,8 +82,27 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           navData?
           (
           <>
-          <span className=' flex '>
-          <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
+          <span className='flex'> 
+          <span className='w-[86px] relative'>
+            <button 
+            onClick={()=>{setLogOutBtn(!logoutbtn)}}
+            className='w-max h-max pl-6'>     
+              <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
+            </button>
+            {
+              logoutbtn &&(
+                  <div 
+                    className={'bg-transparent w-24 h-20 absolute'}>
+                    <Link href={'/'}>
+                      <button className='bg-red-500 w-24 flex justify-center text-white text-lg py-2 rounded-lg mt-[0.5rem]'>
+                        Log Out
+                      </button>
+                    </Link>
+                  </div>
+              )
+            }
+            
+          </span>
           <motion.button
           whileHover={{
             scale: 1.1,
