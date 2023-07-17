@@ -7,6 +7,8 @@ import convertToBase64 from '../lib/convertToBase64'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import toast , {Toaster}  from 'react-hot-toast'
+
 
 const Comf = Comfortaa({
     subsets:['cyrillic'],
@@ -30,9 +32,9 @@ export default function Register() {
 
     const handleRegister=async(event : FormEvent)=>{
       event.preventDefault()
-      
+      toast.loading('loading...'); 
       try{
-      
+        
           const res = await fetch('http://localhost:3001/register',{
           method:"POST",
           headers:{
@@ -46,14 +48,21 @@ export default function Register() {
               place,
               file
           })
-      })
+      });
+
+           
       const data = await res.json()
       console.log(data.status)
       if(data.status==="ok"){
+        toast.dismiss();
         router.push('/login')
       }
       }catch(err){
-          // alert(err.message)
+        toast.dismiss();
+        setTimeout(()=>{
+          toast.error("Server not working at the moment")
+        },100)
+          
       }
     }
 
@@ -125,6 +134,7 @@ export default function Register() {
 </form>
 
       </div>
+      <Toaster/>
       </main>
     </>
   )
