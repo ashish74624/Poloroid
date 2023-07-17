@@ -30,15 +30,15 @@ export default async function Friends({params:{email}}:Params) {
                 {
                     friends.map((friend:any)=>(
                         <>
-                        <div className='bg-white h-16 my-3 w-[40vw] rounded-lg shadow flex items-center p-6 space-x-4'>
+                        <div className='bg-white h-16 my-3 w-[95vw] md:w-[65vw] lg:w-[40vw] rounded-lg shadow flex items-center p-6 space-x-4'>
                             <span className=''>
-                                <img className='w-11 h-11 rounded-full' src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${friend.profileImage}`} alt='Notification' height={100} width={100}/>
+                                <img className='w-9 h-9 md:w-11 md:h-11 rounded-full' src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${friend.profileImage}`} alt='Notification' height={100} width={100}/>
                             </span>
                             <span className='flex '>
-                                <p className=' text-[#F8C732] font-bold '>
+                                <p className=' text-[#F8C732] font-bold text-sm md:text-base '>
                                     {friend.firstName} {friend.lastName}
                                 </p>
-                                <p className='ml-2'>| {friend.email}</p>
+                                <p className='ml-2 text-sm md:text-base'>| {friend.email}</p>
                             </span>
                
                         </div>
