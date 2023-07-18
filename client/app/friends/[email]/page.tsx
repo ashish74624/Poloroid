@@ -7,8 +7,10 @@ type Params={
     }
   }
 
+  let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 export default async function Friends({params:{email}}:Params) {
-    const res = await fetch(`http://localhost:3001/friends/${email}`);
+    const res = await fetch(`${backendURL}/friends/${email}`);
     const data = await res.json();
     if(res.ok){
         if(data.msg==='Nofriends'){

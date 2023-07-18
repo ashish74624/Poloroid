@@ -15,6 +15,8 @@ const Comf = Comfortaa({
     weight:'400'
   })
 
+  let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 export default function Register() {
   
   const [file, setFile] = useState('');
@@ -35,7 +37,7 @@ export default function Register() {
       toast.loading('loading...'); 
       try{
         
-          const res = await fetch('http://localhost:3001/register',{
+          const res = await fetch(`${backendURL}/register`,{
           method:"POST",
           headers:{
               'Content-Type':'application/json'

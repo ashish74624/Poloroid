@@ -10,10 +10,11 @@ type Params={
   }
 }
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
 
 export default async function Notifications({params:{email}}:Params) {
     
-  const res = await fetch(`http://localhost:3001/notifications/${email}`,{cache:'no-store'});
+  const res = await fetch(`${backendURL}/notifications/${email}`,{cache:'no-store'});
   const data = await res.json();
   if(data.status==='ok'){
     const notification = data.msg;

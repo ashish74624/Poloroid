@@ -1,11 +1,14 @@
 'use client'
 import React from 'react'
-import Image from 'next/image'
+
+
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 
 export default async function NotfCard({friendImage,friendName,email,friendID}:any) {
   const handleAddFriend =async ()=>{
 
-    const addFriend = await fetch(`http://localhost:3001/addFriend/${email}`,{
+    const addFriend = await fetch(`${backendURL}/addFriend/${email}`,{
       method:'PUT',
       headers:{
         "Content-Type": "application/json"
@@ -23,7 +26,7 @@ export default async function NotfCard({friendImage,friendName,email,friendID}:a
   }
 
   const rejectRequest= async()=>{
-    const res = await fetch(`http://localhost:3001/rejectRequest/${friendID}`,{
+    const res = await fetch(`${backendURL}/rejectRequest/${friendID}`,{
       method:"PUT",
       headers:{
         'Content-Type':'application/json'

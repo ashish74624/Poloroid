@@ -2,7 +2,6 @@ import React from 'react'
 import Image from 'next/image'
 import userDefaultImage from '@/public/userDefaultImage.webp'
 import { Comfortaa } from 'next/font/google'
-import MyIcon from '@/app/Components/MyIcon'
 
 
 const Com = Comfortaa({
