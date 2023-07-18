@@ -12,6 +12,8 @@ const Comf = Comfortaa({
   weight:'400'
 })
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 
 export default function Login() {
 
@@ -24,7 +26,7 @@ export default function Login() {
     event.preventDefault();
     toast.loading('Logging in...'); 
     try{
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch(`${backendURL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

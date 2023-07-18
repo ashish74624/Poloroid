@@ -1,5 +1,4 @@
 import React from 'react'
-import UserCard from '@/app/Components/UserCard';
 import RightSidebar from '@/app/Components/RightSidebar';
 import Navbar from '@/app/Components/Navbar';
 
@@ -9,8 +8,10 @@ type Params={
     }
 }
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 export default async function ppl({params:{email}}:Params) {
-    const res = await fetch(`http://localhost:3001/getFriendSuggestions/${email}`);
+    const res = await fetch(`${backendURL}/getFriendSuggestions/${email}`);
     const data = await res.json();
   return (
     <>

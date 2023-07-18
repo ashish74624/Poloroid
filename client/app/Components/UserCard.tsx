@@ -9,13 +9,15 @@ interface UserCard{
   emailOfUser:string
 }
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 export default function UserCard({profileImage,id,firstName,lastName,emailOfUser}:UserCard) {
   
   const [request,setRequest] = useState(false);
   const [reject, setReject] = useState(false);
 
   const sendNotification= async() => {
-    const res = await fetch(`http://localhost:3001/sendNotifiaction/${id}`,{
+    const res = await fetch(`${backendURL}/sendNotifiaction/${id}`,{
       method:'PUT',
       headers:{
         "Content-Type": "application/json",
@@ -31,7 +33,7 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
   }
 
   const removeSuggestion= async()=>{
-    const res = await fetch(`http://localhost:3001/removeSuggestion/${id}`,{
+    const res = await fetch(`${backendURL}/removeSuggestion/${id}`,{
       method:"PUT",
       headers:{
         'content-type':"application/json",

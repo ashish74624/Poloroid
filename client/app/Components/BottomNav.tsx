@@ -12,6 +12,7 @@ import { AnimatePresence,motion } from 'framer-motion'
 import Sidebar from './Sidebar'
 import toast , {Toaster}  from 'react-hot-toast'
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);
@@ -28,7 +29,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
         const imageUpload = async()=>{
             toast.loading("Posting...");
             try{
-              const res = await fetch(`http://localhost:3001/upload`,{
+              const res = await fetch(`${backendURL}/upload`,{
               method:'POST',
               headers:{
                   "Content-Type":"application/json"

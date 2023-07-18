@@ -2,3 +2,5 @@
 hide.txt
 hide2.txt
 hide3.txt
+client/.env.local
+*/.env

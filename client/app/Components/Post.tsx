@@ -33,6 +33,8 @@ interface Props {
   email: string;
 }
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 export default function Post({userImg,email}:any) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +43,7 @@ export default function Post({userImg,email}:any) {
     const getPosts = async () => {
       try {
         if (email) {
-          const response = await fetch(`http://localhost:3001/allPost/${email}`);
+          const response = await fetch(`${backendURL}/allPost/${email}`);
           const articles = await response.json();
           setPosts(articles);
           setIsLoading(false);
@@ -56,7 +58,7 @@ export default function Post({userImg,email}:any) {
 
   const handleLike = async (id: string) => {
     try {
-      const response = await fetch(`http://localhost:3001/like/${id}`, {
+      const response = await fetch(`${backendURL}/like/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

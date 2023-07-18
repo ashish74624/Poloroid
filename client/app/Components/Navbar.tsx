@@ -23,6 +23,8 @@ interface NavbarProps {
   navData :boolean;
 }
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 export default function Navbar({firstName,lastName,email,userImg,navData}:NavbarProps) {
   const [visible,setVisible] = useState(false);
   const [file, setFile] = useState('');
@@ -38,7 +40,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
       const imageUpload = async()=>{
         toast.loading("Posting...");
         try{
-          const res = await fetch(`http://localhost:3001/upload`,{
+          const res = await fetch(`${backendURL}/upload`,{
           method:'POST',
           headers:{
               "Content-Type":"application/json"

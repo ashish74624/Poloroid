@@ -25,14 +25,16 @@ type Params={
     }
 }
 
+let backendURL = process.env.BACKEND || 'http://localhost:3001'
+
 async function getData(email:string){
-  const res = await fetch(`http://localhost:3001/data/${email}`);
+  const res = await fetch(`${backendURL}/data/${email}`);
   return res.json()
 }
 
 
 async function getFriendSuggestions(email:string){
-  const res = await fetch(`http://localhost:3001/getFriendSuggestions/${email}`);
+  const res = await fetch(`${backendURL}/getFriendSuggestions/${email}`);
   return res.json()
 }
 
