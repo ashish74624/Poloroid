@@ -10,13 +10,12 @@ import convertToBase64 from '../lib/convertToBase64'
 import FriendsIcon from '../Icons/FriendsIcon'
 import { AnimatePresence,motion } from 'framer-motion'
 import Sidebar from './Sidebar'
-import Suggest from './Suggest'
+import toast , {Toaster}  from 'react-hot-toast'
 
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);
     const [side,setSide] = useState(false);
-    const [friend,setFriend] = useState(false);
     const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
 
@@ -26,29 +25,47 @@ export default function BottomNav({firstName,lastName,email}:any) {
         };
 
 
-    const imageUpload = async()=>{
-        const res = await fetch(`http://localhost:3001/upload`,{
-          method:'POST',
-          headers:{
-              "Content-Type":"application/json"
-          },
-          body: JSON.stringify({
-            firstName: firstName,
-            lastName:lastName, 
-            email : email,
-            caption:caption,
-            image:file,
-          })
-        }
-        )
-        const data = await res.json();
-        if(data.status === 'ok'){
-          // alert("Post Success")
-          setCaption('')
-          setFile('')
+        const imageUpload = async()=>{
+            toast.loading("Posting...");
+            try{
+              const res = await fetch(`http://localhost:3001/upload`,{
+              method:'POST',
+              headers:{
+                  "Content-Type":"application/json"
+              },
+              body: JSON.stringify({
+                firstName: firstName,
+                lastName:lastName, 
+                email : email,
+                caption,
+                image:file,
+              })
+            }
+            )
+            const data = await res.json();
+            if(data.status === 'ok'){
+              toast.dismiss();
+              setCaption('')
+              setFile('')
+              setTimeout(()=>{
+                toast.success("Done");
+              },100)
+            }
+            else{
+              toast.dismiss();
+              setTimeout(()=>{
+                toast.error('Error while uploading Please try again later');
+              },100)
+              
+            }
           
-      }
-      }
+            }catch(err){
+              toast.dismiss();
+              setTimeout(()=>{
+                toast.error("Error Posting Image");
+              },100)
+            }
+          }
 
       const backdrpV = {
         hidden: { opacity: 0 },
