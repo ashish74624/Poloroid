@@ -34,7 +34,7 @@ async function getData(email:string){
 
 
 async function getFriendSuggestions(email:string){
-  const res = await fetch(`${backendURL}/getFriendSuggestions/${email}`);
+  const res = await fetch(`${backendURL}/getFriendSuggestions/${email}`,{cache:'no-store'});
   return res.json()
 }
 

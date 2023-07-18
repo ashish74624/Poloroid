@@ -11,7 +11,7 @@ type Params={
 let backendURL = process.env.BACKEND || 'http://localhost:3001'
 
 export default async function ppl({params:{email}}:Params) {
-    const res = await fetch(`${backendURL}/getFriendSuggestions/${email}`);
+    const res = await fetch(`${backendURL}/getFriendSuggestions/${email}`,{cache:'no-store'});
     const data = await res.json();
   return (
     <>

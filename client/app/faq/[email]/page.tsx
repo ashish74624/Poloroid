@@ -1,5 +1,7 @@
 import Navbar from '@/app/Components/Navbar'
 import React from 'react'
+import Link from 'next/link'
+import LeftArrow from '@/app/Icons/LeftArrow'
 
 type Params={
     params:{
@@ -11,8 +13,16 @@ export default function FAQ({params:{email}}:Params) {
   return (
     <>
     <Navbar email={email} navData={false}/>
-     <section className='w-screen h-[91vh] overflow-y-scroll overflow-x-hidden bg-[#F8F8F8] flex justify-center '>
-
+     <section className='w-screen h-[91vh] overflow-y-scroll overflow-x-hidden bg-[#F8F8F8] flex flex-col items-center '>
+     <span className='text-gray-800 mx-auto h-14 bg-white rounded-full font-mono w-[95vw] md:w-[80vw] lg:w-[60vw] flex justify-between px-6 items-center border border-gray-300  shadow '>
+        <h1 className='text-xl md:text-2xl'>Frequently Asked Questions</h1>
+          <Link className='' href={`/home/${email}`}>
+            <button className='bg-gray-700 transition-all duration-200 hover:bg-slate-400 flex h-max items-center text-white text-xl rounded-full pl-3 pr-4 py-2'>
+                <LeftArrow/> Home
+            </button>
+          </Link>
+      </span>
+    
      
 <div className='w-[80vw] pt-2 pb-5' id="accordion-collapse" data-accordion="collapse">
   <h2 id="accordion-collapse-heading-1">
