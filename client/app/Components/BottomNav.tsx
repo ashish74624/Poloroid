@@ -124,7 +124,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
             <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[35vh]   h-[43vh] md:w-[26vw] md:h-[39vh] lg:w-[19vw] mt-[3vh] lg:h-[48vh]  cursor-pointer bg-[#1d1d1f] mx-auto">
                 <div className=" flex flex-col justify-start items-center">
                     <svg className="h-10 w-10 mx-auto text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                     </svg>
                     <p className="mb-2 text-sm text-gray-50 font-semibold">Click to upload</p>
                 </div>
@@ -154,7 +154,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
             initial="hidden"
             animate="visible"
             exit="hidden" className='bg-black/50 h-screen w-screen fixed rounded z-50 top-0 flex justify-center items-center'>
-                <div className='bg-white w-max h-max px-2 pb-40 rounded-lg'>
+                <div className='bg-[#F8F8F8] w-52 h-max px-2 pb-40 rounded-lg'>
                     <Sidebar email={email}/>
                 </div>
                 <button className='fixed top-[0.5rem] right-4 rotate-45'
