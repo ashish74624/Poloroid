@@ -7,6 +7,7 @@ import CutIcon from './CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
 import { AnimatePresence,motion } from 'framer-motion'
+import toast , {Toaster}  from 'react-hot-toast'
 
 
 const Com = Comfortaa({
@@ -35,7 +36,9 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         };
 
       const imageUpload = async()=>{
-        const res = await fetch(`http://localhost:3001/upload`,{
+        toast.loading("Posting...");
+        try{
+          const res = await fetch(`http://localhost:3001/upload`,{
           method:'POST',
           headers:{
               "Content-Type":"application/json"
@@ -51,11 +54,27 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         )
         const data = await res.json();
         if(data.status === 'ok'){
-          // alert("Post Success")
+          toast.dismiss();
           setCaption('')
           setFile('')
+          setTimeout(()=>{
+            toast.success("Done");
+          },100)
+        }
+        else{
+          toast.dismiss();
+          setTimeout(()=>{
+            toast.error('Error while uploading Please try again later');
+          },100)
           
-      }
+        }
+      
+        }catch(err){
+          toast.dismiss();
+          setTimeout(()=>{
+            toast.error("Error Posting Image");
+          },100)
+        }
       }
 
       const backdrpV = {
@@ -110,10 +129,10 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
             textShadow: '0px 0px 8px rgb(0,0,255)'
           }}
           onClick={()=>{setVisible(!visible)}}
-          className="flex items-center justify-center bg-[#F8C732] text-white font-bold w-10 h-10 lg:w-12 lg:h-12 rounded-full ">
-      <svg className="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
-      </svg>
+          className="md:flex items-center hidden justify-center bg-[#F8C732] text-white font-bold w-10 h-10 lg:w-12 lg:h-12 rounded-full ">
+            <svg className="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
+            </svg>
     </motion.button>
         </span>
           </>
@@ -126,6 +145,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         }
         
       </div>
+      <Toaster/>
       </nav>
       { visible &&(
         <>
@@ -169,7 +189,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
     onClick={imageUpload}
     >Post</button>
     <button className='fixed top-[0.5rem] right-4 rotate-45'
-    onClick={()=>{setVisible(!visible)}}
+    onClick={()=>{setVisible(!visible); toast.dismiss();}}
     ><CutIcon/></button>
   </motion.section>
   </AnimatePresence>
