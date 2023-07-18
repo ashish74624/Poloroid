@@ -131,7 +131,7 @@ export default function Register() {
       <label htmlFor="floating_repeat_password" className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#71B1D1]  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Location</label>
   </div>
   
-  <button type="submit" className="text-white bg-[#F8C732] hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-200 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
+  <button type="submit" className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
   <p className='text-black text-xs mt-4'>Already have an account ?<Link href={'/login'}><span className='text-xs text-[#F8C732] hover:underline pl-1'>Login</span></Link> </p>
 </form>
 

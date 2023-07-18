@@ -1,9 +1,9 @@
 import React from 'react'
-import { Comfortaa } from 'next/font/google'
 import Link from 'next/link'
+import { Comfortaa } from 'next/font/google'
 
-const Comf = Comfortaa({
-    subsets:['cyrillic'],
+const Com = Comfortaa({
+    subsets:['latin'],
     weight:'400'
   })
   
@@ -12,13 +12,19 @@ export default function Landing() {
   return (
     <>
      <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-44 items-center space-y-5'>
-        <h1 className={`${Comf.className} text-7xl md:text-8xl text-[#f5f5f7]`}>polaroid</h1>
+        <h1 className={`${Com.className} text-7xl md:text-8xl text-[#f5f5f7]`}>polaroid</h1>
         <p className='text-[#f5f5f7] text-base md:text-lg'>Where your memories are always in focus</p>
-        <div>
-            <Link href={'/login'}>
-            <button className='bg-white w-max h-10 px-4  rounded-md mx-1 md:mx-3 text-[#71b1d1] hover:-translate-y-2   transition duration-200 ease-in hover:shadow-[#F8C732] hover:shadow-lg '>Login</button></Link>
-            <Link href={'/register'}>
-            <button className='bg-white w-max h-10 px-4  rounded-md mx-1 md:mx-3 text-[#71b1d1] hover:shadow-lg transition duration-200 ease-in hover:-translate-y-2 hover:shadow-[#F8C732]'>Sign up</button></Link>
+        <div className='flex space-x-4'>
+          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg transition duration-200 ease-in active:border-[#58b8e8] active:border-2 active:text-[#F8C732]'>
+            <Link className=' focus:outline-none ' href={'/login'}>
+                Login
+            </Link>
+          </button>
+          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg transition duration-200 ease-in '>
+            <Link className=' focus:outline-none' href={'/register'}>
+              Sign up
+            </Link>
+          </button>
         </div>
     </main> 
     </>
