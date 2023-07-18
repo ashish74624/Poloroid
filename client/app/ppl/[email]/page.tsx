@@ -15,7 +15,7 @@ export default async function ppl({params:{email}}:Params) {
   return (
     <>
     <Navbar navData={false} email={email}/>
-      <section className='w-screen flex flex-col h-max items-center'>
+      <section className='w-screen flex flex-col h-max items-center bg-[#F8F8F8]'>
       {data.map((data:any)=>(
             <>
             <RightSidebar profileImage={data.profileImage} id={data._id} email={email} firstName={data.firstName} lastName={data.lastName} />
