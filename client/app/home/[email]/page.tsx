@@ -51,7 +51,7 @@ export default async function Home({params:{email}}:Params) {
         <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
       <section className=' h-[93vh] lg:h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 '>
-        <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block'>
+        <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block bg-[#F8F8F8]'>
           <Sidebar email={userData.email}/>
           <div className='lg:hidden mt-3  border-black border-t flex flex-col items-center space-y-2 pt-2 '>
             <h1>People You may know</h1>
@@ -64,12 +64,12 @@ export default async function Home({params:{email}}:Params) {
           </div>
           </div>
         </div>
-        <div className=' md:col-span-3  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
+        <div className=' md:col-span-3 bg-[#F8F8F8]  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
             <Suspense fallback={<PostSkel/>}>
               <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
             </Suspense>
         </div>
-        <div className='lg:block hidden border-l border-gray-600 overflow-x-hidden overflow-y-scroll'>
+        <div className='lg:block hidden border-l border-gray-600 bg-[#F8F8F8] overflow-x-hidden overflow-y-scroll'>
         <h3 className='text-xl mb-2 mt-3 mx-12'>People you may know</h3>
           {rightSideBarData.map((rightSideBarData:any)=>(
             <>

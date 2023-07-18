@@ -15,7 +15,7 @@ export default async function Friends({params:{email}}:Params) {
             return(
                 <>
                     <Navbar email={email} navData={false}/>
-                    <section className='h-[91vh] w-screen flex justify-center items-center'>
+                    <section className='h-[91vh] w-screen bg-[#F8F8F8] flex justify-center items-center'>
                         You have No friends
                     </section>
                 </>

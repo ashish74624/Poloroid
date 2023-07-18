@@ -11,7 +11,7 @@ interface Friend{
 
 export default async function RightSidebar({email,id,profileImage,firstName,lastName}:any) {
         return (
-          <ul className=' overflow-y-scroll  flex flex-col items-center space-y-2 pt-4 right-0'>
+          <ul className=' overflow-y-scroll bg-[#F8F8F8] flex flex-col items-center space-y-2 pt-4 right-0'>
             <li key={id}>
               <UserCard profileImage={profileImage} id={id} firstName={firstName} lastName={lastName} emailOfUser={email}  />
             </li>
