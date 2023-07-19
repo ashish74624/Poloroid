@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react';
 import PostSkel from './PostSkel';
 import { Kaushan_Script } from 'next/font/google';
 import { Nixie_One } from 'next/font/google';
+import userDefaultImage from '@/public/userDefaultImage.webp'
 
-const ks = Kaushan_Script({
+const kst = Kaushan_Script({
   subsets:['latin'],
   weight:'400'
 })
 
-const No = Nixie_One({
+const Nxo = Nixie_One({
   weight:'400',
   subsets:['latin']
 })
@@ -105,17 +106,21 @@ export default function Post({userImg,email}:any) {
             <span className="flex space-x-2 mx-auto py-2 items-center w-[310px] md:w-[360px]">
                 <img
                 src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${post.userProfile}`}
-                className="w-10 h-10 rounded-full" />
-                <h5 className="text-white text-lg">{post.firstName} {post.lastName}</h5>
+                className="w-10 h-10 rounded-full"
+                onError={(e:any) => {
+                  e.target.src = {userDefaultImage};
+                }}
+                />
+                <h5 className="text-white text-lg font-serif">{post.firstName} {post.lastName}</h5>
             </span>
             <div className=" bg-white h-max w-[320px] md:w-[360px] border border-black">
                 <img 
                 src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${post.image}`} className="md:w-[300px] w-[270px] h-96 mx-auto mt-[25px] md:mt-[30px]" />
-                <p className={` ${ks.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center`}>
+                <p className={` ${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center`}>
                   {post.caption}
                 </p>
             </div>
-            <button className={` ${No.className} rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-white transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px] focus:outline-none focus:border focus:border-[#F8C732]`}
+            <button className="font-serif rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-white transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px] focus:outline-none focus:border focus:border-[#F8C732]"
              onClick={() => handleLike(post._id)}
             >
                 Like {post.likes}

@@ -8,9 +8,10 @@ import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
 import { AnimatePresence,motion } from 'framer-motion'
 import toast , {Toaster}  from 'react-hot-toast'
+import userDefaultImage from '@/public/userDefaultImage.webp'
 
 
-const Com = Comfortaa({
+const Comf = Comfortaa({
   subsets:['cyrillic'],
   weight:'400'
 })
@@ -93,7 +94,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
     <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
       <div className={`w-[80vw] h-[7vh] lg:h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto items-center`}>
         
-          <span className={`${Com.className} text-2xl  lg:text-3xl  bg-clip-text text-[#58b8e8] `}>
+          <span className={`${Comf.className} text-2xl  lg:text-3xl  bg-clip-text text-[#58b8e8] `}>
           <Link className=' focus:outline-none' href={`/home/${email}`}>
             polaroid
           </Link>  
@@ -108,7 +109,11 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
             <button 
             onClick={()=>{setLogOutBtn(!logoutbtn)}}
             className='w-max h-max pl-6 focus:outline-none'>     
-              <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
+              <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} 
+              onError={(e:any) => {
+                e.target.src = {userDefaultImage};
+              }}
+              alt ={"Helo"}/>
             </button>
             {
               logoutbtn &&(

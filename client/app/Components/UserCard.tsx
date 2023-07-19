@@ -1,5 +1,7 @@
 'use client'
 import React, { useState } from 'react'
+import userDefaultImage from '@/public/userDefaultImage.webp'
+
 
 interface UserCard{
   profileImage:string,
@@ -52,7 +54,11 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
         
           <div className=" w-56 md:w-[20vw] lg:w-[16vw] bg-white border border-gray-300 rounded-lg shadow ">
             <div className="flex flex-col items-center lg:pb-6 pb-3">
-                <img className=" w-32 h-32 md:w-16 md:h-16 lg:w-24 lg:h-24 mb-3 rounded-full shadow-lg mt-3 lg:mt-6" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${profileImage}`} alt="Friend" width={100} height={100}/>
+                <img className=" w-32 h-32 md:w-16 md:h-16 lg:w-24 lg:h-24 mb-3 rounded-full shadow-lg mt-3 lg:mt-6" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${profileImage}`} 
+                onError={(e:any) => {
+                  e.target.src = {userDefaultImage};
+                }}
+                alt="Friend" width={100} height={100}/>
                 <h5 className="mb-1 text-2xl md:text-base lg:text-xl font-medium text-gray-900 ">{firstName} {lastName}</h5>
                 {
                   request
