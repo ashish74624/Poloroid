@@ -77,8 +77,9 @@ export default function BottomNav({firstName,lastName,email}:any) {
 
 
   return (
-    <main className='fixed w-screen z-40 bottom-0'>
-    <div className='  bg-yellow-200  mx-auto px-4  w-max rounded-full'>
+    <>
+    <main className='fixed w-screen z-40 bottom-0 bg-[#F8F8F8] py-2 flex justify-center border-t border-gray-600'>
+    <div className=' px-4  w-max rounded-full'>
         <div className='flex w-60 h-12 py-2  items-center justify-between'>
             <Link href={`/home/${email}`}>
             <span className=''><HomeIcon/></span>
@@ -96,6 +97,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
             </Link>
         </div>
     </div> 
+    </main>
     {visible && (
         <>
         <AnimatePresence>
@@ -166,6 +168,6 @@ export default function BottomNav({firstName,lastName,email}:any) {
         </AnimatePresence>    
         </>
     )}
-    </main>
+    </>
   )
 }

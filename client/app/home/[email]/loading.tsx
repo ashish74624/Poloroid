@@ -21,7 +21,7 @@ export default function loading() {
       </nav>
       <section className=' h-[91vh] w-screen md:grid flex md:grid-cols-4 lg:grid-cols-5'>
         <div className=' border-r border-gray-600 md:block hidden'><Sidebar /></div>
-        <div className=' w-screen md:w-[80vw] lg:w-[60vw] md:col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center'>
+        <div className=' w-screen md:w-[80vw] lg:w-[60vw] md:col-span-3 overflow-x-hidden overflow-y-scroll flex flex-col items-center bg-[#F8F8F8]'>
             <PostSkel/>
         </div>
         <div className=' lg:block hidden border-l border-gray-600 overflow-x-hidden overflow-y-scroll'>
