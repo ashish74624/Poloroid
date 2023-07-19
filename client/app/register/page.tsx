@@ -169,10 +169,10 @@ export default function Register() {
             </>)}
           </div>
           <span className='space-x-4 w-full flex justify-between'>
-            <button type="submit" className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
             <button
             onClick={handleBackButton}
             className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Back</button>
+            <button type="submit" className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
           </span>
           
           </>

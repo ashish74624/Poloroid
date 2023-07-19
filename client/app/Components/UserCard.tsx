@@ -77,7 +77,7 @@ export default function UserCard({profileImage,id,firstName,lastName,emailOfUser
                     (
                     <>
                     <div className="flex lg:flex-row md:flex-col mt-2 md:mt-0 lg:mt-2 md:space-x-0 lg:space-y-0 md:space-y-2 space-x-2 lg:space-x-3">
-                    <button className="inline-flex items-center px-4 md:px-6 lg:px-4 py-2 md:py-2 text-sm font-medium text-center text-white bg-[#58b8e8] rounded-lg hover:bg-[#4cc3ff] focus:ring-4 focus:outline-none focus:ring-blue-300 "
+                    <button className="inline-flex items-center px-4 md:px-6 lg:px-4 py-2 md:py-2 text-sm font-medium text-center text-white bg-[#58b8e8] rounded-lg hover:bg-[#4cc3ff] focus:ring-2 focus:outline-none focus:ring-[#F8C732] "
                     onClick={sendNotification}
                     >Add friend</button>
                     <button className="inline-flex items-center px-4 md:px-6 lg:px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 justify-center "

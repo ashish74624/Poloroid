@@ -115,7 +115,7 @@ export default function Post({userImg,email}:any) {
                   {post.caption}
                 </p>
             </div>
-            <button className={` ${No.className} rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-white transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px]`}
+            <button className={` ${No.className} rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-white transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px] focus:outline-none focus:border focus:border-[#F8C732]`}
              onClick={() => handleLike(post._id)}
             >
                 Like {post.likes}

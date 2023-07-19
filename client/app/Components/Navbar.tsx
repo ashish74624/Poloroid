@@ -94,7 +94,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
       <div className={`w-[80vw] h-[7vh] lg:h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto items-center`}>
         
           <span className={`${Com.className} text-2xl  lg:text-3xl  bg-clip-text text-[#58b8e8] `}>
-          <Link href={`/home/${email}`}>
+          <Link className=' focus:outline-none' href={`/home/${email}`}>
             polaroid
           </Link>  
             </span>
@@ -107,15 +107,15 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           <span className='w-[86px] relative'>
             <button 
             onClick={()=>{setLogOutBtn(!logoutbtn)}}
-            className='w-max h-max pl-6'>     
+            className='w-max h-max pl-6 focus:outline-none'>     
               <img className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"}/>
             </button>
             {
               logoutbtn &&(
                   <div 
                     className={'bg-transparent w-24 h-20 absolute'}>
-                    <Link href={'/'}>
-                      <button className='bg-red-500 w-24 flex justify-center text-white text-lg py-2 rounded-lg mt-[0.5rem]'>
+                    <Link className=' focus:outline-none' href={'/'}>
+                      <button className='bg-red-500 w-24 flex justify-center text-white text-lg py-2 rounded-lg mt-[0.5rem] focus:outline-none focus:outline-2 focus:outline-[#F8C732] active:bg-white active:text-red-500 active:outline-2 active:outline-[#F8C732]'>
                         Log Out
                       </button>
                     </Link>
@@ -131,7 +131,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
             textShadow: '0px 0px 8px rgb(0,0,255)'
           }}
           onClick={()=>{setVisible(!visible)}}
-          className="md:flex items-center hidden justify-center bg-[#F8C732] text-white font-bold w-10 h-10 lg:w-12 lg:h-12 rounded-full ">
+          className="md:flex items-center hidden justify-center bg-[#F8C732] text-white font-bold w-10 h-10 lg:w-12 lg:h-12 rounded-full focus:outline-2 focus:outline-[#58b8e8]">
             <svg className="h-6 w-6 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
             </svg>

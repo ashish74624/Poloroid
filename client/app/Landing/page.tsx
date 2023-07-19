@@ -20,7 +20,7 @@ export default function Landing() {
                 Login
             </Link>
           </button>
-          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg transition duration-200 ease-in '>
+          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg transition duration-200 ease-in active:border-[#58b8e8] active:border-2 active:text-[#F8C732]'>
             <Link className=' focus:outline-none' href={'/register'}>
               Sign up
             </Link>
