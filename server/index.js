@@ -92,7 +92,7 @@ const storage = multer.diskStorage({
   
   app.post('/register', async (req, res) => {
     try {
-      let user = await User.find({email:req.body.email});
+      let user = await User.findOne({email:req.body.email});
       if(user){
         return res.json({status: 'error', msg:'Email already exists'});
       }
@@ -256,8 +256,9 @@ const storage = multer.diskStorage({
     const email = req.params.email;
     try{
       const user = await User.findOne({email:email});
-      const place = user.place;
-      const friends = await User.find({ place: {$regex: new RegExp(place,'i')}, 
+      const place = user.place.trim(); // Trim spaces from the place variable
+    const regexPattern = new RegExp(`.*\\b${place}\\b.*`, 'i');
+      const friends = await User.find({ place: {$regex: regexPattern}, 
       email: { $ne: email }, 
       'notifications.sender.id':{$ne : user._id}, //This line ensures that the friends I have already requested are not retured again by using $ne
       'request.sentTo.id':{$ne : user._id},
