@@ -60,6 +60,15 @@ export default function Register() {
         toast.dismiss();
         router.push('/login')
       }
+      else if(data.status==='error'){
+        toast.dismiss();
+        setTimeout(()=>{
+          toast.error(data.msg);
+        },100)
+      }
+      else{
+        
+      }
       }catch(err){
         toast.dismiss();
         setTimeout(()=>{

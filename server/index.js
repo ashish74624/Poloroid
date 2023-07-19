@@ -92,6 +92,10 @@ const storage = multer.diskStorage({
   
   app.post('/register', async (req, res) => {
     try {
+      let user = await User.find({email:req.body.email});
+      if(user){
+        return res.json({status: 'error', msg:'Email already exists'});
+      }
       const newPassword = await bcrypt.hash(req.body.password, 10);
       const result = await cloudinary.uploader.upload(req.body.file);
       const newUser = await User.create({
@@ -115,7 +119,7 @@ const storage = multer.diskStorage({
     try {
       const user = await User.findOne({ email: email });
       if (!user) {
-        res.json({ status: 'error', error: 'Invalid Login' });
+        res.json({ status: 'error', msg: 'Invalid EmailId' });
       } else {
         const isPasswordValid = await bcrypt.compare(password, user.password);
         
@@ -129,7 +133,7 @@ const storage = multer.diskStorage({
           };
           res.json({ status: 'ok', user: userWithoutPassword });
         } else {
-          res.json({ status: 'error', error: 'Invalid Login' });
+          res.json({ status: 'error', msg: 'Invalid Password' });
         }
       }
     } catch (err) {

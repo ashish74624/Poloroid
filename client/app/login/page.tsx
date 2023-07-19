@@ -43,8 +43,15 @@ export default function Login() {
       if (data.user) {
         toast.dismiss();
         router.push(`/home/${data.user.email}`);
-      }else {
-        console.log('Error');
+      }
+      else if(data.status==='error'){
+        toast.dismiss();
+        setTimeout(()=>{
+          toast.error(data.msg);
+        },100)
+      }
+      else{
+        
       }
     }
     catch(err){
