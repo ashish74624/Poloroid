@@ -82,17 +82,23 @@ export default function BottomNav({firstName,lastName,email}:any) {
     <div className=' px-4  w-max rounded-full'>
         <div className='flex w-60 h-12 py-2  items-center justify-between'>
             <Link href={`/home/${email}`}>
-            <span className=''><HomeIcon/></span>
+              <span>
+                <span className=''><HomeIcon/></span>
+                <p className=' text-xs'>Home</p>
+              </span>
             </Link>
-            <button onClick={()=>{setVisible(!visible)}}>
+            <button className='flex flex-col w-max items-center' onClick={()=>{setVisible(!visible)}}>
                 <AddIcon/>
+                <p className=' text-xs'>Upload</p>
             </button>
             <button onClick={()=>{setSide(!side)}}>
                 <Menubtn/>
+                <p className=' text-xs'>Menu</p>
             </button>
             <Link href={`/ppl/${email}`}>
             <button>
                 <FriendsIcon/>
+                <p className=' text-xs'>People</p>
             </button>
             </Link>
         </div>
