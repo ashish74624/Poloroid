@@ -2,6 +2,7 @@ import Navbar from '@/app/Components/Navbar'
 import React from 'react'
 import Link from 'next/link'
 import LeftArrow from '@/app/Icons/LeftArrow'
+import Image from 'next/image'
 import userDefaultImage from '@/public/userDefaultImage.webp'
 
 
@@ -54,10 +55,7 @@ export default async function Friends({params:{email}}:Params) {
                         <>
                         <div className='bg-white h-16 my-3 w-[95vw] md:w-[65vw] lg:w-[40vw] rounded-lg shadow flex items-center p-6 space-x-4'>
                             <span className=''>
-                                <img className='w-9 h-9 md:w-11 md:h-11 rounded-full' src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${friend.profileImage}`}
-                                onError={(e:any) => {
-                                    e.target.src = {userDefaultImage};
-                                  }}
+                                <Image className='w-9 h-9 md:w-11 md:h-11 rounded-full' src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${friend.profileImage}` || userDefaultImage}
                                 alt='Notification' height={100} width={100}/>
                             </span>
                             <span className='flex '>
