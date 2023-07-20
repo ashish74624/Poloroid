@@ -24,7 +24,7 @@ interface NavbarProps {
   navData :boolean;
 }
 
-let backendURL = process.env.BACKEND || 'http://localhost:3001'
+let backendURL = process.env.BACKEND
 
 export default function Navbar({firstName,lastName,email,userImg,navData}:NavbarProps) {
   const [visible,setVisible] = useState(false);

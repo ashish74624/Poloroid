@@ -11,7 +11,7 @@ interface UserCard{
   emailOfUser:string
 }
 
-let backendURL = process.env.BACKEND || 'http://localhost:3001'
+let backendURL = process.env.BACKEND
 
 export default function UserCard({profileImage,id,firstName,lastName,emailOfUser}:UserCard) {
   

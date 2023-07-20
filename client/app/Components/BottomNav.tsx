@@ -12,7 +12,7 @@ import { AnimatePresence,motion } from 'framer-motion'
 import Sidebar from './Sidebar'
 import toast , {Toaster}  from 'react-hot-toast'
 
-let backendURL = process.env.BACKEND || 'http://localhost:3001'
+let backendURL = process.env.BACKEND
 
 export default function BottomNav({firstName,lastName,email}:any) {
     const [visible,setVisible] = useState(false);

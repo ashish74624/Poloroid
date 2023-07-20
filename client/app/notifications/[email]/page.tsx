@@ -12,7 +12,7 @@ type Params={
   }
 }
 
-let backendURL = process.env.BACKEND || 'http://localhost:3001'
+let backendURL = process.env.BACKEND
 
 export default async function Notifications({params:{email}}:Params) {
     

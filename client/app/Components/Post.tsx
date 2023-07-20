@@ -34,7 +34,7 @@ interface Props {
   email: string;
 }
 
-let backendURL = process.env.BACKEND || 'http://localhost:3001'
+let backendURL = process.env.BACKEND
 
 export default function Post({userImg,email}:any) {
   const [posts, setPosts] = useState<Post[]>([]);

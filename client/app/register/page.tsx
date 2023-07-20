@@ -15,7 +15,7 @@ const Comf = Comfortaa({
     weight:'400'
   })
 
-  let backendURL = process.env.BACKEND || 'http://localhost:3001'
+  let backendURL = process.env.BACKEND
 
 export default function Register() {
   

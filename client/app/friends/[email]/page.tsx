@@ -12,7 +12,7 @@ type Params={
     }
   }
 
-  let backendURL = process.env.BACKEND || 'http://localhost:3001'
+  let backendURL = process.env.BACKEND
 
 export default async function Friends({params:{email}}:Params) {
     const res = await fetch(`${backendURL}/friends/${email}`,{cache:'no-store'});

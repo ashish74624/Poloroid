@@ -25,7 +25,7 @@ type Params={
     }
 }
 
-let backendURL = process.env.BACKEND || 'http://localhost:3001'
+let backendURL = process.env.BACKEND 
 
 async function getData(email:string){
   const res = await fetch(`${backendURL}/data/${email}`);

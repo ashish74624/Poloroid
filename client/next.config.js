@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental:{
-        serverActions:true
-    },
+    env: {
+        BACKEND: process.env.BACKEND,
+      },
 }
 
 module.exports = nextConfig
