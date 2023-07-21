@@ -16,7 +16,11 @@ app.use(fileUpload());
 
 
 dotenv.config();
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  methods :['GET','PUT','POST'],
+  credentials: true
+}));
 app.use(express.json({ limit: '10mb' }));
 app.use(bodyParser.json({ limit: '10mb' })); 
 app.use(bodyParser.urlencoded({ extended: true }));
