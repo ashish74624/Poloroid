@@ -17,7 +17,7 @@ app.use(fileUpload());
 
 dotenv.config();
 app.use(cors({
-  origin: ['https://poloroid.vercel.app',"http://localhost:3000"],
+  origin: ['https://poloroid.vercel.app',"http://localhost:3000","https://poloroid-ashish74624.vercel.app"],
   methods :['GET','PUT','POST'],
   credentials: true
 }));
