@@ -1,6 +1,12 @@
 import React from 'react'
 import NotfSkel from '@/app/Components/NotfSkel'
 import { Comfortaa } from 'next/font/google'
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata={
+  title:'Poloroid | Notifications',
+}
 
 const Com = Comfortaa({
   subsets:['cyrillic'],

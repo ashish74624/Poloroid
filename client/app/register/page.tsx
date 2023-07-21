@@ -8,6 +8,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import toast , {Toaster}  from 'react-hot-toast'
+import { Metadata } from 'next'
+
+export const metadata: Metadata={
+  title:'Poloroid | Register',
+  description: 'Register and see your and your Friends memories'
+}
 
 
 const Comf = Comfortaa({

@@ -2,6 +2,13 @@ import Navbar from '@/app/Components/Navbar'
 import React from 'react'
 import Link from 'next/link'
 import LeftArrow from '@/app/Icons/LeftArrow'
+import { Metadata } from 'next'
+
+export const metadata: Metadata={
+  title:'Poloroid | Frequently Asked Questions',
+  description: 'Here are the answers to some of the questions you might have'
+}
+
 
 type Params = {
   params: {

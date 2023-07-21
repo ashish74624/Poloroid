@@ -3,6 +3,12 @@ import RightSidebar from '@/app/Components/RightSidebar';
 import Navbar from '@/app/Components/Navbar';
 import Link from 'next/link';
 import LeftArrow from '@/app/Icons/LeftArrow';
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata={
+  title:'Poloroid | People you may know',
+}
 
 type Params={
     params:{

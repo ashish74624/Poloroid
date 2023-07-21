@@ -6,7 +6,17 @@ import Post from '@/app/Components/Post';
 import RightSidebar from '@/app/Components/RightSidebar';
 import BottomNav from '@/app/Components/BottomNav';
 import UserCard from '@/app/Components/UserCard';
+import { Metadata } from 'next';
 
+
+export  async function generateMetadata({params:{email}}:Params):Promise<Metadata> {
+  const res = getData(email);
+  const data = await res;
+  return {
+    title:`Poloroid | ${data.firstName} ${data.lastName}'s Profile`,
+    description:"View and interact with your Poloroid profile.",
+  }
+}
 
 interface Post {
     _id: string;

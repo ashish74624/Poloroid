@@ -5,6 +5,13 @@ import NotfCard from '@/app/Components/NotfCard';
 import NotfSkel from '@/app/Components/NotfSkel';
 import Link from 'next/link';
 import LeftArrow from '@/app/Icons/LeftArrow';
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata={
+  title:'Poloroid | Notifications',
+  description: 'Your Notificatoins '
+}
 
 type Params={
   params:{

@@ -6,6 +6,12 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Comfortaa } from 'next/font/google'
 import toast , {Toaster}  from 'react-hot-toast'
+import { Metadata } from 'next'
+
+export const metadata: Metadata={
+  title:'Poloroid | Login',
+  description: 'Login to see your and your Friends memories'
+}
 
 const Comf = Comfortaa({
   subsets:['cyrillic'],

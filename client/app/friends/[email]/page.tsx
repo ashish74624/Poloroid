@@ -4,7 +4,12 @@ import Link from 'next/link'
 import LeftArrow from '@/app/Icons/LeftArrow'
 import Image from 'next/image'
 import BottomNav from '@/app/Components/BottomNav'
+import { Metadata } from 'next'
 
+export const metadata: Metadata={
+    title:'Poloroid | Friends',
+    description: 'Your Friends '
+}
 
 
 type Params={
