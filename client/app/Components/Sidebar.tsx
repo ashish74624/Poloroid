@@ -2,7 +2,11 @@ import React from 'react'
 import Link from 'next/link'
 import GithubLogo from './GithubLogo'
 
-export default function Sidebar({email}:any) {
+interface Props{
+  email:string;
+}
+
+export default function Sidebar({email}:Props) {
   return (
     <>
       <main className=' overflow-hidden  '>

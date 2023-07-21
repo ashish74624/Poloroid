@@ -68,7 +68,7 @@ export default async function Home({params:{email}}:Params) {
         </div>
         <div className=' md:col-span-3 bg-[#F8F8F8]  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
             <Suspense fallback={<PostSkel/>}>
-              <Post userImg={userData.profileImage || userDefaultImage} email={userData.email}/>
+              <Post email={userData.email}/>
             </Suspense>
         </div>
         <div className='lg:block hidden border-l border-gray-600 bg-[#F8F8F8] overflow-x-hidden overflow-y-scroll'>
@@ -81,7 +81,7 @@ export default async function Home({params:{email}}:Params) {
           </div>
       </section>
       <div className='md:hidden inline'>
-        <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName}/>
+        <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} upload={true}/>
       </div>
     </main>
   )

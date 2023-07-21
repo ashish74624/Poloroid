@@ -14,7 +14,7 @@ import toast , {Toaster}  from 'react-hot-toast'
 
 let backendURL = process.env.BACKEND
 
-export default function BottomNav({firstName,lastName,email}:any) {
+export default function BottomNav({firstName,lastName,email,upload,people}:any) {
     const [visible,setVisible] = useState(false);
     const [side,setSide] = useState(false);
     const [file, setFile] = useState('');
@@ -78,7 +78,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
 
   return (
     <>
-    <main className='fixed w-screen z-40 bottom-0 bg-[#F8F8F8] py-2 flex justify-center border-t border-gray-600'>
+    <main className='fixed w-screen z-50 bottom-0 bg-[#F8F8F8] py-2 flex justify-center border-t border-gray-600'>
     <div className=' px-4  w-max rounded-full'>
         <div className='flex w-60 h-12 py-2  items-center justify-between'>
             <Link href={`/home/${email}`}>
@@ -87,10 +87,15 @@ export default function BottomNav({firstName,lastName,email}:any) {
                 <p className=' text-xs'>Home</p>
               </span>
             </Link>
-            <button className='flex flex-col w-max items-center' onClick={()=>{setVisible(!visible)}}>
+            {upload &&(
+              <>
+              <button className='flex flex-col w-max items-center' onClick={()=>{setVisible(!visible)}}>
                 <AddIcon/>
                 <p className=' text-xs'>Upload</p>
-            </button>
+              </button>
+              </>
+            )}
+            
             <button onClick={()=>{setSide(!side)}}>
                 <Menubtn/>
                 <p className=' text-xs'>Menu</p>
@@ -113,7 +118,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
             animate="visible"
             exit="hidden"
            >
-        <section className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+        <section className={`mt-0 z-40 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
         
         {file?
             (<>
@@ -162,7 +167,7 @@ export default function BottomNav({firstName,lastName,email}:any) {
             variants={backdrpV}
             initial="hidden"
             animate="visible"
-            exit="hidden" className='bg-black/50 h-screen w-screen fixed rounded z-50 top-0 flex justify-center items-center'>
+            exit="hidden" className='bg-black/50 h-screen w-screen fixed rounded z-40 top-0 flex justify-center items-center'>
                 <div className='bg-[#F8F8F8] w-52 h-max px-2 pb-40 rounded-lg'>
                     <Sidebar email={email}/>
                 </div>

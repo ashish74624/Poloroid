@@ -31,13 +31,12 @@ interface Post {
 }
 
 interface Props {
-  userImg: string;
   email: string;
 }
 
 let backendURL = process.env.BACKEND
 
-export default function Post({userImg,email}:any) {
+export default function Post({email}:Props) {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 

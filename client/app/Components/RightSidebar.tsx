@@ -2,14 +2,14 @@ import React from 'react'
 import UserCard from './UserCard'
 
 interface Friend{
-  _id: string;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   profileImage: string;
 }
 
-export default async function RightSidebar({email,id,profileImage,firstName,lastName}:any) {
+export default async function RightSidebar({email,id,profileImage,firstName,lastName}:Friend) {
         return (
           <ul className=' overflow-y-scroll bg-[#F8F8F8] flex flex-col items-center space-y-2 pt-4 right-0'>
             <li key={id}>

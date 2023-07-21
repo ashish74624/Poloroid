@@ -7,8 +7,15 @@ import Image from 'next/image'
 
 let backendURL = process.env.BACKEND
 
+interface NoftCardProps {
+  friendImage ?: string;
+  friendName: string;
+  email:string;
+  friendID : string;
+}
 
-export default async function NotfCard({friendImage,friendName,email,friendID}:any) {
+
+export default async function NotfCard({friendImage,friendName,email,friendID}:NoftCardProps) {
   const handleAddFriend =async ()=>{
 
     const addFriend = await fetch(`${backendURL}/addFriend/${email}`,{

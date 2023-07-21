@@ -4,6 +4,7 @@ import Link from 'next/link'
 import LeftArrow from '@/app/Icons/LeftArrow'
 import Image from 'next/image'
 import userDefaultImage from '@/public/userDefaultImage.webp'
+import BottomNav from '@/app/Components/BottomNav'
 
 
 
@@ -70,6 +71,9 @@ export default async function Friends({params:{email}}:Params) {
                     ))
                 }
               </section>
+              <div className='md:hidden block'>
+                <BottomNav email={email}/>
+              </div>
             </>
           )
     }
