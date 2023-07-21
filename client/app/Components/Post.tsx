@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import PostSkel from './PostSkel';
 import { Kaushan_Script } from 'next/font/google';
 import { Nixie_One } from 'next/font/google';
-import userDefaultImage from '@/public/userDefaultImage.webp'
 import Image from 'next/image';
 
 const kst = Kaushan_Script({
@@ -105,7 +104,7 @@ export default function Post({email}:Props) {
             <section key={post._id} className="bg-[#58b8e8] w-[360px] my-2 md:w-[400px] h-max flex flex-col rounded-md  items-center">
             <span className="flex space-x-2 mx-auto py-2 items-center w-[310px] md:w-[360px]">
                 <Image
-                src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${post.userProfile}` || userDefaultImage}
+                src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${post.userProfile}`}
                 className="w-10 h-10 rounded-full" alt='userImage' width={100} height={100}
                 />
                 <h5 className="text-white text-lg font-serif">{post.firstName} {post.lastName}</h5>

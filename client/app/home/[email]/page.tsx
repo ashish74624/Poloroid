@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react'
 import Navbar from '@/app/Components/Navbar';
 import Sidebar from '@/app/Components/Sidebar';
-import userDefaultImage from '@/public/userDefaultImage.webp'
 import PostSkel from '@/app/Components/PostSkel';
 import Post from '@/app/Components/Post';
 import RightSidebar from '@/app/Components/RightSidebar';
@@ -50,7 +49,7 @@ export default async function Home({params:{email}}:Params) {
   return (
     <main className='h-screem w-screen overflow-hidden'> 
       <nav>
-        <Navbar userImg={userData.profileImage || userDefaultImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
+        <Navbar userImg={userData.profileImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
       <section className=' h-[93vh] lg:h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 '>
         <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block bg-[#F8F8F8]'>

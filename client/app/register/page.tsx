@@ -158,7 +158,7 @@ export default function Register() {
             (<>
             <div className='w-full items-center flex flex-col'>
                 <Image className=' w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full' src={file} alt='Hello' width={100} height={100} />
-                <button onClick={()=>{setFile('')}} className='my-2 hover:text-red-500 transition duration-200'>Profile Picture</button>
+                <button onClick={()=>{setFile('')}} className='my-2 text-red-500 transition duration-200'>Profile Picture</button>
             </div>
             </>)
             :

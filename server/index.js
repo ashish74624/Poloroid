@@ -92,7 +92,8 @@ const storage = multer.diskStorage({
   
   app.post('/register', async (req, res) => {
     try {
-      let user = await User.findOne({email:req.body.email});
+      if(req.body.file){
+        let user = await User.findOne({email:req.body.email});
       if(user){
         return res.json({status: 'error', msg:'Email already exists'});
       }
@@ -107,6 +108,23 @@ const storage = multer.diskStorage({
         profileImage: result.public_id
       }); 
       await newUser.save();   
+      }
+      else{
+        let user = await User.findOne({email:req.body.email});
+      if(user){
+        return res.json({status: 'error', msg:'Email already exists'});
+      }
+      const newPassword = await bcrypt.hash(req.body.password, 10);
+      const newUser = await User.create({
+        firstName:req.body.firstName,
+        lastName:req.body.lastName,
+        email:req.body.email,
+        password: newPassword, // Use the correct field name for the hashed password
+        place: req.body.place,
+        profileImage: "i07kehkwnznydwl17iil.webp"
+      }); 
+      await newUser.save();   
+      }
       return res.json({ status: 'ok' });
     } catch (err) {  
       return res.json({ status: 'error', error: err });

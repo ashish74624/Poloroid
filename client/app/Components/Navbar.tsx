@@ -7,7 +7,6 @@ import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
 import { AnimatePresence,motion } from 'framer-motion'
 import toast , {Toaster}  from 'react-hot-toast'
-import userDefaultImage from '@/public/userDefaultImage.webp'
 import Image from 'next/image'
 
 
@@ -109,7 +108,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
             <button 
             onClick={()=>{setLogOutBtn(!logoutbtn)}}
             className='w-max h-max pl-6 focus:outline-none'>     
-              <Image className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}` || userDefaultImage} alt ={"Helo"} height={100} width={100}/>
+              <Image className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"} height={100} width={100}/>
             </button>
             {
               logoutbtn &&(
