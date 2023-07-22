@@ -70,10 +70,10 @@ export default function Login() {
 
   return (
     <>
-     <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-32 items-center space-y-8'>
+     <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-32 items-center space-y-8 overflow-x-hidden overflow-y-scroll pb-32'>
       <h3 className={` ${Comf.className} text-white text-3xl md:text-5xl`}>Login | Welcome Back</h3>
         {/* Form */}
-      <section className='bg-white w-[350px] md:w-96 h-max py-8 rounded-xl px-8 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
+      <section className='bg-white w-[350px] md:w-96 h-max py-8 rounded-xl px-8 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]  '>
         <form onSubmit={handleLogin}>
           <div className='relative z-0 w-full mb-6 group '>
             <input type='email' name='email' id='email' className='block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-[#71B1D1] peer' placeholder=' ' required
