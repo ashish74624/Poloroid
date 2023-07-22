@@ -26,6 +26,7 @@ export default function Register() {
   const [password,setPassword] = useState('')
   const [place,setPlace] = useState('')
   const [form,setForm] = useState(true);
+  const [isDiabled,setIsDiabled] = useState(false);
   const router = useRouter();
 
   const handleImageSelect = async(event:any) => {
@@ -35,6 +36,7 @@ export default function Register() {
 
     const handleRegister=async(event : FormEvent)=>{
       event.preventDefault()
+      setIsDiabled(true)
       toast.loading('loading...'); 
       try{
         
@@ -58,10 +60,12 @@ export default function Register() {
       console.log(data.status)
       if(data.status==="ok"){
         toast.dismiss();
+        setIsDiabled(false)
         router.push('/login')
       }
       else if(data.status==='error'){
         toast.dismiss();
+        setIsDiabled(false)
         setTimeout(()=>{
           toast.error(data.msg);
         },100)
@@ -71,6 +75,7 @@ export default function Register() {
       }
       }catch(err){
         toast.dismiss();
+        setIsDiabled(false)
         setTimeout(()=>{
           toast.error("Server not working at the moment")
         },100)
@@ -179,6 +184,7 @@ export default function Register() {
           </div>
           <span className='space-x-4 w-full flex justify-between'>
             <button
+            disabled={isDiabled}
             onClick={handleBackButton}
             className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Back</button>
             <button type="submit" className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>

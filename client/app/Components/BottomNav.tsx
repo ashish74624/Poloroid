@@ -19,6 +19,7 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
     const [side,setSide] = useState(false);
     const [file, setFile] = useState('');
     const [caption,setCaption] = useState('');
+    const [isDiabled,setIsDiabled] = useState(false);
 
     const handleImageSelect = async(event:any) => {
         const base64 = await convertToBase64(event.target.files[0]);
@@ -28,6 +29,7 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
 
         const imageUpload = async()=>{
             toast.loading("Posting...");
+            setIsDiabled(true);
             try{
               const res = await fetch(`${backendURL}/upload`,{
               method:'POST',
@@ -49,12 +51,14 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
               setCaption('')
               setFile('')
               setTimeout(()=>{
+                setIsDiabled(false);
                 toast.success("Done");
               },100)
             }
             else{
               toast.dismiss();
               setTimeout(()=>{
+                setIsDiabled(false);
                 toast.error('Error while uploading Please try again later');
               },100)
               
@@ -63,6 +67,7 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
             }catch(err){
               toast.dismiss();
               setTimeout(()=>{
+                setIsDiabled(false);
                 toast.error("Error Posting Image");
               },100)
             }
@@ -148,7 +153,9 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
         </div>
             </>)}
 
-        <button className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-[#71B1D1] font-semibold'
+        <button
+        disabled ={isDiabled}
+        className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-gray-200 font-semibold'
         onClick={imageUpload}
         >Post</button>
         <button className='fixed top-[0.5rem] right-4 rotate-45'

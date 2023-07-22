@@ -30,6 +30,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
   const [file, setFile] = useState('');
   const [caption,setCaption] = useState('');
   const [logoutbtn,setLogOutBtn] = useState(false);
+  const [isDiabled,setIsDiabled] = useState(false);
     
 
     const handleImageSelect = async(event:any) => {
@@ -39,6 +40,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
 
       const imageUpload = async()=>{
         toast.loading("Posting...");
+        setIsDiabled(true);
         try{
           const res = await fetch(`${backendURL}/upload`,{
           method:'POST',
@@ -61,12 +63,14 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           setFile('')
           setTimeout(()=>{
             toast.success("Done");
+            setIsDiabled(false);
           },100)
         }
         else{
           toast.dismiss();
           setTimeout(()=>{
             toast.error('Error while uploading Please try again later');
+            setIsDiabled(false);
           },100)
           
         }
@@ -75,6 +79,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           toast.dismiss();
           setTimeout(()=>{
             toast.error("Error Posting Image");
+            setIsDiabled(false);
           },100)
         }
       }
@@ -187,7 +192,9 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
     </div>
         </>)}
 
-    <button className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-[#71B1D1] font-semibold'
+    <button 
+    disabled={isDiabled}
+    className='bg-[#F8C732] mt-10 px-6 py-1 text-xl rounded-full text-[#71B1D1] font-semibold'
     onClick={imageUpload}
     >Post</button>
     <button className='fixed top-[0.5rem] right-4 rotate-45'

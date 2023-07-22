@@ -18,12 +18,14 @@ let backendURL = process.env.BACKEND
 export default function Login() {
 
   const router = useRouter()
-  const [email,setEmail] = useState('')
-  const [password,setPassword] = useState('')
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+  const [isDiabled,setIsDiabled] = useState(false);
 
 
   async function handleLogin(event: FormEvent) {
     event.preventDefault();
+    setIsDiabled(true);
     toast.loading('Logging in...'); 
     try{
       const response = await fetch(`${backendURL}/login`, {
@@ -42,10 +44,12 @@ export default function Login() {
   
       if (data.user) {
         toast.dismiss();
+        setIsDiabled(false);
         router.push(`/home/${data.user.email}`);
       }
       else if(data.status==='error'){
         toast.dismiss();
+        setIsDiabled(false);
         setTimeout(()=>{
           toast.error(data.msg);
         },100)
@@ -56,6 +60,7 @@ export default function Login() {
     }
     catch(err){
       toast.dismiss();
+      setIsDiabled(false);
         setTimeout(()=>{
           toast.error('Server not working at the moment')
         },100)
@@ -82,7 +87,7 @@ export default function Login() {
             />
             <label htmlFor='floating_password' className='peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#71B1D1] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Password</label>
           </div>
-          <button type='submit' className='text-white bg-[#F8C732] hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm px-5 py-2.5 text-center'>Submit</button>
+          <button disabled={isDiabled} type='submit' className='text-white bg-[#F8C732] hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm px-5 py-2.5 text-center'>Submit</button>
         </form>
           <p className={`text-black text-xs mt-4`}>Don&apos;t have an account yet ?<Link href={`/register`}><span className={`text-xs text-[#F8C732] hover:underline pl-1`}>Sign up</span></Link> </p>
       </section>
