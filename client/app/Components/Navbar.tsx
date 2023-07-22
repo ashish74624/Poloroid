@@ -162,7 +162,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           initial="hidden"
           animate="visible"
           exit="hidden"
-          className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+          className={`mt-0 z-50 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center overflow-x-hidden overflow-y-scroll`}>
         
         {file?
         (<>
