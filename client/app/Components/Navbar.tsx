@@ -166,20 +166,20 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         
         {file?
         (<>
-         <div className="bg-white w-[30vw] h-[50vh] lg:w-[22vw] lg:h-[60vh] flex flex-col">
+         <div className="bg-white w-[300px] h-[400px] md:w-[340px] md:h-[440px] flex flex-col">
         <div className="relative">
             <button className="px-3 py-1 rounded-full transition hover:bg-black text-white bg-black/50 absolute top-8 right-8"
             onClick={()=>{setFile('')}}
             >X</button>
-            <Image src={file} className="flex flex-col items-center justify-center  w-[26vw] h-[39vh] lg:w-[19vw] mt-[3vh] lg:h-[48vh]  cursor-pointer bg-[#1d1d1f] overflow-hidden mx-auto  "alt='Hello' width={100} height={100}/>
+            <Image src={file} className="flex flex-col items-center justify-center cursor-pointer bg-[#1d1d1f] overflow-hidden mx-auto w-[260px] h-[315px] md:w-[300px] mt-[20px] md:h-[350px] "alt='Hello' width={100} height={100}/>
         </div>
         <input className="bg-white flex-grow pl-4" type="text"  name="caption" placeholder='Enter Caption' onChange={(e)=>{ setCaption(e.target.value)}} />
     </div>
         </>)
         :
         (<>
-        <div className="bg-white w-[30vw] h-[50vh] lg:w-[22vw] lg:h-[60vh] flex flex-col">
-        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[26vw] h-[39vh] lg:w-[19vw] mt-[3vh] lg:h-[48vh]  cursor-pointer bg-[#1d1d1f] mx-auto">
+        <div className="bg-white w-[300px] h-[400px] md:w-[340px] md:h-[440px] flex flex-col">
+        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-[260px] h-[315px] md:w-[300px] mt-[20px] md:h-[350px]  cursor-pointer bg-[#1d1d1f] mx-auto">
             <div className=" flex flex-col justify-start items-center">
                 <svg className="h-10 w-10 mx-auto text-gray-400 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
