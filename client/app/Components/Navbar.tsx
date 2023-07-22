@@ -96,7 +96,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
   return (
     <>
     <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
-      <div className={`w-[80vw] h-[7vh] lg:h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto items-center`}>
+      <div className={`w-[80vw] min-h-[60px] h-[7vh] lg:h-[9vh]  flex ${navData ? "justify-between":'justify-center'}  mx-auto items-center`}>
         
           <span className={`${Comf.className} text-2xl  lg:text-3xl  bg-clip-text text-[#58b8e8] `}>
           <Link className=' focus:outline-none' href={`/home/${email}`}>
