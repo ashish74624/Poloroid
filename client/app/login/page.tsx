@@ -71,7 +71,7 @@ export default function Login() {
   return (
     <>
      <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-32 items-center space-y-8'>
-      <h3 className={` ${Comf.className} text-white text-5xl`}>Login | Welcome Back</h3>
+      <h3 className={` ${Comf.className} text-white text-3xl md:text-5xl`}>Login | Welcome Back</h3>
         {/* Form */}
       <section className='bg-white w-[350px] md:w-96 h-max py-8 rounded-xl px-8 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
         <form onSubmit={handleLogin}>
