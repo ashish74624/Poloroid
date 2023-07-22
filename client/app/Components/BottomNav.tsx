@@ -123,7 +123,7 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
             animate="visible"
             exit="hidden"
            >
-        <section className={`mt-0 z-40 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center`}>
+        <section className={`mt-0 z-40 fixed top-0 bg-slate-900/40 h-screen w-screen flex flex-col justify-center items-center md:pb-0 pb-16`}>
         
         {file?
             (<>

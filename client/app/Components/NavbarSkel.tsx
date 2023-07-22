@@ -14,8 +14,8 @@ export default function NavbarSkel() {
   return (
     <>
       {/* Navbar Start */}
-      <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
-      <div className={`w-[80vw] h-[8vh] lg:h-[9vh] min-h-[60px]  flex justify-between  mx-auto items-center`}>
+      <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen min-h-[60px]'>
+      <div className={`w-[80vw] h-[8vh] lg:h-[9vh]   flex justify-between  mx-auto items-center`}>
         
           <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8]`}>
             polaroid
