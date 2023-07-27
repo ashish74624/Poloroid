@@ -1,12 +1,17 @@
 import React from 'react'
 import Link from 'next/link'
 import { Comfortaa } from 'next/font/google'
+import { Cormorant_Garamond } from "next/font/google"
 
 const Com = Comfortaa({
     subsets:['latin'],
-    weight:'400'
+    weight:'600'
   })
   
+  const cor = Cormorant_Garamond({
+    subsets:['cyrillic'],
+    weight:'400'
+})
 
 export default function Home() {
   return (
@@ -26,6 +31,7 @@ export default function Home() {
             </Link>
           </button>
         </div>
+        <h1 className={`${cor.className} text-white`}>Created by : <a className='  text-xl hover:underline' href="https://github.com/ashish74624" target='_blank'>Ashish Kumar</a></h1>
     </main> 
     </>
   )
