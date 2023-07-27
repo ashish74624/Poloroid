@@ -15,12 +15,12 @@ export default function Home() {
         <h1 className={`${Com.className} text-7xl md:text-8xl text-[#f5f5f7]`}>polaroid</h1>
         <p className='text-[#f5f5f7] text-base md:text-lg'>Where your memories are always in focus</p>
         <div className='flex space-x-4'>
-          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg transition duration-200 ease-in active:border-[#58b8e8] active:border-2 active:text-[#F8C732]'>
+          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg active:border-[#58b8e8] active:border-2 active:text-[#F8C732] hover:outline-[#F8C732] hover:outline transition-all'>
             <Link className=' focus:outline-none ' href={'/login'}>
                 Login
             </Link>
           </button>
-          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg transition duration-200 ease-in active:border-[#58b8e8] active:border-2 active:text-[#F8C732]'>
+          <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg active:border-[#58b8e8] active:border-2 active:text-[#F8C732] hover:outline-[#F8C732] hover:outline transition-all'>
             <Link className=' focus:outline-none' href={'/register'}>
               Sign up
             </Link>
