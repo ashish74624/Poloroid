@@ -24,30 +24,40 @@ const kst = Kaushan_Script({
   }
 
 export default function Card({id,firstName,lastName,email,userProfile,likes,likedBy,image,caption,userID}:PostProps) {
-  
     const [like,setLike]:[number, React.Dispatch<React.SetStateAction<number>>] = useState(likes);
-    const handleLike=async(id:any)=>{
-        const response = await fetch(`${backendURL}/like/${id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              emailOfUser: email
-            })
-          });
-          const data = await response.json();
-          if(response.ok){
-            if(data.msg==='liked'){
-              setLike((prev:number) => prev + 1 );
-            }
-            if(data.msg==='disliked'){
-              setLike((prev:number) => prev - 1 );
-            }
-          }else{
-            setLike(like)
-          }
-          }
+
+    const [debounced,setDebounced] = useState(false);
+
+    const debouncing = (func: any, delay: number) => {
+      let timer: ReturnType<typeof setTimeout>;
+      return function (this: any, ...args: any[]) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+      };
+    };
+
+    const handleLike=  debouncing(async (id: any) => {
+      const response = await fetch(`${backendURL}/like/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          emailOfUser: email,
+        }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        if (data.msg === 'liked') {
+          setLike((prev: number) => prev + 1);
+        }
+        if (data.msg === 'disliked') {
+          setLike((prev: number) => prev - 1);
+        }
+      } else {
+        setLike(like);
+      }
+    }, 1000); // Debounce delay of 1000ms (1 second)
         
     
   return (
