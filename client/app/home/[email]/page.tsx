@@ -81,7 +81,7 @@ export default async function Home({params:{email}}:Params) {
           </div>
           </div>
         </div>
-        <div className=' md:col-span-3 bg-[#F8F8F8]  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
+        <div className=' md:col-span-3 bg-[#F8F8F8] w-full  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
             <Suspense fallback={<PostSkel/>}>
               <Post promise={post} email={email} userId={userData._id} />
             </Suspense>

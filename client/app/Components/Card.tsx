@@ -26,8 +26,6 @@ const kst = Kaushan_Script({
 export default function Card({id,firstName,lastName,email,userProfile,likes,likedBy,image,caption,userID}:PostProps) {
     const [like,setLike]:[number, React.Dispatch<React.SetStateAction<number>>] = useState(likes);
 
-    const [debounced,setDebounced] = useState(false);
-
     const debouncing = (func: any, delay: number) => {
       let timer: ReturnType<typeof setTimeout>;
       return function (this: any, ...args: any[]) {
