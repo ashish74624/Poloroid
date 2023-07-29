@@ -47,10 +47,16 @@ async function getFriendSuggestions(email:string){
   return res.json()
 }
 
+async function getAllPost(email:string){
+  const res = await fetch(`${backendURL}/allPost/${email}`);
+  return res.json();
+}
+
 export default async function Home({params:{email}}:Params) {
 
   const data = getData(email);
   const sideData = getFriendSuggestions(email);
+  const post = getAllPost(email);
 
   const [userData, rightSideBarData] = await Promise.all([data,sideData])
     
@@ -77,15 +83,15 @@ export default async function Home({params:{email}}:Params) {
         </div>
         <div className=' md:col-span-3 bg-[#F8F8F8]  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
             <Suspense fallback={<PostSkel/>}>
-              <Post email={userData.email}/>
+              <Post promise={post} email={email} userId={userData._id} />
             </Suspense>
         </div>
         <div className='lg:block hidden border-l border-gray-600 bg-[#F8F8F8] overflow-x-hidden overflow-y-scroll'>
         <h3 className='text-xl mb-2 mt-3 mx-12'>People you may know</h3>
           {rightSideBarData.map((rightSideBarData:any)=>(
-            <>
+            <div key={rightSideBarData._id}>
             <RightSidebar profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} email={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
-            </>
+            </div>
           ))}
           </div>
       </section>
