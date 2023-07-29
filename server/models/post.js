@@ -11,8 +11,17 @@ const Post = new mongoose.Schema({
     likes:{type:Number,default:0},
     likedBy : { type: [{ id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } }], default: [] } 
 },
-{collection:'posts'}
-) 
+{collection:'posts'}); 
+
+// Define a pre-save hook
+Post.pre('save', function(next) {
+    if (this.likes < 0) {
+      // If likes is less than zero, set it to zero
+      this.likes = 0;
+    }
+    next();
+  });
+  
 
 const model = mongoose.model('Post',Post);
 

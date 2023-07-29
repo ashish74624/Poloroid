@@ -200,7 +200,8 @@ const storage = multer.diskStorage({
   
   app.put('/like/:id', async (req, res) => {
     let postId = req.params.id;
-    const email = req.body.emailOfUser;
+    const email1 = req.body.emailOfUser;
+    let email= email1.replace('%40','@')
     try {
       const user = await User.findOne({ email: email });
       const post = await Post.findOne({ _id: postId });
@@ -405,6 +406,25 @@ const storage = multer.diskStorage({
     }  
   });
 
+  // app.get('/allPost/:email', async(req,res)=>{
+  //   const email = req.params.email;
+  //   try{
+  //     const user = await User.findOne({email:email});
+  //     const posts = await Post.find({
+  //       $or:[
+  //         {email:email},
+  //       {'friends.id':user._id}
+  //       ]
+  //     }
+  //     )
+  //     posts.reverse() 
+  //     return res.status(200).json(posts);
+  //   }catch(err){
+  //     console.log('All post nnnnnnnot done')
+  //   }
+  // });
+
+  
   app.get('/allPost/:email', async(req,res)=>{
     const email = req.params.email;
     try{
