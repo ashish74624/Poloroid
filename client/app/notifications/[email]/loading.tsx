@@ -1,5 +1,5 @@
 import React from 'react'
-import NotfSkel from '@/app/Components/NotfSkel'
+import NotfSkel from '@/app/Skels/NotfSkel'
 import { Comfortaa } from 'next/font/google'
 import { Metadata } from 'next';
 

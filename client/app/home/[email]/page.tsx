@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import Navbar from '@/app/Components/Navbar';
 import Sidebar from '@/app/Components/Sidebar';
-import PostSkel from '@/app/Components/PostSkel';
+import PostSkel from '@/app/Skels/PostSkel';
 import Post from '@/app/Components/Post';
 import RightSidebar from '@/app/Components/RightSidebar';
 import BottomNav from '@/app/Components/BottomNav';

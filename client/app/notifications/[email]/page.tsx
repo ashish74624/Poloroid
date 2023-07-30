@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 import Navbar from '@/app/Components/Navbar';
 import userDefaultImage from '@/public/userDefaultImage.webp'
 import NotfCard from '@/app/Components/NotfCard';
-import NotfSkel from '@/app/Components/NotfSkel';
+import NotfSkel from '@/app/Skels/NotfSkel';
 import Link from 'next/link';
 import LeftArrow from '@/app/Icons/LeftArrow';
 import { Metadata } from 'next';

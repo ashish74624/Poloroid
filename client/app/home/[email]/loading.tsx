@@ -1,9 +1,9 @@
 import React from 'react'
 import { Comfortaa } from 'next/font/google'
-import NavbarSkel from '@/app/Components/NavbarSkel'
+import NavbarSkel from '@/app/Skels/NavbarSkel'
 import Sidebar from '@/app/Components/Sidebar'
-import PostSkel from '@/app/Components/PostSkel'
-import UserSkel from '@/app/Components/UserSkel'
+import PostSkel from '@/app/Skels/PostSkel'
+import UserSkel from '@/app/Skels/UserSkel'
 
 
 const Com = Comfortaa({

@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import GithubLogo from './GithubLogo'
+import GithubLogo from '../Icons/GithubLogo'
 
 
 export default function Sidebar({email}:any) {

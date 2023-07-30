@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Comfortaa } from 'next/font/google'
-import CutIcon from './CutIcon'
+import CutIcon from '../Icons/CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
 import { AnimatePresence,motion } from 'framer-motion'
