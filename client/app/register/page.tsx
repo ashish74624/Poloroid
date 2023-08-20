@@ -84,7 +84,7 @@ export default function Register() {
     }
 
     const handleNextButtonClick =async () => {
-      if (!firstName || !lastName || !email || !password || !place) {
+      if (!firstName || !lastName || !email || !password ) {
         return;
       }
     
@@ -110,7 +110,7 @@ export default function Register() {
 
   return (
     <>
-      <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-10 items-center space-y-10 overflow-x-hidden overflow-y-scroll pb-32'>
+      <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-12 items-center space-y-10 overflow-x-hidden overflow-y-scroll pb-32'>
       <h3 className=' text-white text-2xl md:text-4xl lg:text-5xl '>Welcome to <span className={`${Comf.className}`}>polaroid</span> | Register</h3>
       <div className='bg-white w-80 lg:w-96 h-max py-4 pb-5 lg:pb-8  lg:py-8 rounded-xl px-8 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
         
@@ -143,12 +143,6 @@ export default function Register() {
               onChange={(e)=>{setPassword(e.target.value)}}
               />
               <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#71B1D1] peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Password</label>
-          </div>
-          <div className="relative z-0 w-full mb-3 md:mb-6 group">
-              <input type="text" name="place" id="place" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-[#71B1D1] peer" placeholder=" " required
-              onChange={(e)=>{setPlace(e.target.value)}}
-              />
-              <label htmlFor="floating_repeat_password" className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-[#71B1D1]  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Location</label>
           </div>
           <button 
           onClick={handleNextButtonClick}

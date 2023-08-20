@@ -283,10 +283,9 @@ const storage = multer.diskStorage({
     const email = req.params.email;
     try{
       const user = await User.findOne({email:email});
-      const place = user.place.trim(); // Trim spaces from the place variable
-    const regexPattern = new RegExp(`.*\\b${place}\\b.*`, 'i');
-      const friends = await User.find({ place: {$regex: regexPattern}, 
-      email: { $ne: email }, 
+    //   const place = user.place.trim(); // Trim spaces from the place variable
+    // const regexPattern = new RegExp(`.*\\b${place}\\b.*`, 'i');
+      const friends = await User.find({ email: { $ne: email }, 
       'notifications.sender.id':{$ne : user._id}, //This line ensures that the friends I have already requested are not retured again by using $ne
       'request.sentTo.id':{$ne : user._id},
       'friends.id':{$ne:user._id},
@@ -405,25 +404,6 @@ const storage = multer.diskStorage({
       console.log("Unable to reject request")
     }  
   });
-
-  // app.get('/allPost/:email', async(req,res)=>{
-  //   const email = req.params.email;
-  //   try{
-  //     const user = await User.findOne({email:email});
-  //     const posts = await Post.find({
-  //       $or:[
-  //         {email:email},
-  //       {'friends.id':user._id}
-  //       ]
-  //     }
-  //     )
-  //     posts.reverse() 
-  //     return res.status(200).json(posts);
-  //   }catch(err){
-  //     console.log('All post nnnnnnnot done')
-  //   }
-  // });
-
   
   app.get('/allPost/:email', async(req,res)=>{
     const email = req.params.email;
