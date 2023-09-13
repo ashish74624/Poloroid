@@ -2,13 +2,14 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { Kaushan_Script } from 'next/font/google';
+import { Kalam } from 'next/font/google';
 
 let backendURL = process.env.BACKEND
 
-const kst = Kaushan_Script({
-    subsets:['latin'],
-    weight:'400'
-  })
+const kst = Kalam({
+  weight:['400'],
+  subsets:['devanagari']
+})
 
   interface PostProps {
     id: string;
