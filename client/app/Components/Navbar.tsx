@@ -19,12 +19,8 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/app/Components/ui/dialog"
-
 
 const Comf = Comfortaa({
   subsets:['cyrillic'],
@@ -154,7 +150,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
                 </svg>
             </motion.span>
             </DialogTrigger>
-            <DialogContent className=' w-80'>
+            <DialogContent>
           {file?
           (<>
           <div className="relative mt-4">
