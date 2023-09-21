@@ -100,13 +100,10 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
     <main className='fixed w-screen z-50 bottom-0 bg-[#F8F8F8] py-2 flex justify-center border-t border-gray-600'>
     <div className=' px-4  w-max rounded-full'>
         <div className='flex w-60 h-12 py-2  items-center justify-between'>
-              <button onClick={()=>{setSide(false);setVisible(false);}}>
             <Link href={`/home/${email}`}>
                 <span className=''><HomeIcon/></span>
                 <p className=' text-xs'>Home</p>
             </Link>
-              </button>
-              
               <Dialog>
             <DialogTrigger>
             <span className="flex items-center justify-center bg-gray-900 text-white w-12 h-12 rounded-full focus:outline-2 focus:outline-[#58b8e8]">
@@ -169,22 +166,6 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
         </div>
     </div> 
     </main>
-    {side &&(
-        <>
-        <AnimatePresence>
-            <section
-             className='bg-black/50 h-screen w-screen fixed rounded z-40 top-0 flex justify-center items-center'>
-                <div className='bg-[#F8F8F8] w-52 h-max px-2 pb-40 rounded-lg'>
-                    <Sidebar email={email}/>
-                </div>
-                <button className='fixed top-[0.5rem] right-4 rotate-45'
-                onClick={()=>{setSide(!side)}}>
-                    <CutIcon/>
-                </button>
-            </section>
-        </AnimatePresence>    
-        </>
-    )}
     </>
   )
 }

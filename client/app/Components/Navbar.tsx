@@ -2,10 +2,9 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Comfortaa } from 'next/font/google'
-import CutIcon from '../Icons/CutIcon'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
-import { AnimatePresence,motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import toast , {Toaster}  from 'react-hot-toast'
 import Image from 'next/image'
 import {
@@ -128,11 +127,11 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
               <DropdownMenuContent>
                 <DropdownMenuLabel>{firstName} {lastName}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className='text-red-500'>
-                  <Link href={'/'}>
+                <Link href={'/'}>
+                  <DropdownMenuItem className='text-red-500'>
                     Log Out
-                  </Link>
-                </DropdownMenuItem>
+                  </DropdownMenuItem>
+                </Link>
               </DropdownMenuContent>
             </DropdownMenu>
 
