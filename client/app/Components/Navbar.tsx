@@ -8,6 +8,14 @@ import { StaticImageData } from 'next/image'
 import { AnimatePresence,motion } from 'framer-motion'
 import toast , {Toaster}  from 'react-hot-toast'
 import Image from 'next/image'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/app/Components/ui/dropdown-menu"
 
 
 const Comf = Comfortaa({
@@ -110,24 +118,21 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
           <>
           <span className='flex'> 
           <span className='w-[86px] relative'>
-            <button 
-            onClick={()=>{setLogOutBtn(!logoutbtn)}}
-            className='w-max h-max pl-6 focus:outline-none'>     
-              <Image className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"} height={100} width={100}/>
-            </button>
-            {
-              logoutbtn &&(
-                  <div 
-                    className={'bg-transparent w-24 h-20 absolute'}>
-                    <Link className=' focus:outline-none' href={'/'}>
-                      <button className='bg-red-500 w-24 flex justify-center text-white text-lg py-2 rounded-lg mt-[0.5rem] focus:outline-none focus:outline-2 focus:outline-[#F8C732] active:bg-white active:text-red-500 active:outline-2 active:outline-[#F8C732]'>
-                        Log Out
-                      </button>
-                    </Link>
-                  </div>
-              )
-            }
-            
+            <DropdownMenu>
+              <DropdownMenuTrigger className='focus:outline-none'>
+                <Image className="w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2  border-[#F8C732] p-1 mr-3" src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${userImg}`} alt ={"Helo"} height={100} width={100}/>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuLabel>{firstName} {lastName}</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className='text-red-500'>
+                  <Link href={'/'}>
+                    Log Out
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
           </span>
           <motion.button
           whileHover={{
