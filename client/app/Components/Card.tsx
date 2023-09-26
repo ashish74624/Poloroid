@@ -61,7 +61,7 @@ export default function Card({id,firstName,lastName,email,userProfile,likes,like
     
   return (
     <>
-          <section className='md:pb-0 pb-16'>
+          <section className='md:pb-0 pb-2'>
             <section key={id} className="bg-[#58b8e8] w-[360px] my-2 md:w-[400px] h-max flex flex-col rounded-md  items-center">
             <span className="flex space-x-2 mx-auto py-2 items-center w-[310px] md:w-[360px]">
                 <Image
