@@ -102,7 +102,6 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
         <div className='flex w-60 h-12 py-2  items-center justify-between'>
             <Link href={`/home/${email}`}>
                 <span className=''><HomeIcon/></span>
-                {/* <p className=' text-xs'>Home</p> */}
             </Link>
               <Dialog>
             <DialogTrigger>
@@ -151,7 +150,6 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
               <SheetTrigger>
               <span>
                 <Menubtn/>
-                {/* <p className=' text-xs'>Menu</p> */}
               </span>
               </SheetTrigger>
               <SheetContent>
