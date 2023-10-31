@@ -5,7 +5,7 @@ import LeftArrow from '@/app/Icons/LeftArrow'
 import { Metadata } from 'next'
 
 export const metadata: Metadata={
-  title:'Polaroid | Frequently Asked Questions',
+  title:'Poloroid | Frequently Asked Questions',
   description: 'Here are the answers to some of the questions you might have'
 }
 

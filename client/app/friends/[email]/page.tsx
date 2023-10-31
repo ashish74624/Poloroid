@@ -7,7 +7,7 @@ import BottomNav from '@/app/Components/BottomNav'
 import { Metadata } from 'next'
 
 export const metadata: Metadata={
-    title:'Polaroid | Friends',
+    title:'Poloroid | Friends',
     description: 'Your Friends '
 }
 

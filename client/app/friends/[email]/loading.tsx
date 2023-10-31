@@ -20,7 +20,7 @@ export default function loading() {
       <div className={`w-[80vw] h-[9vh]  flex justify-center mx-auto items-center`}>
         
           <span className={`${Com.className}  text-3xl  bg-clip-text text-[#58b8e8] `}>
-            polaroid
+            poloroid
             </span>
             </div>
             </nav>

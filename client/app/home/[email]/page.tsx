@@ -13,7 +13,7 @@ export  async function generateMetadata({params:{email}}:Params):Promise<Metadat
   const res = getData(email);
   const data = await res;
   return {
-    title:`Polaroid | ${data.firstName} ${data.lastName}'s Profile`,
+    title:`Poloroid | ${data.firstName} ${data.lastName}'s Profile`,
     description:"View and interact with your Poloroid profile.",
   }
 }

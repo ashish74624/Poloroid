@@ -9,7 +9,7 @@ import { Metadata } from 'next';
 
 
 export const metadata: Metadata={
-  title:'Polaroid | Notifications',
+  title:'Poloroid | Notifications',
   description: 'Your Notificatoins '
 }
 

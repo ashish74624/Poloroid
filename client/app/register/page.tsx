@@ -111,7 +111,7 @@ export default function Register() {
   return (
     <>
       <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-12 items-center space-y-10 overflow-x-hidden overflow-y-scroll pb-32'>
-      <h3 className=' text-white text-2xl md:text-4xl lg:text-5xl '>Welcome to <span className={`${Comf.className}`}>polaroid</span> | Register</h3>
+      <h3 className=' text-white text-2xl md:text-4xl lg:text-5xl '>Welcome to <span className={`${Comf.className}`}>poloroid</span> | Register</h3>
       <div className='bg-white w-80 lg:w-96 h-max py-4 pb-5 lg:pb-8  lg:py-8 rounded-xl px-8 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
         
       <form onSubmit={handleRegister}>

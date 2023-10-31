@@ -8,7 +8,7 @@ import UserCard from '@/app/Components/UserCard';
 
 
 export const metadata: Metadata={
-  title:'Polaroid | People you may know',
+  title:'Poloroid | People you may know',
 }
 
 type Params={

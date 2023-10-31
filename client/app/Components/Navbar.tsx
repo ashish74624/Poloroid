@@ -111,7 +111,7 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
         
           <span className={`${Comf.className} text-2xl lg:text-3xl  bg-clip-text text-[#58b8e8] `}>
           <Link className=' focus:outline-none' href={`/home/${email}`}>
-            polaroid
+            poloroid
           </Link>  
             </span>
         
