@@ -7,7 +7,7 @@ import BottomNav from '@/app/Components/BottomNav'
 import { Metadata } from 'next'
 
 export const metadata: Metadata={
-    title:'Poloroid | Friends',
+    title:'Polaroid | Friends',
     description: 'Your Friends '
 }
 
@@ -28,7 +28,7 @@ export default async function Friends({params:{email}}:Params) {
             return(
                 <>
                     <Navbar email={email} navData={false}/>
-                    <span className='text-gray-800 mx-auto h-14 bg-white rounded-full font-mono w-[95vw] md:w-[80vw] lg:w-[60vw] flex justify-between px-6 items-center border border-gray-300  shadow '>
+                    <span className='text-gray-800 mx-auto py-2 bg-white rounded-full font-mono w-[95vw] md:w-[80vw] lg:w-[60vw] flex justify-between px-6 items-center border border-gray-300  shadow '>
                         <h1 className='text-2xl md:text-3xl'>Friends</h1>
                         <Link className=' focus:outline-none ' href={`/home/${email}`}>
                             <button className='bg-gray-700 transition-all duration-200 hover:bg-slate-400 flex h-max items-center text-white text-xl rounded-full pl-3 pr-4 py-2 focus:outline-8 focus:outline-slate-400 active:outline-8 active:bg-white active:outline-black active:text-black'>
@@ -47,14 +47,14 @@ export default async function Friends({params:{email}}:Params) {
             <>
               <Navbar email={email} navData={false}/>
               <section className='h-[91vh] bg-[#F8F8F8] w-screen flex flex-col items-center'>
-              <span className='text-gray-800 mx-auto h-20 bg-white rounded-full font-mono w-[95vw] md:w-[80vw] lg:w-[60vw] flex justify-between px-6 items-center border border-gray-300  shadow '>
-                        <h1 className='text-2xl md:text-3xl'>Friends</h1>
-                        <Link className=' focus:outline-none ' href={`/home/${email}`}>
-                            <button className='bg-gray-700 transition-all duration-200 hover:bg-slate-400 flex h-max items-center text-white text-xl rounded-full pl-3 pr-4 py-2 focus:outline-2 focus:outline-slate-400'>
-                                <LeftArrow/> Home
-                            </button>
-                        </Link>
-                    </span>
+                <div className='text-gray-800 mx-auto py-2 bg-white rounded-full font-mono w-[95vw] md:w-[80vw] lg:w-[60vw] flex justify-between px-6 items-center border border-gray-300  shadow '>
+                    <h1 className='text-2xl md:text-3xl'>Friends</h1>
+                    <Link className=' focus:outline-none ' href={`/home/${email}`}>
+                        <button className='bg-gray-700 transition-all duration-200 hover:bg-slate-400 flex h-10 items-center text-white text-xl rounded-full pl-3 pr-4 py-2 focus:outline-2 focus:outline-slate-400'>
+                            <LeftArrow/> Home
+                        </button>
+                    </Link>
+                </div>
                 {
                     friends.map((friend:any)=>(
                         <>
