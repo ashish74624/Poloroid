@@ -31,7 +31,7 @@ export default function Home() {
             </Link>
           </button>
         </div>
-        <h1 className={`${cor.className} text-white`}>Created by : <a className='  text-xl hover:underline' href="https://github.com/ashish74624" target='_blank'>Ashish Kumar</a></h1>
+        <h1 className={`${cor.className} text-white`}>Created by : <a className='  text-xl hover:underline' href="https://ashish74624.vercel.app" target='_blank'>Ashish Kumar</a></h1>
     </main> 
     </>
   )
