@@ -407,6 +407,8 @@ const storage = multer.diskStorage({
   
   app.get('/allPost/:email', async(req,res)=>{
     const email = req.params.email;
+    email.replace('%40','@')
+
     try{
       const user = await User.findOne({email:email});
       const posts = await Post.find({
@@ -416,8 +418,14 @@ const storage = multer.diskStorage({
         ]
       }
       )
-      posts.reverse() 
-      return res.status(200).json(posts);
+      if(posts.length<=0){
+        const defaultPosts = await Post.find({email:'ashishkumar74624@gmail.com'});
+        defaultPosts.reverse();
+        return res.status(200).json(defaultPosts);
+      }else{
+        posts.reverse() 
+        return res.status(200).json(posts);
+      }
     }catch(err){
       console.log('All post nnnnnnnot done')
     }
