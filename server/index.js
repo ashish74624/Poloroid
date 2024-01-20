@@ -3,10 +3,11 @@ import cors from 'cors';
 import mongoose from "mongoose";
 import dotenv from 'dotenv';
 import User from './models/user.js'
+import Post from './models/post.js'
+import Social from "./models/social.js";
 import bcrypt from 'bcryptjs';
 import multer from "multer";
 import bodyParser from 'body-parser';
-import Post from './models/post.js'
 import fileUpload from 'express-fileupload';
 import { v2 as cloudinary } from 'cloudinary';
 
@@ -459,9 +460,55 @@ const storage = multer.diskStorage({
     }  
   })
 
+  app.get('/personalPosts/:email',async(req,res)=>{
+    const email= req.params.email;
+    try{
+      const post = await Post.find({email:email});
+      return res.status(200).json(post);
+    }
+    catch{
+      return res.status(400).json("Not found")
+    }
+  });
+
+  app.put('/social/:email',async(req,res)=>{
+    const email = req.params.email;
+    const {instagram,linkedin,github} = req.body;
+    try{
+      const user = await Social.findOne({email:email}); 
+      if(!user){
+        user = await Social.create({email,instagram,linkedin,github});
+        await user.save();
+        res.status(200).json({done:true});  
+      }else{
+        user.instagram = instagram,
+        user.linkedin = linkedin,
+        user.github = github
+        await user.save();
+        res.status(200).json({done:true});  
+      }
+    }
+    catch{
+      res.status(400).json({done:false});  
+    }
+  })
+
+  app.get('/getSocials/:email',async(req,res)=>{
+    const email=req.params.email;
+    try{
+      const social = await Social.findOne({email});
+      if(social){
+        res.status(200).json({social:social,msg:"User found"});
+      }else{
+        res.status(404).json({msg:"User Not Available"});
+      }
+    }
+    catch{
+      res.status(400);
+    }
+  });
+
 
 app.listen(process.env.PORT,()=>{
     console.log(`Server Started on port : ${process.env.PORT}`)
-})
-
- 
+});

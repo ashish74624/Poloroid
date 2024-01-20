@@ -127,6 +127,11 @@ export default function Navbar({firstName,lastName,email,userImg,navData}:Navbar
               <DropdownMenuContent>
                 <DropdownMenuLabel>{firstName} {lastName}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
+                <Link href={`/profile/${email}`}>
+                  <DropdownMenuItem className=''>
+                    My Profile
+                  </DropdownMenuItem>
+                </Link>
                 <Link href={'/'}>
                   <DropdownMenuItem className='text-red-500'>
                     Log Out
