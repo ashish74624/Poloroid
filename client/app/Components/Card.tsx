@@ -78,7 +78,7 @@ export default function Card({id,firstName,lastName,email,userProfile,likes,like
             <div className=" bg-white h-max w-[320px] md:w-[360px] border border-black">
                 <Image
                 src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${image}`} className="md:w-[300px] w-[270px] h-96 mx-auto mt-[25px] md:mt-[30px]" alt ='Image' width={500} height={500} />
-                <p className={` ${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center`}>
+                <p className={` ${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-centern overflow-scroll `}>
                   {caption}
                 </p>
             </div>
@@ -102,7 +102,7 @@ export default function Card({id,firstName,lastName,email,userProfile,likes,like
             <div className=" bg-white h-max w-[320px] md:w-[360px] border border-black">
                 <Image
                 src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${image}`} className="md:w-[300px] w-[270px] h-96 mx-auto mt-[25px] md:mt-[30px]" alt ='Image' width={500} height={500} />
-                <p className={` ${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center`}>
+                <p className={` ${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center overflow-scroll `}>
                   {caption}
                 </p>
             </div>
