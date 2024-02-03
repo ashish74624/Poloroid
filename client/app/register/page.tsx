@@ -40,7 +40,7 @@ export default function Register() {
       toast.loading('loading...'); 
       try{
         
-          const res = await fetch(`${backendURL}/register`,{
+          const res = await fetch(`${backendURL}/user/register`,{
           method:"POST",
           headers:{
               'Content-Type':'application/json'

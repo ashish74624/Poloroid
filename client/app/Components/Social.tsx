@@ -13,7 +13,7 @@ export default function Social({email}:any) {
     const [github,setGithub]:any= useState("");
     useEffect(()=>{
         const getSocials= async(email:any)=>{
-            const res= await fetch(`${backendURL}/getSocials/${email}`);
+            const res= await fetch(`${backendURL}/social/getSocials/${email}`);
             const data = await res.json();
             // console.log(data.social)
             setInsta(data.social.instagram);

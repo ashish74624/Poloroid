@@ -45,7 +45,7 @@ export default function BottomNav({firstName,lastName,email,upload,people}:any) 
             toast.loading("Posting...");
             setIsDiabled(true);
             try{
-              const res = await fetch(`${backendURL}/upload`,{
+              const res = await fetch(`${backendURL}/post/upload`,{
               method:'POST',
               headers:{
                   "Content-Type":"application/json"
