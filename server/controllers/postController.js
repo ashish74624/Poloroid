@@ -63,20 +63,27 @@ export const allPost = async(req,res)=>{
 
     try{
       const user = await User.findOne({email:email});
-      const posts = await Post.find({
-        $or:[
-          {email:email},
-        {'friends.id':user._id}
-        ]
-      }
+
+      const allPost = await User.find({$or:[{email:email},{'friends.id':user._id}]})
+
+
+      const posts = await Promise.all(
+        allPost.map(async(user) => {
+          const p = await Post.findOne({email:user.email}) ;
+          return p !== null ? p : null;
+
+        })
       )
-      if(posts.length<=0){
+
+      const filteredPost = posts.filter(post=> post!==null )
+      console.log(filteredPost)
+      if(filteredPost.length<=0){
         const defaultPosts = await Post.find({email:'ashishkumar74624@gmail.com'});
         defaultPosts.reverse();
         return res.status(200).json(defaultPosts);
       }else{
-        posts.reverse() 
-        return res.status(200).json(posts);
+        filteredPost.reverse() 
+        return res.status(200).json(filteredPost);
       }
     }catch(err){
       console.log('All post not done')
