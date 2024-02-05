@@ -21,7 +21,7 @@ type Params={
   let backendURL = process.env.BACKEND
 
 export default async function Friends({params:{email}}:Params) {
-    const res = await fetch(`${backendURL}/friends/${email}`,{cache:'no-store'});
+    const res = await fetch(`${backendURL}/user/friends/${email}`,{cache:'no-store'});
     const data = await res.json();
     if(res.ok){
         if(data.msg==='Nofriends'){

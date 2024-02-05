@@ -38,7 +38,7 @@ export default function Card({id,firstName,lastName,email,userProfile,likes,like
     };
 
     const handleLike=  async (id: any) => {
-      const response = await fetch(`${backendURL}/like/${id}`, {
+      const response = await fetch(`${backendURL}/post/like/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

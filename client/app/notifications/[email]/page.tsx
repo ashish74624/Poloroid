@@ -23,7 +23,7 @@ let backendURL = process.env.BACKEND
 
 export default async function Notifications({params:{email}}:Params) {
     
-  const res = await fetch(`${backendURL}/notifications/${email}`,{cache:'no-store'});
+  const res = await fetch(`${backendURL}/user/notifications/${email}`,{cache:'no-store'});
   const data = await res.json();
   if(data.status==='ok'){
     const notification = data.msg;

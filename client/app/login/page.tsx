@@ -28,7 +28,7 @@ export default function Login() {
     setIsDiabled(true);
     toast.loading('Logging in...'); 
     try{
-      const response = await fetch(`${backendURL}/login`, {
+      const response = await fetch(`${backendURL}/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -17,7 +17,7 @@ interface NoftCardProps {
 export default async function NotfCard({friendImage,friendName,email,friendID}:NoftCardProps) {
   const handleAddFriend =async ()=>{
 
-    const addFriend = await fetch(`${backendURL}/addFriend/${email}`,{
+    const addFriend = await fetch(`${backendURL}/user/addFriend/${email}`,{
       method:'PUT',
       headers:{
         "Content-Type": "application/json"
@@ -35,7 +35,7 @@ export default async function NotfCard({friendImage,friendName,email,friendID}:N
   }
 
   const rejectRequest= async()=>{
-    const res = await fetch(`${backendURL}/rejectRequest/${friendID}`,{
+    const res = await fetch(`${backendURL}/user/rejectRequest/${friendID}`,{
       method:"PUT",
       headers:{
         'Content-Type':'application/json'
