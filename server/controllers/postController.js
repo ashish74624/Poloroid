@@ -57,6 +57,20 @@ export const likePost = async(req,res)=>{
     }
 }
 
+const extractObjects=(arrayObj)=>{
+  let ans =[];
+  
+  arrayObj= arrayObj.filter(obj=> Object.keys(obj).length!==0 );
+
+  arrayObj.map((obj)=>{
+    for(let keys in obj){
+      ans.push(obj[keys]);
+    }
+  })
+
+  return ans;
+} 
+
 export const allPost = async(req,res)=>{
     const email = req.params.email;
     email.replace('%40','@')
@@ -68,15 +82,12 @@ export const allPost = async(req,res)=>{
 
 
       const posts = await Promise.all(
-        allPost.map(async(user) => {
-          const p = await Post.findOne({email:user.email}) ;
-          return p !== null ? p : null;
+      allPost.map(async(user) => {
+        const p = await Post.find({email:user.email}) ;
+        return p !== null ? {...p} : null;
+      }))
 
-        })
-      )
-
-      const filteredPost = posts.filter(post=> post!==null )
-      console.log(filteredPost)
+      const filteredPost = extractObjects(posts);
       if(filteredPost.length<=0){
         const defaultPosts = await Post.find({email:'ashishkumar74624@gmail.com'});
         defaultPosts.reverse();
