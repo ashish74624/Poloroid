@@ -42,7 +42,6 @@ export default function Login() {
         )
       });
       const data = await response.json();
-      console.log(data.status);
 
       if (data.user) {
         toast.dismiss();
