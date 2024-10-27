@@ -48,15 +48,12 @@ export default function Login() {
         setIsDiabled(false);
         router.push(`/home/${data.user.email}`);
       }
-      else if (data.status === 'error') {
+      else {
         toast.dismiss();
         setIsDiabled(false);
         setTimeout(() => {
           toast.error(data.msg);
         }, 100)
-      }
-      else {
-
       }
     }
     catch (err) {
