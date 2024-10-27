@@ -36,10 +36,8 @@ interface HomePageBtnProps {
 
 function HomePageBtn({ name, link }: HomePageBtnProps) {
   return (
-    <button className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg active:border-[#58b8e8] active:border-2 active:text-[#F8C732] hover:outline-[#F8C732] hover:outline transition-all'>
-      <Link className=' focus:outline-none ' href={link}>
-        {name}
-      </Link>
-    </button>
+    <Link href={link} className='bg-white w-24 h-11 flex justify-center items-center focus:border-[#F8C732] focus:border-2 focus:outline-none rounded-md  text-[#58b8e8] text-base md:text-lg active:border-[#58b8e8] active:border-2 active:text-[#F8C732] hover:outline-[#F8C732] hover:outline transition-all'>
+      {name}
+    </Link>
   )
 }
