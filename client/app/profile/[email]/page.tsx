@@ -2,18 +2,6 @@ import React from 'react'
 import Sidebar from '@/app/Components/Sidebar'
 import { Button } from "@/app/Components/ui/button"
 import PersonalPost from '@/app/Components/PersonalPost'
-import { Input } from "@/app/Components/ui/input"
-import { Label } from "@/app/Components/ui/label"
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogFooter
-} from "@/app/Components/ui/dialog"
-import Insta from '@/app/Icons/Insta'
-import Linkedin from '@/app/Icons/Linkedin'
-import Github from '@/app/Icons/Github'
-// import AddSocial from '@/app/Components/AddSocial'
 import Social from '@/app/Components/Social'
 
 type Params = {
@@ -49,7 +37,7 @@ export default async function Profile({ params: { email } }: Params) {
         <div className='col-span-3'>
           <div className="mx-6 bg-[url('/cover.jpeg')] bg-no-repeat bg-cover mt-6 w-[79vw] h-48 rounded-lg overflow-hidden">
             <div className="flex justify-center items-center md:rounded-ld overflow-hidden md:px-10 py-5 bg-blur backdrop-filter backdrop-blur-md w-full gap-2 md:gap-10 h-48">
-              <img src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${data.profileImage}`} className="object-cover border-4 border-white h-40 w-40 rounded-full shadow-md bg-red-500" />
+              <img loading='lazy' src={`${process.env.CLOUDINARY_URL}/${data.profileImage}`} className="object-cover border-4 border-white h-40 w-40 rounded-full shadow-md bg-red-500" />
               <div className="flex md:flex-1 flex-col justify-center gap-4">
                 <div className="flex justify-between items-center gap-5 ">
                   <div>
