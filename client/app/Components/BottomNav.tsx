@@ -24,7 +24,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/app/Components/ui/sheet"
-import Sidebar2 from './Sidebar2'
+// import Sidebar2 from './Sidebar2'
 
 let backendURL = process.env.BACKEND
 
@@ -156,7 +156,7 @@ export default function BottomNav({ firstName, lastName, email, upload, people }
                 <SheetHeader>
                   <SheetTitle>Menu</SheetTitle>
                   <SheetDescription>
-                    <Sidebar2 email={email} />
+                    <Sidebar email={email} />
                   </SheetDescription>
                 </SheetHeader>
               </SheetContent>
