@@ -24,8 +24,10 @@ async function getPostData(email: string) {
 
 
 export default async function Profile({ params: { email } }: Params) {
-  const data = await getData(email);
-  const post = await getPostData(email);
+  const userData = getData(email);
+  const postData = getPostData(email);
+
+  const [data, post] = await Promise.all([userData, postData]);
 
   return (
     <>
