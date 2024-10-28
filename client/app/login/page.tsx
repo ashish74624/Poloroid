@@ -42,22 +42,18 @@ export default function Login() {
         )
       });
       const data = await response.json();
-      console.log(data.status);
 
       if (data.user) {
         toast.dismiss();
         setIsDiabled(false);
         router.push(`/home/${data.user.email}`);
       }
-      else if (data.status === 'error') {
+      else {
         toast.dismiss();
         setIsDiabled(false);
         setTimeout(() => {
           toast.error(data.msg);
         }, 100)
-      }
-      else {
-
       }
     }
     catch (err) {
