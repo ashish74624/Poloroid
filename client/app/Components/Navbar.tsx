@@ -1,7 +1,6 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { Comfortaa } from 'next/font/google'
 import convertToBase64 from '../lib/convertToBase64'
 import { StaticImageData } from 'next/image'
 import { motion } from 'framer-motion'
@@ -22,10 +21,6 @@ import {
 } from "@/app/Components/ui/dialog"
 import { cloud_name, placeholderImage } from '../libs/configs'
 
-const Comf = Comfortaa({
-  subsets: ['cyrillic'],
-  weight: '400'
-})
 
 interface NavbarProps {
   firstName?: string;
@@ -110,7 +105,7 @@ export default function Navbar({ firstName, lastName, email, userImg, navData }:
       <nav className=' border-b border-gray-600 bg-[#F8F8F8] w-screen'>
         <div className={`w-[80vw] min-h-[60px] h-[7vh] lg:h-[9vh]  flex ${navData ? "justify-between" : 'justify-center'}  mx-auto items-center`}>
 
-          <span className={`${Comf.className} text-2xl lg:text-3xl  bg-clip-text text-[#58b8e8] `}>
+          <span className={"text-2xl lg:text-3xl  bg-clip-text text-[#58b8e8] "}>
             <Link className=' focus:outline-none' href={`/home/${email}`}>
               poloroid
             </Link>

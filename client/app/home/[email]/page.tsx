@@ -58,7 +58,6 @@ export default async function Home({ params: { email } }: Params) {
   const rightSideBarData = await getFriendSuggestions(email);
   const post = getAllPost(email);
 
-  // const [userData, rightSideBarData] = await Promise.all([data, sideData])
 
 
 

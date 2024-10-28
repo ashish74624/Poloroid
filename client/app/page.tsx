@@ -23,7 +23,7 @@ export default function Home() {
         <HomePageBtn name='Login' link='/login' />
         <HomePageBtn name='Sign Up' link='/register' />
       </div>
-      <h1 className={`${cor.className} text-white`}>Created by : <a className='  text-xl hover:underline' href="https://ashish74624.vercel.app" target='_blank'>Ashish Kumar</a></h1>
+      <h1 className="text-white">Created by : <a className='  text-xl hover:underline' href="https://ashish74624.vercel.app" target='_blank'>Ashish Kumar</a></h1>
       <Ripple />
     </main>
   )

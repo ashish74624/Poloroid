@@ -75,7 +75,7 @@ export default function Card({ id, firstName, lastName, email, userProfile, like
                 src={cloud_name! && `https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${userProfile}` as string}
                 className="w-10 h-10 rounded-full" alt='userImage' width={100} height={100}
               />
-              <h5 className="text-white text-lg font-serif">{firstName} {lastName}</h5>
+              <h5 className="text-white text-lg ">{firstName} {lastName}</h5>
             </span>
             <div className=" bg-white h-max w-[320px] md:w-[360px] border border-black">
               <Image
@@ -84,7 +84,7 @@ export default function Card({ id, firstName, lastName, email, userProfile, like
                 {caption}
               </p>
             </div>
-            <button className={`font-serif rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-yellow-500  transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px]  focus:outline-[#F8C732] `}
+            <button className={`rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-yellow-500  transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px]  focus:outline-[#F8C732] `}
               onClick={() => { toggleLiking(); }}
             >
               Like {like}
@@ -99,7 +99,7 @@ export default function Card({ id, firstName, lastName, email, userProfile, like
                 src={cloud_name ? `https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${userProfile}` : placeholderImage}
                 className="w-10 h-10 rounded-full" alt='userImage' width={100} height={100}
               />
-              <h5 className="text-white text-lg font-serif">{firstName} {lastName}</h5>
+              <h5 className="text-white text-lg ">{firstName} {lastName}</h5>
             </span>
             <div className=" bg-white h-max w-[320px] md:w-[360px] border border-black">
               <Image
@@ -108,7 +108,7 @@ export default function Card({ id, firstName, lastName, email, userProfile, like
                 {caption}
               </p>
             </div>
-            <button className={`font-serif rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-white  transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px]  focus:outline-[#F8C732] `}
+            <button className={`rounded-b-md flex justify-center items-center flex-grow py-3 hover:text-[#F8C732] text-white  transition duration-300 bg-[#58b8e8] text-2xl w-[360px] md:w-[400px]  focus:outline-[#F8C732] `}
               onClick={() => { toggleLiking() }}
             >
               Like {like}
