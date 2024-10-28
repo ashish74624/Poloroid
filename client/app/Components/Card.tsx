@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { Kalam } from 'next/font/google';
 import { cloud_name } from '../libs/configs';
+import { placeholderImage } from '../libs/configs';
 
 let backendURL = process.env.BACKEND
 
@@ -24,7 +25,6 @@ interface PostProps {
   userID: string;
 }
 
-const placeholderImage = "/placeholder.png"
 
 export default function Card({ id, firstName, lastName, email, userProfile, likes, likedBy, image, caption, userID }: PostProps) {
   const [like, setLike]: [number, React.Dispatch<React.SetStateAction<number>>] = useState(likes);
@@ -72,7 +72,7 @@ export default function Card({ id, firstName, lastName, email, userProfile, like
           <section key={id} className="bg-[#58b8e8] w-[360px] my-2 md:w-[400px] h-max flex flex-col rounded-md  items-center">
             <span className="flex space-x-2 mx-auto py-2 items-center w-[310px] md:w-[360px]">
               <Image
-                src={cloud_name ? `https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${userProfile}` : placeholderImage}
+                src={cloud_name! && `https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${userProfile}` as string}
                 className="w-10 h-10 rounded-full" alt='userImage' width={100} height={100}
               />
               <h5 className="text-white text-lg font-serif">{firstName} {lastName}</h5>

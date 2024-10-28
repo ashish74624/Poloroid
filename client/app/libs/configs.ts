@@ -1,1 +1,3 @@
-export const cloud_name = process.env.CLOUD_NAME; 
+export const cloud_name = process.env.NEXT_PUBLIC_CLOUD_NAME;
+
+export const placeholderImage = "/placeholder.png"

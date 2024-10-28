@@ -54,18 +54,18 @@ async function getAllPost(email: string) {
 
 export default async function Home({ params: { email } }: Params) {
 
-  const data = getData(email);
-  const sideData = getFriendSuggestions(email);
+  const userData = await getData(email);
+  const rightSideBarData = await getFriendSuggestions(email);
   const post = getAllPost(email);
 
-  const [userData, rightSideBarData] = await Promise.all([data, sideData])
+  // const [userData, rightSideBarData] = await Promise.all([data, sideData])
 
 
 
   return (
     <main className='h-screem w-screen overflow-hidden'>
       <nav>
-        <Navbar userImg={userData.profileImage} firstName={userData.firstName || 'Hello'} lastName={userData.lastName} email={userData.email} navData={true} />
+        <Navbar userImg={userData.profileImage} firstName={userData.firstName || 'User'} lastName={userData.lastName} email={userData.email} navData={true} />
       </nav>
       <section className=' h-[93vh] lg:h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 mb-14 md:mb-0 '>
         <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block bg-[#F8F8F8]'>
