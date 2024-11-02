@@ -3,6 +3,9 @@ import Sidebar from '@/app/Components/Sidebar'
 import { Button } from "@/app/Components/ui/button"
 import PersonalPost from '@/app/Components/PersonalPost'
 import Social from '@/app/Components/Social'
+import { cloud_name } from '@/app/libs/configs'
+
+
 
 type Params = {
   params: {
@@ -13,21 +16,22 @@ type Params = {
 let backendURL = process.env.BACKEND
 
 async function getData(email: string) {
-  const res = await fetch(`${backendURL}/data/${email}`);
+  console.log(email)
+  const res = await fetch(`${backendURL}/user/data/${decodeURIComponent(email)}`);
   return res.json()
 }
 
 async function getPostData(email: string) {
-  const res = await fetch(`${backendURL}/personalPosts/${email}`);
+  const res = await fetch(`${backendURL}/post/personalPosts/${decodeURIComponent(email)}`);
   return res.json();
 }
 
 
 export default async function Profile({ params: { email } }: Params) {
-  const userData = getData(email);
-  const postData = getPostData(email);
+  const data = await getData(email);
+  const post = await getPostData(email);
 
-  const [data, post] = await Promise.all([userData, postData]);
+  // const [data, post] = await Promise.all([userData, postData]);
 
   return (
     <>
@@ -61,7 +65,7 @@ export default async function Profile({ params: { email } }: Params) {
             </h2>
             <div className=' w-full h-96 grid grid-cols-4 pl-2 pb-2 mt-2 overflow-x-hidden overflow-y-scroll gap-3'>
               {post.map((post: any) => (
-                <PersonalPost key={post?.image} src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1688970909/${post?.image}`} title={post?.caption} />
+                <PersonalPost key={post?.image} src={`https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${post?.image}`} title={post?.caption} />
               ))}
             </div>
           </div>
