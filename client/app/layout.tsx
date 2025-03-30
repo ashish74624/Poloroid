@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import './globals.css'
 import { Comfortaa } from 'next/font/google'
 
@@ -19,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={Com.className} >{children}</body>
+      <body className={Com.className} >
+        {children}
+        <Toaster />
+      </body>
     </html>
   )
 }
