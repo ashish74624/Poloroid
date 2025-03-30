@@ -62,13 +62,13 @@ export default async function Home({ params: { email } }: Params) {
 
 
   return (
-    <main className='h-screem w-screen overflow-hidden'>
-      <nav>
+    <main className='h-screen  overflow-hidden'>
+      {/* <nav>
         <Navbar userImg={userData.profileImage} firstName={userData.firstName || 'User'} lastName={userData.lastName} email={userData.email} navData={true} />
-      </nav>
-      <section className=' h-[93vh] lg:h-[91vh] overflow-y-scroll md:overflow-hidden w-screen flex justify-center md:grid grid-cols-4 lg:grid-cols-5 mb-14 md:mb-0 '>
-        <div className='h-[91vh] overflow-y-scroll  border-r border-gray-600 hidden md:block bg-[#F8F8F8]'>
-          <Sidebar email={userData.email} />
+      </nav> */}
+      <section className='h-full overflow-y-scroll md:overflow-hidden flex justify-between mb-14 md:mb-0 '>
+        {/* <div className='h-full overflow-y-scroll  border-r border-gray-600 hidden md:block bg-[#F8F8F8]'>
+
           <div className='lg:hidden mt-3  border-black border-t flex flex-col items-center space-y-2 pt-2 '>
             <h1>People You may know</h1>
             <div className='space-y-2 '>
@@ -79,14 +79,14 @@ export default async function Home({ params: { email } }: Params) {
               ))}
             </div>
           </div>
-        </div>
-        <div className=' md:col-span-3 bg-[#F8F8F8] w-full  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
+        </div> */}
+        <div className=' md:col-span-3  w-full  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
           <Suspense fallback={<PostSkel />}>
             <Post promise={post} email={email} userId={userData._id} />
           </Suspense>
         </div>
-        <div className='lg:block hidden border-l border-gray-600 bg-[#F8F8F8] overflow-x-hidden overflow-y-scroll'>
-          <h3 className='text-xl mb-2 mt-3 mx-12'>People you may know</h3>
+        <div className='lg:block hidden border-l border-borderColor px-4 overflow-x-hidden overflow-y-scroll w-[30%] '>
+          <h3 className='w-full mb-2 mt-3  text-center'>People you may know</h3>
           {rightSideBarData.map((rightSideBarData: any) => (
             <div key={rightSideBarData._id}>
               <RightSidebar profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} email={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
@@ -95,7 +95,7 @@ export default async function Home({ params: { email } }: Params) {
         </div>
       </section>
       <div className='md:hidden inline'>
-        <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} />
+        {/* <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} /> */}
       </div>
     </main>
   )

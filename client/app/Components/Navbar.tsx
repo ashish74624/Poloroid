@@ -192,7 +192,6 @@ export default function Navbar({ firstName, lastName, email, userImg, navData }:
           }
 
         </div>
-        <Toaster />
       </nav>
     </>
   )

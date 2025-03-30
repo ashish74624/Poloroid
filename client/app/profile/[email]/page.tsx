@@ -38,7 +38,7 @@ export default async function Profile({ params: { email } }: Params) {
     <>
       <section className=' w-screen h-screen bg-[#F8F8F8] flex overflow-hidden'>
         <div className='p-4 border-r-4 border-black'>
-          <Sidebar email={email} />
+          <Sidebar />
           {/* <Social email={email} /> */}
         </div>
         <div className='col-span-3'>

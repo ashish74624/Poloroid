@@ -1,11 +1,18 @@
-import React from 'react'
+'use client';
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import GithubLogo from '../Icons/GithubLogo'
+
+import { usePathname } from 'next/navigation';
 
 export const sidebarArray = [
   {
     name: "Home",
     href: "/home"
+  },
+  {
+    name: "Profile",
+    href: "/profile"
   },
   {
     name: "Friends",
@@ -21,11 +28,29 @@ export const sidebarArray = [
   },
 ]
 
-export default function Sidebar({ email }: any) {
+
+
+export default function Sidebar() {
+
+  const pathname = usePathname();
+
+  // Define pages where the sidebar should be hidden
+  const noSidebarRoutes = ['/'];
+
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    setEmail(storedEmail);
+  }, [pathname]);
+
   return (
 
-    <main className=' overflow-hidden  '>
-      <div className='bg-[#F8F8F8] flex flex-col items-center space-y-1 md:space-y-2 mt-4 px-2 font-medium '>
+    <aside className={` overflow-hidden ${!noSidebarRoutes.includes(pathname) ? 'block' : 'hidden'} w-[18%]  border-r border-borderColor `}>
+      <div className='bg-[#F8F8F8] flex flex-col items-center space-y-1 md:space-y-2 mt-4 px-2 font-medium  '>
+        <h1 className={"text-2xl lg:text-3xl  bg-clip-text text-[#58b8e8] mb-6 "}>
+          poloroid
+        </h1>
         {
           sidebarArray.map((item, i) => (
             <SidebarNavs key={i} href={`${item.href}/${email}`} name={item.name} />
@@ -39,7 +64,7 @@ export default function Sidebar({ email }: any) {
           </div>
         </a>
       </div>
-    </main>
+    </aside>
 
   )
 }
