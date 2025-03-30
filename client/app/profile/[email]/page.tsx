@@ -30,7 +30,7 @@ async function getPostData(email: string) {
 
 export default async function Profile({ params: { email } }: Params) {
   const data = await getData(email);
-  // const post = await getPostData(email);
+  const post = await getPostData(email);
 
   // const [data, post] = await Promise.all([userData, postData]);
 
@@ -62,9 +62,9 @@ export default async function Profile({ params: { email } }: Params) {
               Posts
             </h2>
             <div className=' w-full h-96 grid grid-cols-4 pl-2 pb-2 mt-2 overflow-x-hidden overflow-y-scroll gap-3'>
-              {/* {post.map((post: any) => (
+              {post.map((post: any) => (
                 <PersonalPost key={post?.image} src={`https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${post?.image}`} title={post?.caption} />
-              ))} */}
+              ))}
             </div>
           </div>
         </div>
