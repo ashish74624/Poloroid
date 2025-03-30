@@ -36,11 +36,7 @@ export default async function Profile({ params: { email } }: Params) {
 
   return (
     <>
-      <section className=' w-screen h-screen bg-[#F8F8F8] flex overflow-hidden'>
-        <div className='p-4 border-r-4 border-black'>
-          <Sidebar />
-          {/* <Social email={email} /> */}
-        </div>
+      <section className='  h-screen  flex overflow-hidden'>
         <div className='col-span-3'>
           <div className="mx-6 bg-[url('/cover.jpeg')] bg-no-repeat bg-cover mt-6 w-[79vw] h-48 rounded-lg overflow-hidden">
             <div className="flex justify-center items-center md:rounded-ld overflow-hidden md:px-10 py-5 bg-blur backdrop-filter backdrop-blur-md w-full gap-2 md:gap-10 h-48">
