@@ -55,12 +55,12 @@ interface User {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const noSidebarRoutes = ["/", "/login", "/register"];
+  const noSidebarRoutes = ["/", "/login", "/register",""];
  
   return (
     <aside
-      className={`overflow-hidden h-screen ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
-        } w-full md:w-[30%] lg:w-[18%] md:border-r border-borderColor hidden md:block`}
+      className={`overflow-hidden h-screen ${noSidebarRoutes.includes(pathname) ? "hidden" : "hidden md:block"
+        } w-full md:w-[30%] lg:w-[18%] md:border-r border-borderColor `}
     >
       <SidebarContent/>
     </aside>
