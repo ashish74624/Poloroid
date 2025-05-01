@@ -63,23 +63,7 @@ export default async function Home({ params: { email } }: Params) {
 
   return (
     <main className='h-screen  overflow-hidden'>
-      {/* <nav>
-        <Navbar userImg={userData.profileImage} firstName={userData.firstName || 'User'} lastName={userData.lastName} email={userData.email} navData={true} />
-      </nav> */}
       <section className='h-full overflow-y-scroll md:overflow-hidden flex justify-between mb-14 md:mb-0 '>
-        {/* <div className='h-full overflow-y-scroll  border-r border-gray-600 hidden md:block bg-[#F8F8F8]'>
-
-          <div className='lg:hidden mt-3  border-black border-t flex flex-col items-center space-y-2 pt-2 '>
-            <h1>People You may know</h1>
-            <div className='space-y-2 '>
-              {rightSideBarData.map((rightSideBarData: any, i: number) => (
-
-                <UserCard key={i} profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} emailOfUser={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
-
-              ))}
-            </div>
-          </div>
-        </div> */}
         <div className=' md:col-span-3  w-full  md:overflow-x-hidden md:overflow-y-scroll flex flex-col items-center '>
           <Suspense fallback={<PostSkel />}>
             <Post promise={post} email={email} userId={userData._id} />

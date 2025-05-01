@@ -139,7 +139,7 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`overflow-hidden ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
+      className={`overflow-hidden h-screen ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
         } w-full md:w-[35%] lg:w-[18%] md:border-r border-borderColor`}
     >
       <div className="bg-[#F8F8F8] flex flex-col items-center space-y-2 mt-4 px-2 font-medium">
@@ -192,9 +192,6 @@ export default function Sidebar() {
               </label>
             )}
 
-            {/* <Label htmlFor="caption">
-              Enter Caption
-            </Label> */}
             <Input
               id="caption"
               className="bg-white flex-grow pl-4 min-h-[65px] border border-black"

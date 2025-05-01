@@ -23,9 +23,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${Com.className} flex w-screen bg-[#F8F8F8]`} >
+      <body className={`${Com.className} flex w-screen bg-[#F8F8F8] relative`} >
         <Sidebar />
-        <main className=' flex-1'>
+        <main className='flex-1 h-screen overflow-y-auto '>
           {children}
         </main>
         <Toaster />
