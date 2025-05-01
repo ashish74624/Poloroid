@@ -15,7 +15,7 @@ const Com = Comfortaa({
 export default function loading() {
   return (
 
-    <main className=' h-screen w-screen grid place-content-center'>
+    <main className='grid place-content-center'>
       <PostSkel />
     </main>
   )

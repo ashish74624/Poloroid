@@ -45,6 +45,9 @@ export default async function Notifications({ params: { email } }: Params) {
 
     return (
       <section className="py-6">
+        <div className='w-full grid place-content-center'>
+          <h1 className='text-2xl md:text-3xl w-max mx-auto'>Notifications</h1>
+        </div>
         <div className="flex flex-col items-center gap-4">
           {notifications.length > 0 ? (
             renderNotifications(notifications)
@@ -59,7 +62,6 @@ export default async function Notifications({ params: { email } }: Params) {
   } else {
     return (
       <section>
-        <Navbar email={email} navData={false} />
         <div className="h-full w-full flex justify-center items-center">
           Error fetching notifications.
         </div>
