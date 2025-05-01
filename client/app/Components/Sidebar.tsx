@@ -19,7 +19,6 @@ export const sidebarArray = [
   { name: "Profile", href: "/profile" },
   { name: "Friends", href: "/friends" },
   { name: "Notifications", href: "/notifications" },
-  { name: "FAQ", href: "/faq" },
 ];
 
 const backendURL = process.env.BACKEND || "";
