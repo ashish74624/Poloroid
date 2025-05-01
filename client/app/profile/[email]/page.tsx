@@ -1,6 +1,4 @@
 import React from 'react'
-import Sidebar from '@/app/Components/Sidebar'
-import { Button } from "@/app/Components/ui/button"
 import PersonalPost from '@/app/Components/PersonalPost'
 import Social from '@/app/Components/Social'
 import { cloud_name } from '@/app/libs/configs'
@@ -33,8 +31,8 @@ export default async function Profile({ params: { email } }: Params) {
 
   return (
     <section className='min-h-screen flex flex-col'>
-      <div className="bg-[url('/cover.jpeg')] bg-no-repeat bg-cover w-full h-48 overflow-hidden">
-        <div className="flex justify-center items-center md:rounded-ld overflow-hidden md:px-10 py-5 bg-blur backdrop-filter backdrop-blur-md w-full gap-2 lg:gap-10 h-48">
+      <div className="bg-[url('/cover.jpeg')] bg-no-repeat bg-cover w-full h-24 md:h-48 overflow-hidden">
+        <div className="flex justify-center items-center md:rounded-ld overflow-hidden md:px-10 py-5 bg-blur backdrop-filter backdrop-blur-md w-full gap-2 lg:gap-10 h-24 md:h-48 ">
           <img loading='lazy' src={`${process.env.CLOUDINARY_URL}/${data.profileImage}`} className="object-cover border-4 border-white h-14 w-14 lg:h-40 lg:w-40 rounded-full shadow-md bg-gray-400" />
           <div className="flex md:flex-1 flex-col justify-center gap-4">
             <div className="flex justify-between items-center gap-5 ">

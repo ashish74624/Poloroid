@@ -76,7 +76,7 @@ export default function Social({ email }: SocialCompProps) {
     }
 
     return (
-        <div className='w-max h-full  flex items-center flex-col gap-y-4  p-6 relative group'>
+        <div className='w-max h-full hidden  md:flex items-center flex-col gap-y-4  p-6 relative group'>
             {github.length > 0
                 &&
                 <SocialComponent icon={<Github width="20px" height="20px" />} link={github} />

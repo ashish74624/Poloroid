@@ -72,9 +72,6 @@ export default async function Home({ params: { email } }: Params) {
         </div>
         <PeopleYMK rightSideBarData={rightSideBarData} userData={userData}/>
       </section>
-      <div className='md:hidden inline'>
-        <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} />
-      </div>
     </main>
   )
 }

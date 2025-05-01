@@ -56,14 +56,8 @@ export default async function Friends({ params: { email } }: Params) {
                                 </span>
                             </CardContent>
                         </Card>
-
-
-
                     ))
                 }
-                <div className='md:hidden block'>
-                    <BottomNav email={email} />
-                </div>
             </main>
         )
     }

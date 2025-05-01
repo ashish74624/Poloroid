@@ -24,6 +24,7 @@ module.exports = {
   			primaryBlue: '#58b8e8',
   			primaryBlueHover: '#05acff',
   			primaryYellow: '#F8C732',
+			bgPrimary:"#F8F8F8",
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			primary: {
