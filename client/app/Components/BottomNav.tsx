@@ -148,15 +148,13 @@ export default function BottomNav({ firstName, lastName, email, upload, people }
 
             <Sheet>
               <SheetTrigger>
-                <span>
-                  <Menubtn />
-                </span>
+                <Menubtn />
               </SheetTrigger>
               <SheetContent>
                 <SheetHeader>
                   <SheetTitle>Menu</SheetTitle>
                   <SheetDescription>
-                    <Sidebar email={email} />
+                    <Sidebar />
                   </SheetDescription>
                 </SheetHeader>
               </SheetContent>

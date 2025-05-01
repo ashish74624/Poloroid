@@ -21,6 +21,8 @@ module.exports = {
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
 			borderColor:"#475569",
+			primaryBlue:"#58b8e8",
+			primaryYellow:"#F8C732",
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			primary: {

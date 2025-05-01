@@ -95,7 +95,7 @@ export default async function Home({ params: { email } }: Params) {
         </div>
       </section>
       <div className='md:hidden inline'>
-        {/* <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} /> */}
+        <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} />
       </div>
     </main>
   )
