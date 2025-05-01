@@ -52,7 +52,7 @@ export default async function Notifications({ params: { email } }: Params) {
           {notifications.length > 0 ? (
             renderNotifications(notifications)
           ) : (
-            <div className="w-screen h-[70vh] flex justify-center items-center">
+              <div className="h-full w-full flex justify-center items-center">
               You currently have no notifications.
             </div>
           )}

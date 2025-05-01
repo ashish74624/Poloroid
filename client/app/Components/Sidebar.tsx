@@ -139,7 +139,7 @@ export default function Sidebar() {
   return (
     <aside
       className={`overflow-hidden h-screen ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
-        } w-full md:w-[35%] lg:w-[18%] md:border-r border-borderColor`}
+        } w-full md:w-[30%] lg:w-[18%] md:border-r border-borderColor`}
     >
       <div className="bg-[#F8F8F8] flex flex-col items-center space-y-2 mt-4 px-2 font-medium">
         <h1 className="text-2xl lg:text-3xl text-[#58b8e8] mb-6 hidden md:block">

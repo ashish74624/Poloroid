@@ -53,7 +53,7 @@ export default async function NotfCard({ friendImage, friendName, email, friendI
   return (
 
     <Card >
-      <CardContent className='h-32 md:h-16 w-[95vw] md:w-[80vw] lg:w-[60vw] flex md:flex-row flex-col md:items-center md:justify-between'>
+      <CardContent className='h-32 md:h-16  w-[90vw] md:w-[60vw] lg:w-[40vw]  flex md:flex-row flex-col md:items-center md:justify-between overflow-x-auto'>
         <div className='flex ml-4 md:py-0 py-3'>
           <Image className=' w-14 h-14 md:w-11 md:h-11 rounded-lg md:rounded-full' src={`https://res.cloudinary.com/${cloud_name}/image/upload/v1687762741/${friendImage}`}
             alt='Notification' height={100} width={100} />

@@ -91,7 +91,14 @@ module.exports = {
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite'
   		}
-  	}
+  	},
+	screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1025px',
+      'lg-max': { max: '1023px' }, // Custom max-width breakpoint,
+	  xl:"1430px"
+    },
   },
   plugins: [require("tailwindcss-animate")],
 }

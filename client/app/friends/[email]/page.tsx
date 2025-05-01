@@ -43,7 +43,7 @@ export default async function Friends({ params: { email } }: Params) {
                 {
                     friends.map((friend: any) => (
                         <Card key={friend._id}>
-                            <CardContent className='flex gap-4 w-[95vw] md:w-[65vw] lg:w-[40vw] items-center my-auto h-max py-2 px-4 overflow-x-auto'>
+                            <CardContent className='flex gap-4 w-[90vw] md:w-[60vw] lg:w-[40vw] items-center my-auto h-max py-2 px-4 overflow-x-auto'>
                                 <span className=''>
                                     <Image className='w-9 h-9 md:w-11 md:h-11 rounded-full' src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${friend.profileImage}`}
                                         alt='Notification' height={100} width={100} />
