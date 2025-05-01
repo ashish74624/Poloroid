@@ -20,6 +20,11 @@ module.exports = {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
+  			borderColor: '#475569',
+  			primaryBlue: '#58b8e8',
+  			primaryBlueHover: '#05acff',
+  			primaryYellow: '#F8C732',
+			bgPrimary:"#F8F8F8",
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			primary: {
@@ -87,7 +92,14 @@ module.exports = {
   			'accordion-up': 'accordion-up 0.2s ease-out',
   			ripple: 'ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite'
   		}
-  	}
+  	},
+	screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1025px',
+      'lg-max': { max: '1023px' }, // Custom max-width breakpoint,
+	  xl:"1430px"
+    },
   },
   plugins: [require("tailwindcss-animate")],
 }

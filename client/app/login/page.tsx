@@ -46,7 +46,8 @@ export default function Login() {
       if (data.user) {
         toast.dismiss();
         setIsDiabled(false);
-        router.push(`/home/${data.user.email}`);
+        localStorage.setItem("email", data.user.email);
+        router.push(`/home/${decodeURIComponent(data.user.email)}`);
       }
       else {
         toast.dismiss();
@@ -68,7 +69,7 @@ export default function Login() {
 
   return (
     <>
-      <main className='bg-[#58b8e8] h-screen w-screen flex flex-col pt-32 items-center space-y-8 overflow-x-hidden overflow-y-scroll pb-32'>
+      <main className='bg-[#58b8e8] h-screen  flex flex-col pt-32 items-center space-y-8 overflow-x-hidden overflow-y-scroll pb-32'>
         <h3 className={` ${Comf.className} text-white text-3xl md:text-5xl`}>Login | Welcome Back</h3>
         {/* Form */}
         <section className='bg-white w-[350px] md:w-96 h-max py-8 rounded-xl px-8 shadow-gray-900 '>
@@ -86,7 +87,7 @@ export default function Login() {
           </form>
           <p className={`text-black text-xs mt-4`}>Don&apos;t have an account yet ?<Link href={`/register`}><span className={`text-xs text-[#F8C732] hover:underline pl-1`}>Sign up</span></Link> </p>
         </section>
-        <Toaster />
+
       </main>
     </>
   )

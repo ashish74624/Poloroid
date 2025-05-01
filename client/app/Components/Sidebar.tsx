@@ -1,47 +1,70 @@
-import React from 'react'
-import Link from 'next/link'
-import GithubLogo from '../Icons/GithubLogo'
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import GithubLogo from "../Icons/GithubLogo";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
+import { Button } from "./ui/button";
+import toast from "react-hot-toast";
+import convertToBase64 from "../lib/convertToBase64";
+import { useRouter } from "next/navigation";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import UploadIcon from "../Icons/Upload";
+import SidebarContent from "./SidebarContent";
 
 export const sidebarArray = [
-  {
-    name: "Home",
-    href: "/home"
-  },
-  {
-    name: "Friends",
-    href: "/friends"
-  },
-  {
-    name: "Notifications",
-    href: "/notifications"
-  },
-  {
-    name: "FAQ",
-    href: "/faq"
-  },
-]
+  { name: "Home", href: "/home" },
+  { name: "Profile", href: "/profile" },
+  { name: "Friends", href: "/friends" },
+  { name: "Notifications", href: "/notifications" },
+];
 
-export default function Sidebar({ email }: any) {
+const backendURL = process.env.BACKEND || "";
+
+interface Friend {
+  id: string;
+  _id: string;
+}
+
+interface Request {
+  sentTo: { id: string };
+  _id: string;
+}
+
+interface RejectedBy {
+  id: string;
+  _id: string;
+}
+
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profileImage: string;
+  place: string;
+  friends: Friend[];
+  notifications: any[];
+  request: Request[];
+  rejectedBy: RejectedBy[];
+  __v: number;
+}
+
+export default function Sidebar() {
+  const pathname = usePathname();
+  const noSidebarRoutes = ["/", "/login", "/register"];
+ 
   return (
-
-    <main className=' overflow-hidden  '>
-      <div className='bg-[#F8F8F8] flex flex-col items-center space-y-1 md:space-y-2 mt-4 px-2 font-medium '>
-        {
-          sidebarArray.map((item, i) => (
-            <SidebarNavs key={i} href={`${item.href}/${email}`} name={item.name} />
-          ))
-        }
-
-        <a className=' rounded-lg focus:outline-[#F8C732] px-4 bg-[#181717] hover:bg-white hover:border hover:border-black hover:text-black transition py-1 text-white lg:max-w-[250px] w-full flex justify-center text-lg' href="https://github.com/ashish74624/MERNsocial" target='_blank'>
-          <div className='flex space-x-2 h-10'>
-            <span className=''><GithubLogo /></span>
-            <span className=' self-center'>GitHub</span>
-          </div>
-        </a>
-      </div>
-    </main>
-
-  )
+    <aside
+      className={`overflow-hidden h-screen ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
+        } w-full md:w-[30%] lg:w-[18%] md:border-r border-borderColor hidden md:block`}
+    >
+      <SidebarContent/>
+    </aside>
+  );
 }
 
 interface NavProps {
@@ -49,10 +72,15 @@ interface NavProps {
   name: string;
 }
 
-export function SidebarNavs({ href, name }: NavProps) {
+export function SidebarNav({ href, name }: NavProps) {
   return (
-    <Link className=' focus:outline-[#F8C732] px-4 py-2 bg-[#58b8e8] text-white rounded-lg lg:max-w-[250px] w-full flex justify-center  text-lg' href={href}>
-      {name}
+    <Link
+      className="w-full"
+      href={href}
+    >
+      <Button className="w-full" >
+        {name}
+      </Button>
     </Link>
-  )
+  );
 }

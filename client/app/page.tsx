@@ -16,7 +16,7 @@ const cor = Cormorant_Garamond({
 
 export default function Home() {
   return (
-    <main className='bg-[#58b8e8] h-screen lg:h-[100svh] w-screen flex flex-col pb-40 justify-center items-center space-y-5'>
+    <main className='bg-[#58b8e8] h-screen lg:h-[100svh] flex flex-col pb-40 justify-center items-center space-y-5'>
       <h1 className={`${Com.className} text-7xl md:text-8xl text-[#f5f5f7]`}>poloroid</h1>
       <p className='text-[#f5f5f7] text-base md:text-lg'>Where your memories are always in focus</p>
       <div className='flex space-x-4'>
