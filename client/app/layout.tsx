@@ -2,6 +2,7 @@ import { Toaster } from 'react-hot-toast'
 import './globals.css'
 import { Comfortaa } from 'next/font/google'
 import Sidebar from './Components/Sidebar';
+import BottomNav from './Components/BottomNav';
 
 
 export const metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
         <main className='flex-1 h-screen overflow-y-auto '>
           {children}
         </main>
+        <BottomNav/>
         <Toaster />
       </body>
     </html>

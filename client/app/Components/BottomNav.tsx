@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import HomeIcon from '../Icons/HomeIcon'
 import Link from 'next/link'
 import Menubtn from '../Icons/Menubtn'
@@ -26,10 +26,15 @@ export default function BottomNav() {
   const [email, setEmail] = useState<string>("");
   const noSidebarRoutes = ["/", "/login", "/register"];
 
+  useEffect(() => {
+    setEmail(localStorage.getItem("email") ?? "");
+  }, [pathname]);
+
+
   return (
 
-    <main className={`fixed w-screen z-50 bottom-0 py-2 flex bg-bgPrimary justify-center border-t border-gray-600  ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
-        } `}>
+    <main className={`fixed w-screen z-50 bottom-0 py-2 flex bg-bgPrimary justify-center border-t border-gray-600 md:hidden ${noSidebarRoutes.includes(pathname) ? "hidden" : "block"
+      } `}>
       <div className=' px-4  w-max rounded-full'>
         <div className='flex w-60 h-12 py-2  items-center justify-between'>
           <Link href={`/home/${email}`}>
@@ -54,7 +59,9 @@ export default function BottomNav() {
             </SheetTrigger>
             <SheetContent>
               <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
+                <SheetTitle className='text-2xl lg:text-3xl text-[#58b8e8]'>
+                  polaroid
+                </SheetTitle>
                 <SheetDescription>
                   <SidebarContent />
                 </SheetDescription>
