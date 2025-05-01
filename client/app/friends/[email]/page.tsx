@@ -29,7 +29,7 @@ export default async function Friends({ params: { email } }: Params) {
         if (data.msg === 'Nofriends') {
             return (
                 <>
-                    <Navbar email={email} navData={false} />
+                    {/* <Navbar email={email} navData={false} /> */}
                     <span className='text-gray-800 mx-auto py-2 bg-white rounded-full font-mono w-[95vw] md:w-[80vw] lg:w-[60vw] flex justify-between px-6 items-center border border-gray-300  shadow '>
                         <h1 className='text-2xl md:text-3xl'>Friends</h1>
                         <Link className=' focus:outline-none ' href={`/home/${email}`}>
