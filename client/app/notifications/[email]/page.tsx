@@ -53,7 +53,7 @@ export default async function Notifications({ params: { email } }: Params) {
     const notifications = data.msg;
 
     return (
-      <section className="h-screen w-screen bg-[#F8F8F8]">
+      <section className="">
         <Navbar email={email} navData={false} />
         <div className="w-screen flex flex-col items-center">
           <NotificationsHeader />
