@@ -76,7 +76,7 @@ export default function UserCard({ profileImage, id, firstName, lastName, emailO
                 :
                 (
 
-                  <div className="flex lg:flex-row md:flex-col mt-2 md:mt-0 lg:mt-2 md:space-x-0 lg:space-y-0 md:space-y-2 space-x-2 lg:space-x-3">
+                  <div className="flex flex-col mt-2 gap-2">
                     <Button className='text-sm'
                       onClick={sendNotification}
                     >Add friend</Button>
