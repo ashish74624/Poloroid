@@ -7,6 +7,7 @@ import RightSidebar from '@/app/Components/RightSidebar';
 import BottomNav from '@/app/Components/BottomNav';
 import UserCard from '@/app/Components/UserCard';
 import { Metadata } from 'next';
+import PeopleYMK from '@/app/Components/PeopleYMK';
 
 
 export async function generateMetadata({ params: { email } }: Params): Promise<Metadata> {
@@ -69,14 +70,7 @@ export default async function Home({ params: { email } }: Params) {
             <Post promise={post} email={email} userId={userData._id} />
           </Suspense>
         </div>
-        <div className='lg:block hidden border-l border-borderColor px-4 overflow-x-hidden overflow-y-scroll w-[30%] '>
-          <h3 className='w-full mb-2 mt-3  text-center'>People you may know</h3>
-          {rightSideBarData.map((rightSideBarData: any) => (
-            <div key={rightSideBarData._id}>
-              <RightSidebar profileImage={rightSideBarData.profileImage} id={rightSideBarData._id} email={userData.email} firstName={rightSideBarData.firstName} lastName={rightSideBarData.lastName} />
-            </div>
-          ))}
-        </div>
+        <PeopleYMK rightSideBarData={rightSideBarData} userData={userData}/>
       </section>
       <div className='md:hidden inline'>
         <BottomNav email={userData.email} firstName={userData.firstName} lastName={userData.lastName} />
