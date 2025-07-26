@@ -9,6 +9,9 @@ import toast, { Toaster } from 'react-hot-toast'
 import FormLabel from '../Components/auth/FormLabel'
 import FormInput from '../Components/auth/FormInput'
 import AuthContainer from '../Components/auth/AuthContainer'
+import FormField from '../Components/auth/FormField'
+import FormContainer from '../Components/auth/FormContainer'
+import FormButton from '../Components/auth/FormButton'
 
 const Comf = Comfortaa({
   subsets: ['cyrillic'],
@@ -71,22 +74,21 @@ export default function Login() {
   return (
     <AuthContainer>
       <h3 className={` ${Comf.className} text-white text-3xl md:text-5xl`}>Login | Welcome Back</h3>
-      {/* Form */}
-      <section className='bg-white w-[350px] md:w-96 h-max py-8 rounded-xl px-8 shadow-gray-900 '>
+      <FormContainer>
         <form onSubmit={handleLogin}>
-          <div className='relative z-0 w-full mb-6 group'>
+          <FormField>
             <FormInput id='email' type='email' name='email' onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setEmail(e.target.value) }} />
             <FormLabel htmlFor='email' label='Email address' />
-          </div>
-          <div className='relative z-0 w-full mb-6 group'>
+          </FormField>
+          <FormField>
             <FormInput id='password' type='password' name='password'
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setPassword(e.target.value) }} />
             <FormLabel htmlFor='password' label='Password' />
-          </div>
-          <button disabled={isDiabled} type='submit' className='text-white w-full bg-[#F8C732] hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm px-5 py-2.5 text-center'>Submit</button>
+          </FormField>
+          <FormButton disabled={isDiabled} type='submit'>Submit</FormButton>
         </form>
         <p className={`text-black text-xs mt-4`}>Don&apos;t have an account yet ?<Link href={`/register`}><span className={`text-xs text-[#F8C732] hover:underline pl-1`}>Sign up</span></Link> </p>
-      </section>
+      </FormContainer>
     </AuthContainer >
   )
 }

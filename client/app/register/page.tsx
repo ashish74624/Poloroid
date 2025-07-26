@@ -11,6 +11,10 @@ import toast, { Toaster } from 'react-hot-toast'
 import AuthContainer from '../Components/auth/AuthContainer'
 import FormLabel from '../Components/auth/FormLabel'
 import FormInput from '../Components/auth/FormInput'
+import FormField from '../Components/auth/FormField'
+import FormContainer from '../Components/auth/FormContainer'
+import UserIcon from '../Icons/UserIcon'
+import FormButton from '../Components/auth/FormButton'
 
 
 const Comf = Comfortaa({
@@ -91,14 +95,12 @@ export default function Register() {
       return;
     }
 
-    // Check if the email is in a valid format
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       toast.error('Please enter a valid email address.');
       return;
     }
 
-    // If all required fields are filled and email is valid, move to the next part
     setForm(false);
   }
 
@@ -115,80 +117,73 @@ export default function Register() {
 
     <AuthContainer>
       <h3 className=' text-white text-2xl md:text-4xl lg:text-5xl '>Welcome to <span className={`${Comf.className}`}>poloroid</span> | Register</h3>
-      <div className='bg-white w-80 lg:w-96 h-max py-4 pb-5 lg:pb-8  lg:py-8 rounded-xl px-8 shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]'>
+      <FormContainer>
 
         <form onSubmit={handleRegister}>
           {
             form ?
               <>
                 <div className="grid md:grid-cols-2 md:gap-6">
-                  <div className="relative z-0 w-full mb-3 md:mb-6 group">
+                  <FormField>
                     <FormInput type="text" name="first_name" id="first_name" onChange={(e) => { setFirstName(e.target.value) }} />
                     <FormLabel label='First name' htmlFor="floating_first_name" />
-                  </div>
-                  <div className="relative z-0 w-full mb-3 md:mb-6 group">
+                  </FormField>
+                  <FormField >
                     <FormInput type="text" name="floating_last_name" id="floating_last_name" onChange={(e) => { setLastName(e.target.value) }} />
                     <FormLabel label='Last name' htmlFor="floating_last_name" />
-                  </div>
+                  </FormField>
                 </div>
-                <div className="relative z-0 w-full mb-3 md:mb-6 group">
+                <FormField>
                   <FormInput type="email" name="floating_email" id="floating_email" onChange={(e) => { setEmail(e.target.value) }} />
                   <FormLabel label='Email address' htmlFor="floating_email" />
-                </div>
-                <div className="relative z-0 w-full mb-3 md:mb-6 group">
+                </FormField>
+                <FormField>
                   <FormInput type="password" name="floating_password" id="floating_password" onChange={(e) => { setPassword(e.target.value) }} />
                   <FormLabel label='Password' htmlFor="floating_password" />
-                </div>
-                <button
-                  onClick={handleNextButtonClick}
-                  className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+                </FormField>
+                <FormButton onClick={handleNextButtonClick}>
                   Next
-                </button>
+                </FormButton>
               </>
               :
               <>
                 <div>
-                  {file ?
-                    (<>
-                      <div className='w-full items-center flex flex-col'>
-                        <Image className=' w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full' src={file} alt='Hello' width={100} height={100} />
-                        <button onClick={() => { setFile('') }} className='my-2 text-red-500 transition duration-200'>Profile Picture</button>
-                      </div>
-                    </>)
-                    :
-                    (<>
-                      <h2 className='w-full flex justify-center text-lg font-sans mb-4'>Please choose an User Profile</h2>
-                      <div className='w-full items-center flex flex-col '>
-                        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full  cursor-pointer bg-gray-400/70">
-                          <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg width="6rem" height="6rem" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M8 9C8 6.79086 9.79086 5 12 5C14.2091 5 16 6.79086 16 9C16 11.2091 14.2091 13 12 13C9.79086 13 8 11.2091 8 9ZM15.8243 13.6235C17.1533 12.523 18 10.8604 18 9C18 5.68629 15.3137 3 12 3C8.68629 3 6 5.68629 6 9C6 10.8604 6.84668 12.523 8.17572 13.6235C4.98421 14.7459 3 17.2474 3 20C3 20.5523 3.44772 21 4 21C4.55228 21 5 20.5523 5 20C5 17.7306 7.3553 15 12 15C16.6447 15 19 17.7306 19 20C19 20.5523 19.4477 21 20 21C20.5523 21 21 20.5523 21 20C21 17.2474 19.0158 14.7459 15.8243 13.6235Z" stroke="#000000" strokeWidth="0.001" />
-                            </svg>
-                          </div>
-                          <input id="dropzone-file" type="file" className="hidden" onChange={handleImageSelect} />
-                        </label>
-                        <span className='my-2'>Profile Picture</span>
-                      </div>
-                    </>)}
+                  <h2 className='w-full flex justify-center text-lg font-sans mb-4'>Please choose an User Profile</h2>
+                  <div className='w-full items-center flex flex-col'>
+                    {
+                      file
+                        ?
+                        <>
+                          <Image className=' w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full' src={file} alt='Hello' width={100} height={100} />
+                          <button onClick={() => { setFile('') }} className='my-2 text-red-500 transition duration-200'>Profile Picture</button>
+                        </>
+                        :
+                        <>
+                          <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full  cursor-pointer bg-gray-400/70">
+                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                              <UserIcon />
+                            </div>
+                            <input id="dropzone-file" type="file" className="hidden" onChange={handleImageSelect} />
+                          </label>
+                          <span className='my-2'>Profile Picture</span>
+                        </>
+                    }
+                  </div>
                 </div>
-                <span className='space-x-4 w-full flex justify-between'>
-                  <button
+                <div className='w-full flex justify-between gap-24'>
+                  <FormButton
                     disabled={isDiabled}
-                    onClick={handleBackButton}
-                    className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Back</button>
-                  <button type="submit" className="text-white bg-[#F8C732]  hover:bg-yellow-500  focus:outline-none focus:ring-yellow-500 focus:ring-2 active:bg-white active:text-[#F8C732] font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Submit</button>
-                </span>
+                    onClick={handleBackButton}>
+                    Back
+                  </FormButton>
+                  <FormButton type="submit" >Submit</FormButton>
+                </div>
 
               </>
           }
-
-
-
-
-
         </form>
         <p className='text-black text-xs mt-4'>Already have an account ?<Link href={'/login'}><span className='text-xs text-[#F8C732] hover:underline pl-1'>Login</span></Link> </p>
-      </div>
+      </FormContainer>
     </AuthContainer>
 
   )
