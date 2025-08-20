@@ -4,6 +4,73 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from notifications.models import Notification
+import bcrypt
+
+@csrf_exempt
+def register(request):
+    try:
+        payload = json.loads(request.body)
+        email = payload.get('email')
+        password = payload.get('password')
+        place = payload.get('place')
+        first_name = payload.get('firstName')
+        last_name = payload.get('lastName')
+        new_password = bcrypt.hashpw(
+            password.encode('utf-8'), bcrypt.gensalt(10)
+        ).decode('utf-8')
+        profile_image= payload.get('file') or 'https://res.cloudinary.com/dcgjy3xv7/image/upload/v1689941239/i07kehkwnznydwl17iil.webp'
+
+        if User.objects.filter(email=email).exists():
+            return JsonResponse(
+                {'status': 'error', 'msg': 'Email already registered'},
+                status=400
+            )
+
+        User.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            password=new_password,
+            profile_image=profile_image,
+            place=place
+        )
+
+        return JsonResponse(
+            {'status': 'ok', 'msg': 'User registered successfully'},
+            status=201
+        )
+
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'msg': 'Internal Server Error', 'error': str(e)}, status=500)    
+
+@csrf_exempt
+def login(request):
+    try:
+        payload = json.loads(request.body)
+        email = payload.get('email')
+        password = payload.get('password')
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return JsonResponse({'status': 'error', 'msg': 'Invalid email or password'})
+
+        # user.password is stored hashed (bcrypt hash)
+        is_password_valid = bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8'))
+
+        if is_password_valid:
+            user_without_password = {
+                'email': user.email,
+                'firstName': user.first_name,
+                'lastName': user.last_name,
+                'profileImage': user.profile_image,
+            }
+            return JsonResponse({'status': 'ok', 'user': user_without_password})
+        else:
+            return JsonResponse({'status': 'error', 'msg': 'Invalid email or password'})
+
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'msg': 'Internal Server Error', 'error': str(e)}, status=500)
 
 
 @csrf_exempt
