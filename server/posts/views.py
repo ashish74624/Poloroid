@@ -1,3 +1,130 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
+from users.models import User, UserFriend
+from django.http import JsonResponse
+from .models import Post, PostLike
+from django.views.decorators.csrf import csrf_exempt
+from django.core.serializers import serialize
+import json
 
-# Create your views here.
+@csrf_exempt
+def all_posts(request,email):
+    try:
+        user = get_object_or_404(User,email=email)
+        all_friends = UserFriend.objects.filter(friend=user).values_list('user_id',flat=True)
+
+        ids_to_fetch = list(all_friends) + [user.id]
+
+        all_posts = Post.objects.filter(user_id__in=ids_to_fetch).order_by("-created_at")
+
+        if all_posts.exists():
+            posts_json = serialize(all_posts)
+            return JsonResponse(json.loads(posts_json),safe=False)
+        else:
+            default_user = get_object_or_404(User,email='ashishkumar74624@gmail.com')
+            default_post = Post.objects.filter(user=default_user).order_by('-created_at')
+            posts_json = serialize(default_post)
+            return JsonResponse(json.loads(posts_json),safe=False)
+    except Exception as e:    
+        return JsonResponse({"msg": "Could not get posts", "error": str(e)}, status=500)
+    
+def like_post(request,post_id):
+    try:
+        payload = json.loads(request.body)
+        email = payload.get('emailOfUser')
+        current_post = get_object_or_404(Post,id=post_id)
+        user = get_object_or_404(User,email=email)
+        
+        is_liked = PostLike.objects.filter(post=current_post,user=user).first()
+
+        curr_like_count = current_post.likes_count
+
+
+        if is_liked:
+            current_post.likes_count =  max(0, current_post.likes_count - 1)
+            current_post.save()
+            is_liked.delete()
+            return JsonResponse({
+                'msg': 'disliked',
+                'post': {
+                    'id': current_post.id,
+                    'caption': current_post.caption,
+                    'likes_count': current_post.likes_count,
+                    'image': current_post.image
+                }
+            })
+
+        else:
+            current_post.likes_count = curr_like_count + 1
+            current_post.save()
+            PostLike.objects.create(
+                post=current_post,
+                user = user
+            )
+            return JsonResponse({
+                'msg': 'liked',
+                'post': {
+                    'id': current_post.id,
+                    'caption': current_post.caption,
+                    'likes_count': current_post.likes_count,
+                    'image': current_post.image
+                }
+            })
+
+    except Exception as e:
+        return JsonResponse({"msg": "Could not like post", "error": str(e)}, status=500)        
+
+
+def personal_posts(request, email):
+    try:
+        current_user = get_object_or_404(User, email=email)
+        all_posts = Post.objects.filter(user=current_user)
+
+        posts_data = [
+            {
+                'id': post.id,
+                'caption': post.caption,
+                'likes_count': post.likes_count,
+                'image': post.image.url if post.image else None,
+                'created_at': post.created_at,
+            }
+            for post in all_posts
+        ]
+
+        if posts_data:
+            return JsonResponse(posts_data, safe=False)
+        else:
+            return JsonResponse({'msg': 'Posts not found'}, status=404)
+
+    except Exception as e:
+        return JsonResponse(
+            {"msg": "Could not return posts", "error": str(e)},
+            status=500
+        )
+       
+def create_post(request):
+    if request.method != "POST":
+        return JsonResponse({"msg": "Only POST allowed"}, status=405)
+
+    try:
+        payload = json.loads(request.body.decode("utf-8"))
+        email = payload.get("email")
+        caption = payload.get("caption", "")
+        image = payload.get("image")
+
+        if not email or not image:
+            return JsonResponse({"msg": "Email and image are required"}, status=400)
+
+        current_user = get_object_or_404(User, email=email)
+
+        Post.objects.create(
+            user=current_user,
+            caption=caption,
+            image=image  # <-- this should be Cloudinary URL
+        )
+
+        return JsonResponse({"msg": "Post created"}, status=201)
+    except Exception as e:
+        return JsonResponse(
+            {"msg": "Could not upload post", "error": str(e)},
+            status=500
+        )
