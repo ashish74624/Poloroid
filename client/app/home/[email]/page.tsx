@@ -44,12 +44,12 @@ async function getData(email: string) {
 
 
 async function getFriendSuggestions(email: string) {
-  const res = await fetch(`${backendURL}user/getFriendSuggestions/${email}/`, { cache: 'no-store' });
+  const res = await fetch(`${backendURL}user/getFriendSuggestions/${decodeURIComponent(email)}/`, { cache: 'no-store' });
   return res.json()
 }
 
 async function getAllPost(email: string) {
-  const res = await fetch(`${backendURL}post/allPost/${email}/`);
+  const res = await fetch(`${backendURL}post/allPost/${decodeURIComponent(email)}/`);
   return res.json();
 }
 
