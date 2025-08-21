@@ -38,7 +38,7 @@ export default async function NotfCard({ friendImage, friendName, email, friendI
   }
 
   const rejectRequest = async () => {
-    const res = await fetch(`${backendURL}/user/rejectRequest/${friendID}`, {
+    const res = await fetch(`${backendURL}user/rejectRequest/${friendID}`, {
       method: "PUT",
       headers: {
         'Content-Type': 'application/json'

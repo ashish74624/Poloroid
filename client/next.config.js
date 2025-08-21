@@ -2,6 +2,7 @@
 const nextConfig = {
     env: {
         BACKEND: process.env.BACKEND,
+        CLOUD_NAME: process.env.CLOUD_NAME
       },
       images: {
         remotePatterns: [

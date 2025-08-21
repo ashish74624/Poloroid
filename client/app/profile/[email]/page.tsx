@@ -13,12 +13,12 @@ let backendURL = process.env.BACKEND
 
 async function getData(email: string) {
   console.log(email)
-  const res = await fetch(`${backendURL}/user/data/${decodeURIComponent(email)}`);
+  const res = await fetch(`${backendURL}user/data/${decodeURIComponent(email)}`);
   return res.json()
 }
 
 async function getPostData(email: string) {
-  const res = await fetch(`${backendURL}/post/personalPosts/${decodeURIComponent(email)}`);
+  const res = await fetch(`${backendURL}post/personalPosts/${decodeURIComponent(email)}`);
   return res.json();
 }
 

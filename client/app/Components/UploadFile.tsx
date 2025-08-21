@@ -13,39 +13,66 @@ import { usePathname } from 'next/navigation'
 
 export default function UploadFile() {
     const pathname = usePathname();
-    
+
     const [email, setEmail] = useState<string>("");
     const [userData, setUserData] = useState<User | null>(null);
     const [file, setFile] = useState<string>("");
     const [caption, setCaption] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
 
+    const cloudName = process.env.CLOUD_NAME
+
     const handleImageSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files?.[0]) {
-            const base64 = await convertToBase64(event.target.files[0]);
-            setFile(base64 as string);
+            const file = event.target.files[0];
+
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "all_uploads"); // replace with your preset
+
+            try {
+                const res = await fetch(
+                    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+                    {
+                        method: "POST",
+                        body: formData,
+                    }
+                );
+
+                const data = await res.json();
+                if (data.secure_url) {
+                    setFile(data.secure_url); // store the cloudinary URL
+                    toast.success("Image uploaded!");
+                } else {
+                    toast.error("Cloudinary upload failed");
+                }
+            } catch (err) {
+                console.error(err);
+                toast.error("Upload error");
+            }
         }
     };
 
+
     useEffect(() => {
-          setEmail(localStorage.getItem("email") ?? "");
-        }, [pathname]);
-      
-        useEffect(() => {
-          async function fetchUserData() {
+        setEmail(localStorage.getItem("email") ?? "");
+    }, [pathname]);
+
+    useEffect(() => {
+        async function fetchUserData() {
             if (email) {
-              try {
-                const res = await fetch(`${backendURL}/user/data/${email}`);
-                if (!res.ok) throw new Error("Failed to fetch user data");
-                const data: User = await res.json();
-                setUserData(data);
-              } catch (error) {
-                console.error(error);
-              }
+                try {
+                    const res = await fetch(`${backendURL}user/data/${email}`);
+                    if (!res.ok) throw new Error("Failed to fetch user data");
+                    const data: User = await res.json();
+                    setUserData(data);
+                } catch (error) {
+                    console.error(error);
+                }
             }
-          }
-          fetchUserData();
-        }, [email]);
+        }
+        fetchUserData();
+    }, [email]);
 
     const imageUpload = async () => {
         if (!caption || !file) {
@@ -57,7 +84,7 @@ export default function UploadFile() {
         setIsDisabled(true);
 
         try {
-            const res = await fetch(`${backendURL}/post/upload`, {
+            const res = await fetch(`${backendURL}post/upload`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -65,7 +92,7 @@ export default function UploadFile() {
                     lastName: userData?.lastName,
                     email,
                     caption,
-                    image: file,
+                    image: file, // already Cloudinary URL
                 }),
             });
 
@@ -86,6 +113,8 @@ export default function UploadFile() {
             setIsDisabled(false);
         }
     };
+
+
     return (
         <>
             {file ? (
