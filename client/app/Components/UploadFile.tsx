@@ -62,7 +62,7 @@ export default function UploadFile() {
         async function fetchUserData() {
             if (email) {
                 try {
-                    const res = await fetch(`${backendURL}user/data/${email}`);
+                    const res = await fetch(`${backendURL}user/data/${email}/`);
                     if (!res.ok) throw new Error("Failed to fetch user data");
                     const data: User = await res.json();
                     setUserData(data);
@@ -84,7 +84,7 @@ export default function UploadFile() {
         setIsDisabled(true);
 
         try {
-            const res = await fetch(`${backendURL}post/upload`, {
+            const res = await fetch(`${backendURL}post/upload/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

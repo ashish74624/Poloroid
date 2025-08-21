@@ -21,7 +21,7 @@ export default function UserCard({ profileImage, id, firstName, lastName, emailO
   const [reject, setReject] = useState(false);
 
   const sendNotification = async () => {
-    const res = await fetch(`${backendURL}notification/sendNotifiaction/${id}`, {
+    const res = await fetch(`${backendURL}notification/sendNotifiaction/${id}/`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export default function UserCard({ profileImage, id, firstName, lastName, emailO
   }
 
   const removeSuggestion = async () => {
-    const res = await fetch(`${backendURL}user/removeSuggestion/${id}`, {
+    const res = await fetch(`${backendURL}user/removeSuggestion/${id}/`, {
       method: "PUT",
       headers: {
         'content-type': "application/json",

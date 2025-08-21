@@ -49,7 +49,7 @@ export default function Navbar({ firstName, lastName, email, userImg, navData }:
     toast.loading("Posting...");
     setIsDiabled(true);
     try {
-      const res = await fetch(`${backendURL}post/upload`, {
+      const res = await fetch(`${backendURL}post/upload/`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json"

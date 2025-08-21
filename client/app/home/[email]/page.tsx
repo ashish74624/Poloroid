@@ -38,18 +38,18 @@ type Params = {
 let backendURL = process.env.BACKEND
 
 async function getData(email: string) {
-  const res = await fetch(`${backendURL}user/data/${email}`);
+  const res = await fetch(`${backendURL}user/data/${email}/`);
   return res.json()
 }
 
 
 async function getFriendSuggestions(email: string) {
-  const res = await fetch(`${backendURL}user/getFriendSuggestions/${email}`, { cache: 'no-store' });
+  const res = await fetch(`${backendURL}user/getFriendSuggestions/${email}/`, { cache: 'no-store' });
   return res.json()
 }
 
 async function getAllPost(email: string) {
-  const res = await fetch(`${backendURL}post/allPost/${email}`);
+  const res = await fetch(`${backendURL}post/allPost/${email}/`);
   return res.json();
 }
 
