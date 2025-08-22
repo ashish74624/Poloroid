@@ -30,7 +30,7 @@ def add_social(request, email):
     except Exception as e:
         return JsonResponse({"done": False, "error": str(e)}, status=500)
 
-
+@csrf_exempt
 def get_social(request, email):
     try:
         user = get_object_or_404(User, email=email)

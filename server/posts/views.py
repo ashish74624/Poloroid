@@ -6,27 +6,44 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.serializers import serialize
 import json
 
-@csrf_exempt
-def all_posts(request,email):
-    try:
-        user = get_object_or_404(User,email=email)
-        all_friends = UserFriend.objects.filter(friend=user).values_list('user_id',flat=True)
 
+@csrf_exempt
+def all_posts(request, email):
+    try:
+        # 1. Get current user
+        user = get_object_or_404(User, email=email)
+
+        # 2. Get all friends of this user
+        all_friends = UserFriend.objects.filter(friend=user).values_list('user_id', flat=True)
+
+        # 3. Collect ids (friends + self)
         ids_to_fetch = list(all_friends) + [user.id]
 
+        # 4. Fetch posts
         all_posts = Post.objects.filter(user_id__in=ids_to_fetch).order_by("-created_at")
 
+          # # 5. If no posts, fallback to default user -- todo: change implementation 
+        # default_user = get_object_or_404(User, email="ashishkumar74624@gmail.com")
+        # default_post = Post.objects.filter(user=default_user).order_by("-created_at")
+
+        # if default_post.exists() :
+        #     posts_json = serialize("json", default_post)
+        #     return JsonResponse(json.loads(posts_json), safe=False)
+
         if all_posts.exists():
-            posts_json = serialize(all_posts)
-            return JsonResponse(json.loads(posts_json),safe=False)
-        else:
-            default_user = get_object_or_404(User,email='ashishkumar74624@gmail.com')
-            default_post = Post.objects.filter(user=default_user).order_by('-created_at')
-            posts_json = serialize(default_post)
-            return JsonResponse(json.loads(posts_json),safe=False)
-    except Exception as e:    
-        return JsonResponse({"msg": "Could not get posts", "error": str(e)}, status=500)
-    
+            # 👇 return only "fields" directly
+            posts_data = list(all_posts.values(
+                "id", "user_id", "caption", "image", "likes_count", "created_at"
+            ))
+            return JsonResponse(posts_data, safe=False)
+
+        return JsonResponse({"msg": "No posts available"}, status=200)
+
+    except Exception as e:
+        print("Error in all_posts:", e)
+        return JsonResponse({"msg": "Could not get posts", "error": str(e)}, status=500)    
+
+@csrf_exempt    
 def like_post(request,post_id):
     try:
         payload = json.loads(request.body)
@@ -73,7 +90,7 @@ def like_post(request,post_id):
     except Exception as e:
         return JsonResponse({"msg": "Could not like post", "error": str(e)}, status=500)        
 
-
+@csrf_exempt
 def personal_posts(request, email):
     try:
         current_user = get_object_or_404(User, email=email)
@@ -100,7 +117,8 @@ def personal_posts(request, email):
             {"msg": "Could not return posts", "error": str(e)},
             status=500
         )
-       
+
+@csrf_exempt
 def create_post(request):
     if request.method != "POST":
         return JsonResponse({"msg": "Only POST allowed"}, status=405)

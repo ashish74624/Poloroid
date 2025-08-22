@@ -51,10 +51,12 @@ export default function UserCard({ profileImage, id, firstName, lastName, emailO
     }
   }
 
+  console.log("profileImage", profileImage)
+
   return (
     <div className=" w-56 md:w-[20vw] lg:w-[16vw] bg-white border border-gray-500 rounded-lg shadow-md ">
       <div className="flex flex-col items-center lg:pb-6 pb-3">
-        <Image className=" w-32 h-32 md:w-16 md:h-16 lg:w-24 lg:h-24 mb-3 rounded-full shadow-lg mt-3 lg:mt-6" src={`https://res.cloudinary.com/${cloud_name}/image/upload/v1687762741/${profileImage}`} alt="Friend" width={100} height={100} />
+        <Image className=" w-32 h-32 md:w-16 md:h-16 lg:w-24 lg:h-24 mb-3 rounded-full shadow-lg mt-3 lg:mt-6" src={profileImage} alt="Friend" width={100} height={100} />
         <h5 className="mb-1 text-2xl md:text-base lg:text-xl font-medium text-gray-900 ">{firstName} {lastName}</h5>
         {
           request

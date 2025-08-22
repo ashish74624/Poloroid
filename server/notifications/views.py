@@ -5,6 +5,8 @@ from django.shortcuts import get_object_or_404
 from users.models import User
 from .models import Notification
 
+
+@csrf_exempt
 def notifications(request, email):
     try:
         user = get_object_or_404(User, email=email)

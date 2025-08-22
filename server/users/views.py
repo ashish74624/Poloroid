@@ -92,36 +92,38 @@ def get_user_data(request,email):
     except Exception as e:
         print('Could not fetch user data')   
         return JsonResponse({"error":"Couldn't fetch user data"},status=500) 
+    
 
 @csrf_exempt
-def get_friends_suggestion(request,email):
+def get_friends_suggestion(request, email):
     try:
-        # 1. get current user
-        user = get_object_or_404(User,email=email)
+        # 1. Get current user
+        user = get_object_or_404(User, email=email)
 
-        # 2. get all users but me
-        suggestion = User.objects.exclude(email=email)
+        # 2. Get all users but me
+        suggestions = User.objects.exclude(email=email)
 
-        # 3. exclude all users whole are already friends
-        friends = UserFriend.objects.filter(user=user).values_list('friend_id',flat=True)
-        suggestion = suggestion.exclude(id_in= friends)
+        # 3. Exclude all users who are already friends
+        friends = UserFriend.objects.filter(user=user).values_list('friend_id', flat=True)
+        suggestions = suggestions.exclude(id__in=friends)
 
-        # 4. exclude all who the current user already sent a request
-        already_requested = FriendRequest.objects.filter(sender=user).values_list('receiver',flat=True)
-        suggestion = suggestion.exclude(id_in= already_requested)
+        # 4. Exclude all users the current user already sent a request
+        already_requested = FriendRequest.objects.filter(sender=user).values_list('receiver_id', flat=True)
+        suggestions = suggestions.exclude(id__in=already_requested)
 
-        # 5. exclude people who already sent requests to current user
+        # 5. Exclude people who already sent requests to current user
         received_requests = FriendRequest.objects.filter(receiver=user).values_list('sender_id', flat=True)
         suggestions = suggestions.exclude(id__in=received_requests)
 
-        # 6. exclude people who rejected the current user
+        # 6. Exclude people who rejected the current user
         rejected = FriendRequest.objects.filter(sender=user, status='rejected').values_list('receiver_id', flat=True)
         suggestions = suggestions.exclude(id__in=rejected)
 
-        # 7. exclude people current user rejected
+        # 7. Exclude people current user rejected
         rejected_by_me = FriendRequest.objects.filter(receiver=user, status='rejected').values_list('sender_id', flat=True)
         suggestions = suggestions.exclude(id__in=rejected_by_me)
 
+        # Prepare results
         result = [
             {
                 "id": u.id,
@@ -129,17 +131,20 @@ def get_friends_suggestion(request,email):
                 "last_name": u.last_name,
                 "email": u.email,
                 "place": u.place,
-                "profile_image": u.profile_image
+                "profile_image": u.profile_image or ""  # failsafe if null
             }
             for u in suggestions
         ]
 
-        return JsonResponse(result, safe=False)
+        if not result:
+            return JsonResponse({"msg": "No friend suggestions available"}, status=200)
 
+        return JsonResponse({"suggestions": result}, safe=False, status=200)
 
     except Exception as e:
         print("Error suggesting friends:", e)
-        return JsonResponse({"error": "Error suggesting friends"}, status=500)    
+        return JsonResponse({"error": "Error suggesting friends"}, status=500)
+   
     
 
 @csrf_exempt

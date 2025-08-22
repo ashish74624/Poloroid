@@ -1,34 +1,31 @@
 import React from 'react';
 import Card from './Card';
+import { getAllPost } from '../services/getAllPost';
+import { getData } from '../services/getUserData';
 
-interface Post {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  caption: string;
-  image: string;
-  email: string;
-  likes: number;
-  isLiked: boolean;
-  userProfile: string;
-}
 
 type props = {
-  promise: Promise<Post[]>,
   email: string,
-  userId: string
 }
 
-export default async function Post({ promise, email, userId }: props) {
-  const postData = await promise
+export default async function Post({ email }: props) {
+  const postData = await getAllPost(email)
+  console.log("postData", postData)
   return (
     <>
       {
-        postData.map((post: any) => (
-          <main key={post._id}>
-            <Card id={post._id} firstName={post.firstName} lastName={post.lastName} email={email} userProfile={post.userProfile} likes={post.likes} likedBy={post.likedBy} image={post.image} caption={post.caption} userID={userId} />
-          </main>
-        ))
+        Array.isArray(postData)
+          ?
+          postData.map(async (post: any) => {
+            const userData = await getData(email)
+          
+            return(
+            <main key={post.id}>
+                <Card id={post.id} email={decodeURIComponent(email)} likes={post.likes}  image={post.image} caption={post.caption} userData={userData} />
+            </main>
+          )})
+          :
+          <>No Posts</>
       }
     </>
   );
