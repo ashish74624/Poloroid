@@ -22,7 +22,7 @@ def all_posts(request, email):
         # 4. Fetch posts
         all_posts = Post.objects.filter(user_id__in=ids_to_fetch).order_by("-created_at")
 
-          # # 5. If no posts, fallback to default user -- todo: change implementation 
+        # 5. If no posts, fallback to default user -- todo: change implementation 
         # default_user = get_object_or_404(User, email="ashishkumar74624@gmail.com")
         # default_post = Post.objects.filter(user=default_user).order_by("-created_at")
 
@@ -144,5 +144,23 @@ def create_post(request):
     except Exception as e:
         return JsonResponse(
             {"msg": "Could not upload post", "error": str(e)},
+            status=500
+        )
+    
+@csrf_exempt
+def liked_by(request, id):
+    try:
+        post = get_object_or_404(Post, id=id)
+
+        # get all User objects who liked this post
+        liked_users = User.objects.filter(liked_posts__post=post).values(
+            "id", "first_name", "last_name", "email", "profile_image", "place"
+        )
+
+        return JsonResponse(list(liked_users), safe=False)
+
+    except Exception as e:
+        return JsonResponse(
+            {"msg": "Could not generate list of users who liked this post", "error": str(e)},
             status=500
         )

@@ -18,13 +18,14 @@ interface PostProps {
   image: string;
   email: string;
   likes: number;
-  userData:any
+  userData: any;
+  likedBy: any[];
 }
 
-export default async function Card({ id,  email, likes, image, caption, userData }: PostProps) {
+export default async function Card({ id, email, likes, image, likedBy, caption, userData }: PostProps) {
 
   const [like, setLike] = useState(likes);
-  // const [isLiked, setIsLiked] = useState(likedBy.some(obj => obj.id === userData.id));
+  const [isLiked, setIsLiked] = useState(likedBy.some(obj => obj.id === userData.id));
 
 
   const handleLike = async () => {
@@ -39,11 +40,11 @@ export default async function Card({ id,  email, likes, image, caption, userData
     }
   };
 
-  // const toggleLiking = () => {
-  //   setLike(prev => (isLiked ? prev - 1 : prev + 1));
-  //   setIsLiked(!isLiked);
-  //   handleLike();
-  // };
+  const toggleLiking = () => {
+    setLike(prev => (isLiked ? prev - 1 : prev + 1));
+    setIsLiked(!isLiked);
+    handleLike();
+  };
 
   return (
     <section className="md:pb-0 pb-2">
@@ -59,9 +60,9 @@ export default async function Card({ id,  email, likes, image, caption, userData
           </p>
         </div>
         <button
-          className={`rounded-b-md flex justify-center items-center flex-grow py-3 text-2xl w-[360px] md:w-[400px] focus:outline-[#F8C732] transition duration-300 ${true ? 'text-yellow-500' : 'text-white hover:text-[#F8C732]'
+          className={`rounded-b-md flex justify-center items-center flex-grow py-3 text-2xl w-[360px] md:w-[400px] focus:outline-[#F8C732] transition duration-300 ${isLiked ? 'text-yellow-500' : 'text-white hover:text-[#F8C732]'
             } bg-[#58b8e8]`}
-          // onClick={toggleLiking}
+        onClick={toggleLiking}
         >
           Like {like}
         </button>
