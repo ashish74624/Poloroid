@@ -32,7 +32,7 @@ def add_social(request, email):
 def get_social(request, email):
     try:
         user = get_object_or_404(User, email=email)
-        social = getattr(user, "socials", None)
+        social = get_object_or_404(Social,user=user)
 
         if social:
             data = {

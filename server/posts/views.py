@@ -111,7 +111,6 @@ def personal_posts(request, email):
     try:
         current_user = get_object_or_404(User, email=email)
         all_posts = Post.objects.filter(user=current_user)
-        print("all_posts",all_posts)
 
         posts_data = [
             {
