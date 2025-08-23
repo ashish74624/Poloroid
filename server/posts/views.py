@@ -110,17 +110,16 @@ def like_post(request,post_id):
 def personal_posts(request, email):
     try:
         current_user = get_object_or_404(User, email=email)
-        print("current_user",current_user)
         all_posts = Post.objects.filter(user=current_user)
+        print("all_posts",all_posts)
 
         posts_data = [
             {
                 'id': post.id,
                 'caption': post.caption,
                 'likes_count': post.likes_count,
-                'image': post.image.url if post.image else None,
+                'image': post.image,
                 'created_at': post.created_at,
-                'creater_email':post.user.email
             }
             for post in all_posts
         ]

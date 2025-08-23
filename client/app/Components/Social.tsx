@@ -25,7 +25,6 @@ export default function Social({ email }: SocialCompProps) {
         const getSocials = async (email: any) => {
             const res = await fetch(`${backendURL}social/getSocials/${decodeURIComponent(email)}/`);
             const data = await res.json();
-            // console.log(data.social)
             setInsta(data.social.instagram);
             setLinkedin(data.social.linkedin);
             setGithub(data.social.github);

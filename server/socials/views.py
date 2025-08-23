@@ -8,8 +8,6 @@ from .models import Social
 # -------------------- SOCIALS -------------------- #
 @csrf_exempt
 def add_social(request, email):
-    if request.method != "POST":
-        return JsonResponse({"done": False, "msg": "Invalid request"}, status=405)
 
     try:
         payload = json.loads(request.body)
