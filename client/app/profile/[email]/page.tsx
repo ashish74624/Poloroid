@@ -51,14 +51,21 @@ export default async function Profile({ params: { email } }: Params) {
           Posts
         </h2>
         <div className='w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-content-center  gap-2'>
-          {post.map((post: any) => (
+          
+          {
+          Array.isArray(post)
+          ?
+          post.map((post: any) => (
             <div key={post?.image} className="flex justify-center">
               <PersonalPost
                 src={`https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${post?.image}`}
                 title={post?.caption}
               />
             </div>
-          ))}
+          ))
+          :
+          <>No posts yet</>
+        }
         </div>
       </div>
     </section>

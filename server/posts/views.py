@@ -3,7 +3,7 @@ from users.models import User, UserFriend
 from django.http import JsonResponse
 from .models import Post, PostLike
 from django.views.decorators.csrf import csrf_exempt
-from django.core.serializers import serialize
+from django.db.models import F
 import json
 
 
@@ -32,9 +32,25 @@ def all_posts(request, email):
 
         if all_posts.exists():
             # 👇 return only "fields" directly
-            posts_data = list(all_posts.values(
-                "id", "user_id", "caption", "image", "likes_count", "created_at"
-            ))
+            posts_data = list(
+                all_posts.annotate(
+                    email=F("user__email"),          # alias
+                    first_name=F("user__first_name"),
+                    last_name=F("user__last_name"),
+                    profile_image=F("user__profile_image"),
+                ).values(
+                    "id",
+                    "user_id",
+                    "email",    
+                    "first_name",
+                    "last_name",
+                    "profile_image",
+                    "caption",
+                    "image",
+                    "likes_count",
+                    "created_at"
+                )
+            )
             return JsonResponse(posts_data, safe=False)
 
         return JsonResponse({"msg": "No posts available"}, status=200)
@@ -83,7 +99,7 @@ def like_post(request,post_id):
                     'id': current_post.id,
                     'caption': current_post.caption,
                     'likes_count': current_post.likes_count,
-                    'image': current_post.image
+                    'image': current_post.image,
                 }
             })
 
@@ -94,6 +110,7 @@ def like_post(request,post_id):
 def personal_posts(request, email):
     try:
         current_user = get_object_or_404(User, email=email)
+        print("current_user",current_user)
         all_posts = Post.objects.filter(user=current_user)
 
         posts_data = [
@@ -103,6 +120,7 @@ def personal_posts(request, email):
                 'likes_count': post.likes_count,
                 'image': post.image.url if post.image else None,
                 'created_at': post.created_at,
+                'creater_email':post.user.email
             }
             for post in all_posts
         ]
