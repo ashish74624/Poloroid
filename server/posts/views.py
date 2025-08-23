@@ -51,6 +51,7 @@ def all_posts(request, email):
                     "created_at"
                 )
             )
+            print(posts_data)
             return JsonResponse(posts_data, safe=False)
 
         return JsonResponse({"msg": "No posts available"}, status=200)

@@ -1,35 +1,41 @@
-import React from 'react';
+// Post.tsx (Server Component)
 import Card from './Card';
 import { getAllPost } from '../services/getAllPost';
-import { getData } from '../services/getUserData';
 import { getLikedUsers } from '../services/getLikedUsers';
+import { getData } from '../services/getUserData';
 
+type Props = { email: string };
 
-type props = {
-  email: string,
-}
+export default async function Post({ email }: Props) {
+  const postData = await getAllPost(email);
+  const userData = await getData(email);
 
-export default async function Post({ email }: props) {
-  const postData = await getAllPost(email)
-  console.log("postData", postData)
+  if (!Array.isArray(postData)) return <>No Posts</>;
+
+  const postsWithLikes = await Promise.all(
+    postData.map(async (post: any) => {
+      const likedBy = await getLikedUsers(post.id);
+      return { ...post, likedBy };
+    })
+  );
+
   return (
     <>
-      {
-        Array.isArray(postData)
-          ?
-          postData.map(async (post: any) => {
-            const likedBy = await getLikedUsers(post.id)
-            console.log("likedBy", likedBy)
-
-            return (
-              <main key={post.id}>
-                <Card id={post.id} email={decodeURIComponent(post.email)} likes={post.likes_count} likedBy={Array.isArray(likedBy) ? likedBy : []} image={post.image} caption={post.caption} firstName={post.first_name} lastName={post.last_name} profileImage={post.profile_image} userId={post.user_id} />
-              </main>
-            )
-          })
-          :
-          <>No Posts</>
-      }
+      {postsWithLikes.map((post: any) => (
+        <Card
+          key={post.id}
+          id={post.id}
+          email={decodeURIComponent(post.email)}
+          likes={post.likes_count}
+          likedBy={Array.isArray(post.likedBy) ? post.likedBy : []}
+          image={post.image}
+          caption={post.caption}
+          firstName={post.first_name}
+          lastName={post.last_name}
+          profileImage={post.profile_image}
+          userId={userData.id}
+        />
+      ))}
     </>
   );
-};
+}
