@@ -44,6 +44,7 @@ export default function Login() {
       const data = await response.json();
 
       if (data.user) {
+        console.log(data.user)
         toast.dismiss();
         setIsDiabled(false);
         localStorage.setItem("email", data.user.email);

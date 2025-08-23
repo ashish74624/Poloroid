@@ -22,7 +22,7 @@ def register(request):
         new_password = bcrypt.hashpw(
             password.encode('utf-8'), bcrypt.gensalt(10)
         ).decode('utf-8')
-        profile_image= payload.get('file') or 'https://res.cloudinary.com/dcgjy3xv7/image/upload/v1689941239/i07kehkwnznydwl17iil.webp'
+        profile_image= payload.get('profileImage') or 'https://res.cloudinary.com/dcgjy3xv7/image/upload/v1689941239/i07kehkwnznydwl17iil.webp'
 
         if User.objects.filter(email=email).exists():
             return JsonResponse(
@@ -160,10 +160,13 @@ def add_friend(request, email):
             UserFriend.objects.create(user=user, friend=friend)
 
             try:
-                friend_request = FriendRequest.objects.get(sender=user, receiver=friend)
+                friend_request = FriendRequest.objects.filter(sender= friend, receiver=user).first()
                 friend_request.status = 'accepted'
                 friend_request.save()
+                notification = Notification.objects.filter(user = user,sender = friend).first()
+                notification.delete()
             except FriendRequest.DoesNotExist:
+                print("Friend request not found")
                 return JsonResponse({"error": "Friend request not found"}, status=404)
 
             return JsonResponse({'status': 'ok', 'msg': 'Friend Added'})
@@ -181,7 +184,7 @@ def get_friends(request,email):
 
         friend_ids = UserFriend.objects.filter(user=current_user).values_list('friend_id',flat=True)
 
-        friends = User.filter(id_in=friend_ids)
+        friends = User.objects.filter(id__in=friend_ids)
 
         if friends.exists():
             friendsDetails = [
@@ -196,11 +199,12 @@ def get_friends(request,email):
                 for u in friends
             ]
 
-            return JsonResponse({'msg':'friends Found','friends':friendsDetails})
+            return JsonResponse({'msg':'friends Found','friends':friendsDetails},status=200)
         else:
-            return JsonResponse({"msg": "No friends"}, status=200)
+            return JsonResponse({"msg": "No friends",'friends':[]}, status=200)
 
     except Exception as e:
+         print(str(e))
          return JsonResponse({"error": "Error finding friends"}, status=500)         
     
 

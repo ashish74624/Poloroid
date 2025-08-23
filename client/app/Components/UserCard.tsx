@@ -21,7 +21,7 @@ export default function UserCard({ profileImage, id, firstName, lastName, emailO
   const [reject, setReject] = useState(false);
 
   const sendNotification = async () => {
-    const res = await fetch(`${backendURL}notification/sendNotifiaction/${id}/`, {
+    const res = await fetch(`${backendURL}notification/sendNotification/${id}/`, {
       method: 'PUT',
       headers: {
         "Content-Type": "application/json",
