@@ -210,8 +210,6 @@ def get_friends(request,email):
 
 @csrf_exempt
 def reject_request(request, sender_id):
-    if request.method != "POST":
-        return JsonResponse({"error": "Invalid request"}, status=405)
 
     try:
         payload = json.loads(request.body or "{}")
