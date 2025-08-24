@@ -16,42 +16,24 @@ export default function UploadFile() {
 
     const [email, setEmail] = useState<string>("");
     const [userData, setUserData] = useState<User | null>(null);
-    const [file, setFile] = useState<string>("");
     const [caption, setCaption] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
+    const [file, setFile] = useState<File | null>(null); // store raw file
+    const [fileUrl, setFileUrl] = useState<string>("");  // preview
 
     const cloudName = process.env.CLOUD_NAME
 
-    const handleImageSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files?.[0]) {
-            const file = event.target.files[0];
+            const selectedFile = event.target.files[0];
+            setFile(selectedFile);
 
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("upload_preset", "all_uploads"); // replace with your preset
-
-            try {
-                const res = await fetch(
-                    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-                    {
-                        method: "POST",
-                        body: formData,
-                    }
-                );
-
-                const data = await res.json();
-                if (data.secure_url) {
-                    setFile(data.secure_url); // store the cloudinary URL
-                    toast.success("Image uploaded!");
-                } else {
-                    toast.error("Cloudinary upload failed");
-                }
-            } catch (err) {
-                console.error(err);
-                toast.error("Upload error");
-            }
+            // show preview immediately
+            const previewUrl = URL.createObjectURL(selectedFile);
+            setFileUrl(previewUrl);
         }
     };
+
 
 
     useEffect(() => {
@@ -84,6 +66,19 @@ export default function UploadFile() {
         setIsDisabled(true);
 
         try {
+            // 1. Upload to Cloudinary now
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", "all_uploads");
+
+            const cloudRes = await fetch(
+                `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+                { method: "POST", body: formData }
+            );
+            const cloudData = await cloudRes.json();
+            if (!cloudData.secure_url) throw new Error("Cloudinary upload failed");
+
+            // 2. Save post in backend with Cloudinary URL
             const res = await fetch(`${backendURL}post/upload/`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -92,21 +87,23 @@ export default function UploadFile() {
                     lastName: userData?.lastName,
                     email,
                     caption,
-                    image: file, // already Cloudinary URL
+                    image: cloudData.secure_url,
                 }),
             });
 
             const data = await res.json();
             toast.dismiss();
 
-            if (data.status === "ok") {
+            if (res.ok) {
                 setCaption("");
-                setFile("");
+                setFile(null);
+                setFileUrl("");
                 toast.success("Post uploaded successfully!");
             } else {
                 toast.error("Error while uploading. Please try again.");
             }
         } catch (err) {
+            console.error(err);
             toast.dismiss();
             toast.error("Error posting image.");
         } finally {
@@ -117,41 +114,25 @@ export default function UploadFile() {
 
     return (
         <>
-            {file ? (
+            {fileUrl ? (
                 <div className="relative mt-4">
                     <Button
                         className="rounded-full transition h-6 w-6 hover:bg-black text-white bg-black/50 absolute top-2 right-4"
-                        onClick={() => setFile("")}
+                        onClick={() => { setFile(null); setFileUrl(""); }}
                     >
                         X
                     </Button>
-                    <Image
-                        src={file}
-                        className="w-full h-96 bg-[#1d1d1f] mx-auto"
-                        alt="Uploaded Image"
-                        width={400}
-                        height={400}
-                    />
+                    <Image src={fileUrl} className="w-full h-96 bg-[#1d1d1f] mx-auto"
+                        alt="Preview" width={400} height={400} />
                 </div>
             ) : (
-                <label
-                    htmlFor="dropzone-file"
-                    className="flex flex-col items-center justify-center w-full h-96 cursor-pointer bg-[#1d1d1f] mx-auto mt-4"
-                >
-                    <div className="flex flex-col justify-start items-center">
-                        <UploadIcon />
-                        <p className="mb-2 text-sm text-gray-50 font-semibold">
-                            Click to upload
-                        </p>
-                    </div>
-                    <input
-                        id="dropzone-file"
-                        type="file"
-                        className="hidden"
-                        onChange={handleImageSelect}
-                    />
+                <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-96 cursor-pointer bg-[#1d1d1f] mx-auto mt-4">
+                    <UploadIcon />
+                    <p className="mb-2 text-sm text-gray-50 font-semibold">Click to upload</p>
+                    <input id="dropzone-file" type="file" className="hidden" onChange={handleImageSelect} />
                 </label>
             )}
+
 
             <Input
                 id="caption"

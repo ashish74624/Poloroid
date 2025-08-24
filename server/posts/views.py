@@ -14,14 +14,13 @@ def all_posts(request, email):
         user = get_object_or_404(User, email=email)
 
         # 2. Get all friends of this user
-        all_friends = UserFriend.objects.filter(friend=user).values_list('user_id', flat=True)
+        all_friends = UserFriend.objects.filter(user=user).values_list('friend_id', flat=True)
 
         # 3. Collect ids (friends + self)
-        ids_to_fetch = list(all_friends) + [user.id]
+        ids_to_fetch = list(all_friends) +[user.id]
 
         # 4. Fetch posts
         all_posts = Post.objects.filter(user_id__in=ids_to_fetch).order_by("-created_at")
-
         # 5. If no posts, fallback to default user -- todo: change implementation 
         # default_user = get_object_or_404(User, email="ashishkumar74624@gmail.com")
         # default_post = Post.objects.filter(user=default_user).order_by("-created_at")
