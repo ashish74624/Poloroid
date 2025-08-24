@@ -1,16 +1,9 @@
+'use client'
 import React, { Suspense } from 'react';
-import Navbar from '@/app/Components/Navbar';
 import userDefaultImage from '@/public/userDefaultImage.webp';
 import NotfCard from '@/app/Components/NotfCard';
 import NotfSkel from '@/app/Skels/NotfSkel';
-import Link from 'next/link';
-import LeftArrow from '@/app/Icons/LeftArrow';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Poloroid | Notifications',
-  description: 'Your Notifications'
-};
 
 type Params = {
   params: {
@@ -21,28 +14,27 @@ type Params = {
 const backendURL = process.env.BACKEND;
 
 export default async function Notifications({ params: { email } }: Params) {
-  const res = await fetch(`${backendURL}/user/notifications/${email}`, { cache: 'no-store' });
-  const data = await res.json();
 
+  const res = await fetch(`${backendURL}notification/notifications/${decodeURIComponent(email)}/`, { cache: 'no-store' });
+  const data = await res.json();
 
 
   const renderNotifications = (notifications: any[]) => (
     <Suspense fallback={<NotfSkel />}>
       {notifications.map((data: any) => (
         <NotfCard
-          key={data.sender.id}
-          friendID={data.sender.id}
-          email={email}
-          friendName={data.sender.name}
-          friendImage={data.sender.profilePicture || userDefaultImage}
+          key={data.id}
+          friendID={data.friend_id}
+          email={decodeURIComponent(email)}
+          friendName={data.first_name}
+          friendImage={data.profile_image || userDefaultImage}
         />
       ))}
     </Suspense>
   );
 
   if (data.status === 'ok') {
-    const notifications = data.msg;
-
+    const notifications = data.notifications;
     return (
       <section className="py-6">
         <div className='w-full grid place-content-center'>
@@ -52,7 +44,7 @@ export default async function Notifications({ params: { email } }: Params) {
           {notifications.length > 0 ? (
             renderNotifications(notifications)
           ) : (
-              <div className="h-full w-full flex justify-center items-center">
+            <div className="h-full w-full flex justify-center items-center">
               You currently have no notifications.
             </div>
           )}

@@ -2,6 +2,7 @@ import React from 'react'
 import PersonalPost from '@/app/Components/PersonalPost'
 import Social from '@/app/Components/Social'
 import { cloud_name } from '@/app/libs/configs'
+import { getData } from '@/app/services/getUserData'
 
 type Params = {
   params: {
@@ -11,14 +12,8 @@ type Params = {
 
 let backendURL = process.env.BACKEND
 
-async function getData(email: string) {
-  console.log(email)
-  const res = await fetch(`${backendURL}/user/data/${decodeURIComponent(email)}`);
-  return res.json()
-}
-
 async function getPostData(email: string) {
-  const res = await fetch(`${backendURL}/post/personalPosts/${decodeURIComponent(email)}`);
+  const res = await fetch(`${backendURL}post/personalPosts/${decodeURIComponent(email)}/`);
   return res.json();
 }
 
@@ -33,11 +28,11 @@ export default async function Profile({ params: { email } }: Params) {
     <section className='min-h-screen flex flex-col'>
       <div className="bg-[url('/cover.jpeg')] bg-no-repeat bg-cover w-full h-24 md:h-48 overflow-hidden">
         <div className="flex justify-center items-center md:rounded-ld overflow-hidden md:px-10 py-5 bg-blur backdrop-filter backdrop-blur-md w-full gap-2 lg:gap-10 h-24 md:h-48 ">
-          <img loading='lazy' src={`${process.env.CLOUDINARY_URL}/${data.profileImage}`} className="object-cover border-4 border-white h-14 w-14 lg:h-40 lg:w-40 rounded-full shadow-md bg-gray-400" />
+          <img loading='lazy' src={`${data.profile_image}`} className="object-cover border-4 border-white h-14 w-14 lg:h-40 lg:w-40 rounded-full shadow-md bg-gray-400" />
           <div className="flex md:flex-1 flex-col justify-center gap-4">
             <div className="flex justify-between items-center gap-5 ">
               <div>
-                <h3 className=' text-white text-3xl'>{data.firstName} {data.lastName}</h3>
+                <h3 className=' text-white text-3xl'>{data.first_name} {data.last_name}</h3>
                 <h6 className=' text-white text-[10px]'>{data.email}</h6>
               </div>
               <Social email={email} />
@@ -51,14 +46,21 @@ export default async function Profile({ params: { email } }: Params) {
           Posts
         </h2>
         <div className='w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 place-content-center  gap-2'>
-          {post.map((post: any) => (
-            <div key={post?.image} className="flex justify-center">
-              <PersonalPost
-                src={`https://res.cloudinary.com/${cloud_name}/image/upload/v1688970909/${post?.image}`}
-                title={post?.caption}
-              />
-            </div>
-          ))}
+
+          {
+            Array.isArray(post)
+              ?
+              post.map((post: any) => (
+                <div key={post?.image} className="flex justify-center">
+                  <PersonalPost
+                    src={`${post?.image}`}
+                    title={post?.caption}
+                  />
+                </div>
+              ))
+              :
+              <>No posts yet</>
+          }
         </div>
       </div>
     </section>

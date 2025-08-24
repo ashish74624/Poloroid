@@ -23,9 +23,8 @@ export default function Social({ email }: SocialCompProps) {
 
     useEffect(() => {
         const getSocials = async (email: any) => {
-            const res = await fetch(`${backendURL}/social/getSocials/${decodeURIComponent(email)}`);
+            const res = await fetch(`${backendURL}social/getSocials/${decodeURIComponent(email)}/`);
             const data = await res.json();
-            // console.log(data.social)
             setInsta(data.social.instagram);
             setLinkedin(data.social.linkedin);
             setGithub(data.social.github);
@@ -39,7 +38,7 @@ export default function Social({ email }: SocialCompProps) {
 
     const handleSocialUpload = async () => {
         await toast.promise(
-            fetch(`${backendURL}/social/addSocial/${decodeURIComponent(email)}`, {
+            fetch(`${backendURL}social/addSocial/${decodeURIComponent(email)}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

@@ -22,11 +22,12 @@ type Params = {
 let backendURL = process.env.BACKEND
 
 export default async function Friends({ params: { email } }: Params) {
-    const res = await fetch(`${backendURL}/user/friends/${email}`, { cache: 'no-store' });
+    const res = await fetch(`${backendURL}user/friends/${decodeURIComponent(email)}/`, { cache: 'no-store' });
     const data = await res.json();
+    console.log("data FRIENDS",data)
     email = decodeURIComponent(email)
     if (res.ok) {
-        if (data.msg === 'Nofriends') {
+        if (data.friends.length === 0) {
             return (
                 <>
                     <h1 className='text-2xl md:text-3xl'>Friends</h1>
@@ -42,15 +43,16 @@ export default async function Friends({ params: { email } }: Params) {
                 <h1 className='text-2xl md:text-3xl'>Friends</h1>
                 {
                     friends.map((friend: any) => (
-                        <Card key={friend._id}>
+                        <Card key={friend.id}>
                             <CardContent className='flex gap-4 w-[90vw] md:w-[60vw] lg:w-[40vw] items-center my-auto h-max py-2 px-4 overflow-x-auto'>
                                 <span className=''>
-                                    <Image className='w-9 h-9 md:w-11 md:h-11 rounded-full' src={`https://res.cloudinary.com/dcgjy3xv7/image/upload/v1687762741/${friend.profileImage}`}
+                                    <Image className='w-9 h-9 md:w-11 md:h-11 rounded-full'
+                                        src={`${friend.profile_image}`}
                                         alt='Notification' height={100} width={100} />
                                 </span>
                                 <span className='flex '>
                                     <p className=' text-[#F8C732] font-bold text-sm md:text-base '>
-                                        {friend.firstName} {friend.lastName}
+                                        {friend.first_name} {friend.last_name}
                                     </p>
                                     <p className='ml-2 text-sm md:text-base'>| {friend.email}</p>
                                 </span>

@@ -1,35 +1,41 @@
-import React from 'react';
+// Post.tsx (Server Component)
 import Card from './Card';
+import { getAllPost } from '../services/getAllPost';
+import { getLikedUsers } from '../services/getLikedUsers';
+import { getData } from '../services/getUserData';
 
-interface Post {
-  _id: string;
-  firstName: string;
-  lastName: string;
-  caption: string;
-  image: string;
-  email: string;
-  likes: number;
-  isLiked: boolean;
-  userProfile: string;
-}
+type Props = { email: string };
 
-type props = {
-  promise: Promise<Post[]>,
-  email: string,
-  userId: string
-}
+export default async function Post({ email }: Props) {
+  const postData = await getAllPost(email);
+  const userData = await getData(email);
 
-export default async function Post({ promise, email, userId }: props) {
-  const postData = await promise
+  if (!Array.isArray(postData)) return <>No Posts</>;
+
+  const postsWithLikes = await Promise.all(
+    postData.map(async (post: any) => {
+      const likedBy = await getLikedUsers(post.id);
+      return { ...post, likedBy };
+    })
+  );
+
   return (
     <>
-      {
-        postData.map((post: any) => (
-          <main key={post._id}>
-            <Card id={post._id} firstName={post.firstName} lastName={post.lastName} email={email} userProfile={post.userProfile} likes={post.likes} likedBy={post.likedBy} image={post.image} caption={post.caption} userID={userId} />
-          </main>
-        ))
-      }
+      {postsWithLikes.map((post: any) => (
+        <Card
+          key={post.id}
+          id={post.id}
+          email={decodeURIComponent(post.email)}
+          likes={post.likes_count}
+          likedBy={Array.isArray(post.likedBy) ? post.likedBy : []}
+          image={post.image}
+          caption={post.caption}
+          firstName={post.first_name}
+          lastName={post.last_name}
+          profileImage={post.profile_image}
+          userId={userData.id}
+        />
+      ))}
     </>
   );
-};
+}

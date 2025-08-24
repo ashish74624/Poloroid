@@ -30,7 +30,7 @@ export default function Login() {
     setIsDiabled(true);
     toast.loading('Logging in...');
     try {
-      const response = await fetch(`${backendURL}/user/login`, {
+      const response = await fetch(`${backendURL}user/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -44,6 +44,7 @@ export default function Login() {
       const data = await response.json();
 
       if (data.user) {
+        console.log(data.user)
         toast.dismiss();
         setIsDiabled(false);
         localStorage.setItem("email", data.user.email);

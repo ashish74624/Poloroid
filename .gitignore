@@ -5,3 +5,4 @@ hide3.txt
 client/.env.local
 */.env
 server/.env
+venv

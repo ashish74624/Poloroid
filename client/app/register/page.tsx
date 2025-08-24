@@ -19,7 +19,7 @@ let backendURL = process.env.BACKEND
 
 export default function Register() {
 
-  const [file, setFile] = useState('');
+  const [file, setFile] = useState<File | null>(null);
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -29,59 +29,70 @@ export default function Register() {
   const [isDiabled, setIsDiabled] = useState(false);
   const router = useRouter();
 
-  const handleImageSelect = async (event: any) => {
-    const base64 = await convertToBase64(event.target.files[0]);
-    setFile(base64 as string);
+  const handleImageSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files?.[0]) {
+      setFile(event.target.files[0]); // store actual file object
+    }
   };
 
-  const handleRegister = async (event: FormEvent) => {
-    event.preventDefault()
-    setIsDiabled(true)
-    toast.loading('loading...');
-    try {
+  const cloudName = process.env.CLOUD_NAME
 
-      const res = await fetch(`${backendURL}/user/register`, {
+  const handleRegister = async (event: FormEvent) => {
+    event.preventDefault();
+    setIsDiabled(true);
+    toast.loading("loading...");
+
+    let imageUrl = "";
+    try {
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("upload_preset", "all_uploads"); // cloudinary preset
+
+        const uploadRes = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+          { method: "POST", body: formData }
+        );
+
+        const uploadData = await uploadRes.json();
+        if (uploadData.secure_url) {
+          imageUrl = uploadData.secure_url;
+        } else {
+          throw new Error("Cloudinary upload failed");
+        }
+      }
+
+      const res = await fetch(`${backendURL}user/register/`, {
         method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           firstName,
           lastName,
           email,
           password,
           place,
-          file
-        })
+          profileImage: imageUrl, // 👈 final cloudinary URL
+        }),
       });
 
+      const data = await res.json();
+      toast.dismiss();
 
-      const data = await res.json()
-      console.log(data.status)
       if (data.status === "ok") {
-        toast.dismiss();
-        setIsDiabled(false)
-        router.push('/login')
-      }
-      else if (data.status === 'error') {
-        toast.dismiss();
-        setIsDiabled(false)
-        setTimeout(() => {
-          toast.error(data.msg);
-        }, 100)
-      }
-      else {
-
+        setIsDiabled(false);
+        router.push("/login");
+      } else {
+        setIsDiabled(false);
+        toast.error(data.msg || "Registration failed");
       }
     } catch (err) {
+      console.error(err);
       toast.dismiss();
-      setIsDiabled(false)
-      setTimeout(() => {
-        toast.error("Server not working at the moment")
-      }, 100)
-
+      setIsDiabled(false);
+      toast.error("Server not working at the moment");
     }
-  }
+  };
+
 
   const handleNextButtonClick = async () => {
     if (!firstName || !lastName || !email || !password) {
@@ -156,8 +167,8 @@ export default function Register() {
                     {file ?
                       (<>
                         <div className='w-full items-center flex flex-col'>
-                          <Image className=' w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full' src={file} alt='Hello' width={100} height={100} />
-                          <button onClick={() => { setFile('') }} className='my-2 text-red-500 transition duration-200'>Profile Picture</button>
+                          <Image className=' w-28 h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full' src={URL.createObjectURL(file)} alt='Hello' width={100} height={100} />
+                          <button onClick={() => { setFile(null) }} className='my-2 text-red-500 transition duration-200'>Profile Picture</button>
                         </div>
                       </>)
                       :
