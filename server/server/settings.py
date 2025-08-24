@@ -8,7 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-DEBUG = os.environ.get('DEBUG')
+DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+
 
 ALLOWED_HOSTS = [
     "poloroid-production.up.railway.app",
@@ -43,7 +44,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",   
+    "http://127.0.0.1:3000",
+    "https://poloroid.vercel.app",
+]
+
 
 
 ROOT_URLCONF = 'server.urls'
