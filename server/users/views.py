@@ -158,6 +158,7 @@ def add_friend(request, email):
             friend = get_object_or_404(User, id=friend_id)
 
             UserFriend.objects.create(user=user, friend=friend)
+            UserFriend.objects.create(user=friend, friend=user)
 
             try:
                 friend_request = FriendRequest.objects.filter(sender= friend, receiver=user).first()
