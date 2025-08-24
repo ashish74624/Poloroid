@@ -28,7 +28,8 @@ INSTALLED_APPS = [
     'users',
     'posts',
     'notifications',
-    'socials'
+    'socials',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
