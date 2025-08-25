@@ -12,10 +12,10 @@ DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
 
 
 ALLOWED_HOSTS = [
-    "https://poloroid-production.up.railway.app",
-    "http://localhost:3000",
-    "https://poloroid.vercel.app/",
-    "https://poloroid.vercel.app",
+    "poloroid-production.up.railway.app",
+    "localhost",
+    "127.0.0.1",
+    "poloroid.vercel.app",
 ]
 
 
@@ -46,13 +46,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",   
+    "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://poloroid-production.up.railway.app",
-    "https://poloroid.vercel.app/",
-    "https://poloroid.vercel.app"
+    "https://poloroid.vercel.app",
 ]
-
 
 
 ROOT_URLCONF = 'server.urls'
