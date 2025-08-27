@@ -1,6 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
+
 
 load_dotenv()
 
@@ -71,24 +73,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'server.wsgi.application'
 
-if DEBUG:  
+if DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else: 
+else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('PGDATABASE'),
-            'USER': os.environ.get('PGUSER'),
-            'PASSWORD': os.environ.get('PGPASSWORD'),
-            'HOST': os.environ.get('PGHOST'),
-            'PORT': os.environ.get('PGPORT')
-        }
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
