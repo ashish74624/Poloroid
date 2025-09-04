@@ -25,7 +25,7 @@ export default async function Post({ email }: Props) {
         <Card
           key={post.id}
           id={post.id}
-          email={decodeURIComponent(post.email)}
+          emailOfCurrentUser={decodeURIComponent(email)}
           likes={post.likes_count}
           likedBy={Array.isArray(post.likedBy) ? post.likedBy : []}
           image={post.image}

@@ -17,7 +17,7 @@ interface PostProps {
   lastName: string;
   caption: string;
   image: string;
-  email: string;
+  emailOfCurrentUser: string;
   likes: number;
   likedBy: any[];
   userId: string;
@@ -25,7 +25,7 @@ interface PostProps {
 }
 
 export default function Card({
-  id, email, likes, image, likedBy, caption,
+  id, emailOfCurrentUser, likes, image, likedBy, caption,
   firstName, lastName, userId, profileImage
 }: PostProps) {
   const [like, setLike] = useState(likes);
@@ -36,7 +36,7 @@ export default function Card({
       await fetch(`${backendURL}post/like/${id}/`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ emailOfUser: email }),
+        body: JSON.stringify({ emailOfUser: emailOfCurrentUser }),
       });
     } catch (error) {
       console.error('Error liking the post:', error);
