@@ -6,3 +6,4 @@ client/.env.local
 */.env
 server/.env
 venv
+server/db.sqlite3
