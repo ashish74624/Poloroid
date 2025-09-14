@@ -1,5 +1,6 @@
 import { Button } from "./components/ui/button"
 import HeroBackground from "./components/HeroBackground"
+import { Link } from "react-router-dom"
 
 function App() {
   return (
@@ -16,15 +17,16 @@ function App() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
-          <Button
-          >
-            Login
-          </Button>
-          <Button
-            variant="outline"
-          >
-            Sign up
-          </Button>
+          <Link to='/login'>
+            <Button>
+              Login
+            </Button>
+          </Link>
+          <Link to='/signup'>
+            <Button variant="outline">
+              Sign up
+            </Button>
+          </Link>
         </div>
         <p>Created by: <a href="https://ashish74624.vercel.app" target="_blank">Ashish Kumar</a></p>
       </div>
