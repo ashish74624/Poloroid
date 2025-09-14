@@ -5,7 +5,9 @@ from .models import Post, PostLike
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import F
 import json
+import logging
 
+Logger = logging.getLogger(__name__) 
 
 @csrf_exempt
 def all_posts(request, email):
@@ -50,13 +52,14 @@ def all_posts(request, email):
                     "created_at"
                 )
             )
-            print(posts_data)
+            Logger.info("Post data found")
             return JsonResponse(posts_data, safe=False)
 
+        Logger.info("No post found")
         return JsonResponse({"msg": "No posts available"}, status=200)
 
     except Exception as e:
-        print("Error in all_posts:", e)
+        Logger.error("Error in all_posts:", str(e))
         return JsonResponse({"msg": "Could not get posts", "error": str(e)}, status=500)    
 
 @csrf_exempt    
@@ -124,11 +127,14 @@ def personal_posts(request, email):
         ]
 
         if posts_data:
+            Logger.info("Personal Post data sent")
             return JsonResponse(posts_data, safe=False)
         else:
+            Logger.info("Personal Post data not found")
             return JsonResponse({'msg': 'Posts not found'}, status=404)
 
     except Exception as e:
+        Logger.info("Personal post")
         return JsonResponse(
             {"msg": "Could not return posts", "error": str(e)},
             status=500
@@ -153,11 +159,13 @@ def create_post(request):
         Post.objects.create(
             user=current_user,
             caption=caption,
-            image=image  # <-- this should be Cloudinary URL
+            image=image  
         )
 
+        Logger.info("Post created")
         return JsonResponse({"msg": "Post created"}, status=201)
     except Exception as e:
+        Logger.error("Could not upload post")
         return JsonResponse(
             {"msg": "Could not upload post", "error": str(e)},
             status=500

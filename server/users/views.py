@@ -5,6 +5,9 @@ from django.http import JsonResponse,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from notifications.models import Notification
 import bcrypt
+import logging
+
+Logger = logging.getLogger(__name__) 
 
 @csrf_exempt
 def hello(request):
@@ -25,6 +28,7 @@ def register(request):
         profile_image= payload.get('profileImage') or 'https://res.cloudinary.com/dcgjy3xv7/image/upload/v1689941239/i07kehkwnznydwl17iil.webp'
 
         if User.objects.filter(email=email).exists():
+            Logger.info("Email already exists")
             return JsonResponse(
                 {'status': 'error', 'msg': 'Email already registered'},
                 status=400
@@ -38,6 +42,8 @@ def register(request):
             profile_image=profile_image,
             place=place
         )
+
+        Logger.info("User created !")
 
         return JsonResponse(
             {'status': 'ok', 'msg': 'User registered successfully'},
@@ -57,8 +63,10 @@ def login(request):
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
+            Logger.info("User not found")
             return JsonResponse({'status': 'error', 'msg': 'Invalid email or password'})
 
+        Logger.info("User found !")
         # user.password is stored hashed (bcrypt hash)
         is_password_valid = bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8'))
 
@@ -69,11 +77,14 @@ def login(request):
                 'lastName': user.last_name,
                 'profileImage': user.profile_image,
             }
+            Logger.info("User Sent")
             return JsonResponse({'status': 'ok', 'user': user_without_password})
         else:
+            Logger.info("Invalid password")
             return JsonResponse({'status': 'error', 'msg': 'Invalid email or password'})
 
     except Exception as e:
+        Logger.error("Something broke in login")
         return JsonResponse({'status': 'error', 'msg': 'Internal Server Error', 'error': str(e)}, status=500)
 
 
@@ -90,7 +101,7 @@ def get_user_data(request,email):
             "profile_image": user.profile_image 
         })
     except Exception as e:
-        print('Could not fetch user data')   
+        Logger.info('Could not fetch user data')   
         return JsonResponse({"error":"Couldn't fetch user data"},status=500) 
     
 
@@ -137,12 +148,14 @@ def get_friends_suggestion(request, email):
         ]
 
         if not result:
+            Logger.info("No users to suggest")
             return JsonResponse({"msg": "No friend suggestions available"}, status=200)
 
+        Logger.info("Users suggested")
         return JsonResponse({"suggestions": result}, safe=False, status=200)
 
     except Exception as e:
-        print("Error suggesting friends:", e)
+        Logger.info("Error suggesting friends:", e)
         return JsonResponse({"error": "Error suggesting friends"}, status=500)
    
     
@@ -167,7 +180,7 @@ def add_friend(request, email):
                 notification = Notification.objects.filter(user = user,sender = friend).first()
                 notification.delete()
             except FriendRequest.DoesNotExist:
-                print("Friend request not found")
+                Logger.info("Friend request not found")
                 return JsonResponse({"error": "Friend request not found"}, status=404)
 
             return JsonResponse({'status': 'ok', 'msg': 'Friend Added'})
@@ -199,13 +212,13 @@ def get_friends(request,email):
                 }
                 for u in friends
             ]
-
+            Logger.info("Friends found")
             return JsonResponse({'msg':'friends Found','friends':friendsDetails},status=200)
         else:
             return JsonResponse({"msg": "No friends",'friends':[]}, status=200)
 
     except Exception as e:
-         print(str(e))
+         Logger.error(str(e))
          return JsonResponse({"error": "Error finding friends"}, status=500)         
     
 
@@ -216,6 +229,7 @@ def reject_request(request, sender_id):
         payload = json.loads(request.body or "{}")
         email = payload.get("email") 
         if not email:
+            Logger.debug("Provide email in request body")
             return JsonResponse({"error": "email is required"}, status=400)
 
         # receiver = the current user (who is rejecting)
@@ -231,10 +245,11 @@ def reject_request(request, sender_id):
         if fr:
             fr.status = "rejected"
             fr.save()
-
+        Logger.debug("Request Rejected")
         return JsonResponse({"msg": "Request Rejected"}, status=200)
 
     except Exception as e:
+        Logger.error("Unable to reject request")
         return JsonResponse({"error": "Unable to reject request"}, status=500)    
     
 
@@ -254,7 +269,8 @@ def remove_suggestion(request,id):
         if not created:
             request.status = "rejected"
             request.save()
-
+        Logger.info("Removed suggestion")
         return JsonResponse({'msg': 'Removed suggestion'}, status=200)
     except Exception as e:
+        Logger.error('Unable to remove suggestion')
         return JsonResponse({'msg':'Unable to remove suggestion'},status=500)    

@@ -5,7 +5,9 @@ from django.shortcuts import get_object_or_404
 from users.models import User
 from .models import Notification
 from users.models import FriendRequest
+import logging
 
+Logger = logging.getLogger(__name__) 
 
 @csrf_exempt
 def notifications(request, email):
@@ -28,8 +30,10 @@ def notifications(request, email):
             for n in notif_qs
         ]
 
+        Logger.info("Notifications  sent")
         return JsonResponse( {"status":"ok", "notifications":notifications_list}, safe=False)
     except Exception as e:
+        Logger.error("Notifications error ", str(e))
         return JsonResponse({"status": "not ok", "msg": str(e)})
 
 
