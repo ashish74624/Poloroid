@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'users',
     'posts',
     'notifications',
-    'socials',
+    'socials'
 ]
 
 MIDDLEWARE = [
@@ -46,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     "django_request_id.middleware.RequestIdMiddleware"
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -115,28 +116,23 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "[%(asctime)s] [%(levelname)s] [%(name)s]: %(message)s",
+        },
+    },
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
+            "formatter": "verbose",
         },
     },
     "root": {
         "handlers": ["console"],
-        "level": "DEBUG",  # Change this to INFO or DEBUG
-    },
-    "loggers": {
-        "django": {
-            "handlers": ["console"],
-            "level": "INFO",   # so you'll see info logs too
-            "propagate": True,
-        },
-        "__main__": {
-            "handlers": ["console"],
-            "level": "DEBUG",
-            "propagate": False,
-        },
+        "level": "INFO",
     },
 }
