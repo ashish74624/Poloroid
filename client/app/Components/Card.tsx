@@ -58,7 +58,7 @@ export default function Card({
         </span>
         <div className="bg-white h-max w-[320px] md:w-[360px] border border-black">
           <Image src={image} className="md:w-[300px] w-[270px] h-96 mx-auto mt-[25px] md:mt-[30px]" alt="Image" width={500} height={500} />
-          <p className={`${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center overflow-scroll`}>
+          <p className={`${kst.className} md:w-[300px] w-[260px] mx-auto py-3 md:py-5 flex justify-center items-center `}>
             {caption}
           </p>
         </div>
