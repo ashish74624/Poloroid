@@ -2,6 +2,7 @@ import App from "@/App";
 import MainLayout from "@/layouts/MainLayout";
 import EditProfile from "@/pages/edit-profile";
 import Friends from "@/pages/Friends";
+import Home from "@/pages/home";
 import Login from "@/pages/login";
 import Notifications from "@/pages/notifications";
 import Profile from "@/pages/profile";
@@ -33,6 +34,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'friends', element: <Friends />
+            },
+            {
+                path: 'home', element: <Home />
             }
         ]
     }
