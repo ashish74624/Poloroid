@@ -12,12 +12,12 @@ export const useAuth = () => {
             setEmail(data.email);
             // localStorage.setItem("token", data.token);
         },
-        
+
     });
 
     const signupMutation = useMutation({
-        mutationFn: ({ email, password }: { email: string; password: string }) =>
-            signupApi(email, password),
+        mutationFn: ({ firstName, lastName, email, password }: { firstName: string, lastName: string, email: string; password: string }) =>
+            signupApi(firstName, lastName, email, password),
         onSuccess: (data) => {
             setEmail(data.email);
             // localStorage.setItem("token", data.token);

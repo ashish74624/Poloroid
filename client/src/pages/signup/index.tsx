@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Link } from "react-router-dom";
 import { z } from "zod";
 import { useAuth } from "@/hooks/useAuth";
@@ -18,9 +17,9 @@ const signupSchema = z
         lastName: z.string().min(1, "Last name is required"),
         // username: z.string().min(1, "Username is required"),
         email: z.string().min(1, "Email is required").email("Enter a valid email"),
-        bio: z.string().optional(),
-        password: z.string().min(6, "Password must be at least 6 characters"),
-        confirmPassword: z.string().min(6, "Please confirm your password"),
+        // bio: z.string().optional(),
+        password: z.string().min(4, "Password must be at least 4 characters"),
+        confirmPassword: z.string().min(4, "Please confirm your password"),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: "Passwords do not match",
@@ -35,7 +34,7 @@ export default function SignUp() {
         firstName: "",
         lastName: "",
         email: "",
-        bio: "",
+        // bio: "",
         password: "",
         confirmPassword: "",
     });
@@ -60,17 +59,17 @@ export default function SignUp() {
             setErrors({});
 
             signupMutation.mutate(
-                { email: validated.email, password: validated.password },
+                { firstName: validated.firstName, lastName: validated.lastName, email: validated.email, password: validated.password },
                 {
                     onSuccess: () => {
-                        navigate("/login"); 
+                        navigate("/login");
                     },
                 }
             );
         } catch (error: any) {
             if (error instanceof z.ZodError) {
                 const fieldErrors: Partial<Record<keyof SignUpFormData, string>> = {};
-                
+
                 setErrors(fieldErrors);
             }
         }
@@ -97,13 +96,13 @@ export default function SignUp() {
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="name">First Name</Label>
-                                <Input id="name" type="text" value={formData.firstName} onChange={handleChange} placeholder="John Doe" />
+                                <Label htmlFor="firstName">First Name</Label>
+                                <Input id="firstName" type="text" value={formData.firstName} onChange={handleChange} placeholder="John" />
                                 {errors.firstName && <p className="text-sm text-destructive">{errors.firstName}</p>}
                             </div>
                             <div className="space-y-2">
-                                <Label htmlFor="name">Last Name</Label>
-                                <Input id="name" type="text" value={formData.lastName} onChange={handleChange} placeholder="John Doe" />
+                                <Label htmlFor="lastName">Last Name</Label>
+                                <Input id="lastName" type="text" value={formData.lastName} onChange={handleChange} placeholder="Doe" />
                                 {errors.lastName && <p className="text-sm text-destructive">{errors.lastName}</p>}
                             </div>
                             {/* TODO: ADD user_name FUNCTIONALITY */}
@@ -120,23 +119,29 @@ export default function SignUp() {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="bio">Bio (Optional)</Label>
-                                <Textarea id="bio" value={formData.bio} onChange={handleChange} placeholder="Tell us about yourself..." className="resize-none h-20" />
-                            </div>
-
-                            <div className="space-y-2">
                                 <Label htmlFor="password">Password</Label>
-                                <Input id="password" type="password" value={formData.password} onChange={handleChange} placeholder="••••••••" />
+                                <Input
+                                    id="password"
+                                    type="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    placeholder="••••••••" />
                                 {errors.password && <p className="text-sm text-destructive">{errors.password}</p>}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="confirmPassword">Confirm Password</Label>
-                                <Input id="confirmPassword" type="password" value={formData.confirmPassword} onChange={handleChange} placeholder="••••••••" />
+                                <Input
+                                    id="confirmPassword"
+                                    value={formData.confirmPassword} onChange={handleChange}
+                                    type="password"
+                                    placeholder="••••••••"
+                                    className="bg-background/50"
+                                />
                                 {errors.confirmPassword && <p className="text-sm text-destructive">{errors.confirmPassword}</p>}
                             </div>
 
-                            <Button type="submit" className="w-full" size="lg" disabled={signupMutation.isPending}>
+                            <Button type="submit" className="w-full" size="lg" onSubmit={handleSubmit} >
                                 {signupMutation.isPending ? "Creating account..." : "Create Account"}
                             </Button>
 

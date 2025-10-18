@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Button } from '../../components/ui/button';
 import { z } from 'zod';
 import { useAuth } from '../../hooks/useAuth';
@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 // Zod schema for login form validation
 const loginSchema = z.object({
     email: z.string().min(1, 'Email is required').email('Please enter a valid email address'),
-    password: z.string().min(1, 'Password is required').min(6, 'Password must be at least 6 characters long'),
+    password: z.string().min(1, 'Password is required').min(4, 'Password must be at least 6 characters long'),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -19,7 +19,7 @@ export default function Login() {
     const [errors, setErrors] = useState<Partial<LoginFormData>>({});
     const navigate = useNavigate()
     const { loginMutation } = useAuth();
-    const { email } = useAuthContext();
+    const { setEmail } = useAuthContext();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -41,10 +41,11 @@ export default function Login() {
 
                 , {
                     onSuccess: () => {
+                        setEmail(formData.email)
                         navigate("/home");
                     },
                 }
-            ); // trigger React Query mutation
+            ); 
         } catch (error) {
             if (error instanceof z.ZodError) {
                 const fieldErrors: Partial<LoginFormData> = {};
@@ -58,13 +59,6 @@ export default function Login() {
         }
     };
 
-    // Optional: Redirect or show success alert
-    useEffect(() => {
-        if (loginMutation.isSuccess && email) {
-            alert(`Login successful! Welcome ${email}`);
-            // Example redirect: window.location.href = "/dashboard";
-        }
-    }, [loginMutation.isSuccess, email]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-vintage film-grain bg-background">
@@ -112,17 +106,18 @@ export default function Login() {
                             {errors.password && <p className="mt-1 text-sm text-destructive">{errors.password}</p>}
                         </div>
 
-                        <div className="flex items-center justify-between">
-                            <label className="flex items-center text-sm text-foreground">
+                        <div className="flex items-center justify-end">
+                            {/* TODO: Add Remember me feature */}
+                            {/* <label className="flex items-center text-sm text-foreground">
                                 <input type="checkbox" className="h-4 w-4 text-primary border-input rounded mr-2" />
                                 Remember me
-                            </label>
+                            </label> */}
                             <a href="#" className="text-sm font-medium text-primary hover:text-primary/80">
                                 Forgot password?
                             </a>
                         </div>
 
-                        <Button type="submit" className="w-full" disabled={loginMutation.isPending}>
+                        <Button type="submit" className="w-full" onSubmit={handleSubmit}>
                             {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
                         </Button>
                     </form>

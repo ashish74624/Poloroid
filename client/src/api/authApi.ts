@@ -5,8 +5,10 @@ export interface AuthResponse {
     token: string;
 }
 
+console.log(BASE_URL)
+
 export const loginApi = async (email: string, password: string): Promise<AuthResponse> => {
-    const res = await fetch(`${BASE_URL}/user/login`, {
+    const res = await fetch(`${BASE_URL}/user/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -20,11 +22,11 @@ export const loginApi = async (email: string, password: string): Promise<AuthRes
     return res.json();
 };
 
-export const signupApi = async (email: string, password: string): Promise<AuthResponse> => {
-    const res = await fetch(`${BASE_URL}/user/register`, {
+export const signupApi = async (firstName: string, lastName: string, email: string, password: string): Promise<AuthResponse> => {
+    const res = await fetch(`${BASE_URL}/user/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ firstName, lastName, email, password }),
     });
 
     if (!res.ok) {
