@@ -1,12 +1,12 @@
 import { useAuthContext } from "@/context/useAuthContext"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useApi } from "./useApi"
 import type { Post, Suggestions, User } from "@/types"
 
 export const useUserData = () => {
     const { email } = useAuthContext()
 
-    const { get } = useApi()
+    const { get, post } = useApi()
 
     const getData = useQuery({
         queryKey: [email],
@@ -26,5 +26,12 @@ export const useUserData = () => {
         enabled: !!email
     })
 
-    return { getData, getUserAllPost, getFriendsSuggestion }
+    const sendFriendRequest = useMutation({
+        mutationFn: ({ friendID }: { friendID: number }) => post(`user/addFriend/${email}`, { friendID }),
+        onSuccess: () => {
+            getFriendsSuggestion.refetch()
+        }
+    })
+
+    return { getData, getUserAllPost, getFriendsSuggestion, sendFriendRequest }
 }

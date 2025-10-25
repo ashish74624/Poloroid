@@ -183,7 +183,7 @@ def add_friend(request, email):
                 Logger.info("Friend request not found")
                 return JsonResponse({"error": "Friend request not found"}, status=404)
 
-            return JsonResponse({'status': 'ok', 'msg': 'Friend Added'})
+            return JsonResponse({'status': 'ok', 'msg': 'Friend Added'},status=200)
 
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
