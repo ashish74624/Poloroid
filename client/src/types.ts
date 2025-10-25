@@ -22,3 +22,12 @@ export interface Post {
 export interface Suggestions {
     suggestions: User[]
 }
+
+export interface Friends {
+    friends: User[]
+}
+
+export interface FriendRequests {
+    message: string,
+    friendRequestUsers: User[]
+}

@@ -274,3 +274,40 @@ def remove_suggestion(request,id):
     except Exception as e:
         Logger.error('Unable to remove suggestion')
         return JsonResponse({'msg':'Unable to remove suggestion'},status=500)    
+
+
+@csrf_exempt
+def get_friend_requests(request,email):
+    try:
+        current_user = get_object_or_404(User,email=email)
+        friend_requests = FriendRequest.objects.filter(receiver=current_user,status='pending')
+
+        if friend_requests.exists():
+            sender_ids = []
+            for requests in friend_requests:
+                sender_ids.append(requests.sender.id)
+            
+
+            friend_request_user=[]
+
+            for u in sender_ids:
+                user = get_object_or_404(User,id=u)
+
+                friend_request_user.append({
+                    "id": user.id,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
+                    "email": user.email,
+                    "profile_image": user.profile_image
+                })
+
+
+            return JsonResponse({'message':'Friend request found','friend_request_users':friend_request_user},status=200)
+        else:
+            return JsonResponse({'message':'Friend request not found','friend_request_users':[]},status=200)
+
+    except Exception as e:
+        Logger.error('Unable to find friend request')
+        return JsonResponse({'message':'Unable to find friend request'},status=500)    
+
+        

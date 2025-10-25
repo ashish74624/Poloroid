@@ -10,5 +10,6 @@ urlpatterns = [
     path('addFriend/<str:email>/',views.add_friend,name='add_friend'),
     path('removeSuggestion/<int:id>/',views.remove_suggestion,name='remove_suggestion'),
     path('rejectRequest/<int:sender_id>/',views.reject_request,name='reject_request'),
-    path('friends/<str:email>/',views.get_friends,name='get_friends')
+    path('friends/<str:email>/',views.get_friends,name='get_friends'),
+    path('friendRequests/<str:email>/',views.get_friend_requests,name="get_friend_requests")
 ]

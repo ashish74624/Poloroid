@@ -1,11 +1,14 @@
 import PeopleYouMayKnow from "@/components/PeopleYouMayKnow";
 import PhotoPost from "@/components/PhotoPost";
+import { usePost } from "@/hooks/usePost";
 import { useUserData } from "@/hooks/useUserData";
 
 
 
 export default function Home() {
-    const { getData, getUserAllPost } = useUserData();
+    const { getData } = useUserData();
+
+    const { getUserAllPost } = usePost()
 
     if (getUserAllPost.isLoading || getUserAllPost.isPending) {
         return <>Loading...</>

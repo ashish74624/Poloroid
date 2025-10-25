@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/context/useAuthContext"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useApi } from "./useApi"
-import type { Post, Suggestions, User } from "@/types"
+import { type FriendRequests, type Friends, type Suggestions, type User } from "@/types"
 
 export const useUserData = () => {
     const { email } = useAuthContext()
@@ -14,11 +14,6 @@ export const useUserData = () => {
         enabled: !!email
     })
 
-    const getUserAllPost = useQuery({
-        queryKey: [email, "posts"],
-        queryFn: () => get<Post[]>(`post/allPost/${email}`),
-        enabled: !!email
-    })
 
     const getFriendsSuggestion = useQuery({
         queryKey: [email, "friendsSuggestion"],
@@ -33,5 +28,17 @@ export const useUserData = () => {
         }
     })
 
-    return { getData, getUserAllPost, getFriendsSuggestion, sendFriendRequest }
+    const getFriends = useQuery({
+        queryKey: [email, "friends"],
+        queryFn: () => get<Friends>(`user/friends/${email}`),
+        enabled: !!email
+    })
+
+    const getFriendRequests = useQuery({
+        queryKey: [email, 'friendRequests'],
+        queryFn: () => get<FriendRequests>(`user/friendRequests/${email}`),
+        enabled: !!email
+    })
+
+    return { getData, getFriendsSuggestion, sendFriendRequest, getFriends, getFriendRequests }
 }
