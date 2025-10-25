@@ -1,27 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import { loginApi, signupApi } from "../api/authApi";
-import { useAuthContext } from "@/context/useAuthContext";
+import { useApi } from "./useApi";
+import type { User } from "@/types";
 
 export const useAuth = () => {
-    const { setEmail } = useAuthContext();
 
+    const { post } = useApi()
     const loginMutation = useMutation({
         mutationFn: ({ email, password }: { email: string; password: string }) =>
-            loginApi(email, password),
-        onSuccess: (data) => {
-            setEmail(data.email);
-            // localStorage.setItem("token", data.token);
-        },
+            post<User>("user/login", { email, password })
 
     });
 
     const signupMutation = useMutation({
         mutationFn: ({ firstName, lastName, email, password }: { firstName: string, lastName: string, email: string; password: string }) =>
-            signupApi(firstName, lastName, email, password),
-        onSuccess: (data) => {
-            setEmail(data.email);
-            // localStorage.setItem("token", data.token);
-        },
+            post<User>("user/register", { firstName, lastName, email, password }),
     });
 
     return { loginMutation, signupMutation };

@@ -1,7 +1,8 @@
-import { Heart, MessageCircle, Share, MoreHorizontal } from "lucide-react";
+import { Heart, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "./ui/card";
 
 interface PhotoPostProps {
     username: string;
@@ -16,7 +17,7 @@ interface PhotoPostProps {
 const PhotoPost = ({
     username,
     userAvatar,
-    timeAgo,
+    // timeAgo,
     imageUrl,
     likes,
     caption,
@@ -36,37 +37,35 @@ const PhotoPost = ({
     };
 
     return (
-        <div className="polaroid-frame max-w-md mx-auto mb-8 animate-fade-in">
-            {/* User Info Header */}
-            <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-3">
+        <Card className="max-w-md mx-auto border animate-fade-in bg-card border-border shadow-soft p-4 space-y-1.5 ">
+            <CardHeader className="flex flex-row  justify-between items-center p-0">
+                <div className="flex items-center space-x-3 ">
                     <Avatar className="h-10 w-10">
                         <AvatarImage src={userAvatar} alt={username} />
                         <AvatarFallback>{username.charAt(0).toUpperCase()}</AvatarFallback>
                     </Avatar>
                     <div>
                         <h3 className="font-semibold text-sm">{username}</h3>
-                        <p className="text-muted-foreground text-xs">{timeAgo}</p>
                     </div>
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8">
+                <Button variant="ghost" size="icon" className="h-8 w-8 ">
                     <MoreHorizontal className="h-4 w-4" />
                 </Button>
-            </div>
+            </CardHeader>
 
             {/* Photo */}
-            <div className="relative mb-4 overflow-hidden rounded-lg">
+            <CardContent className="relative overflow-hidden rounded-lg p-0 ">
                 <img
                     src={imageUrl}
                     alt="Post"
-                    className="w-full h-80 object-cover transition-transform duration-300 hover:scale-105"
+                    className="w-full h-80 object-cover rounded-lg transition-transform duration-300 hover:scale-105"
                 />
                 <div className="absolute inset-0 film-grain pointer-events-none"></div>
-            </div>
+            </CardContent>
 
             {/* Action Buttons */}
-            <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-4">
+            <CardDescription className="flex items-center justify-between p-0">
+                <div className="flex items-center">
                     <Button
                         variant="ghost"
                         size="icon"
@@ -75,23 +74,17 @@ const PhotoPost = ({
                     >
                         <Heart className={`h-5 w-5 ${liked ? 'fill-destructive text-destructive' : ''}`} />
                     </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent">
-                        <MessageCircle className="h-5 w-5" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-accent">
-                        <Share className="h-5 w-5" />
-                    </Button>
-                </div>
-            </div>
+                    <p className="font-semibold text-sm">{likeCount} likes</p>
 
-            {/* Likes and Caption */}
-            <div className="space-y-2">
-                <p className="font-semibold text-sm">{likeCount} likes</p>
+                </div>
+            </CardDescription>
+
+            <CardFooter className="space-y-2 p-0">
                 <p className="text-sm">
                     <span className="font-semibold">{username}</span> {caption}
                 </p>
-            </div>
-        </div>
+            </CardFooter>
+        </Card>
     );
 };
 

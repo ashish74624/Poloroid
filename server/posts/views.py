@@ -56,7 +56,7 @@ def all_posts(request, email):
             return JsonResponse(posts_data, safe=False)
 
         Logger.info("No post found")
-        return JsonResponse({"msg": "No posts available"}, status=200)
+        return JsonResponse([], safe=False, status=200)
 
     except Exception as e:
         Logger.error("Error in all_posts:", str(e))

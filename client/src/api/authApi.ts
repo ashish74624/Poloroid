@@ -1,11 +1,10 @@
+import camelcaseKeys from "camelcase-keys";
 import { BASE_URL } from "@/constant";
 
 export interface AuthResponse {
     email: string;
     token: string;
 }
-
-console.log(BASE_URL)
 
 export const loginApi = async (email: string, password: string): Promise<AuthResponse> => {
     const res = await fetch(`${BASE_URL}/user/login/`, {
@@ -19,7 +18,8 @@ export const loginApi = async (email: string, password: string): Promise<AuthRes
         throw new Error(`Login failed: ${errorText}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    return camelcaseKeys(data, { deep: true });
 };
 
 export const signupApi = async (firstName: string, lastName: string, email: string, password: string): Promise<AuthResponse> => {
@@ -34,5 +34,6 @@ export const signupApi = async (firstName: string, lastName: string, email: stri
         throw new Error(`Signup failed: ${errorText}`);
     }
 
-    return res.json();
+    const data = await res.json();
+    return camelcaseKeys(data, { deep: true });
 };
