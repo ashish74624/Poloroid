@@ -3,6 +3,7 @@ export interface User {
     firstName: string,
     lastName: string,
     email: string;
+    profileImage: string;
 }
 
 export interface Post {
@@ -16,4 +17,8 @@ export interface Post {
     image: string,
     likesCount: string,
     createdAt: string
+}
+
+export interface Suggestions {
+    suggestions: User[]
 }

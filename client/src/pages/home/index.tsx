@@ -7,8 +7,6 @@ import { useUserData } from "@/hooks/useUserData";
 export default function Home() {
     const { getData, getUserAllPost } = useUserData();
 
-    console.log(getUserAllPost.data)
-
     if (getUserAllPost.isLoading || getUserAllPost.isPending) {
         return <>Loading...</>
     }

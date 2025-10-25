@@ -1,7 +1,7 @@
 import { useAuthContext } from "@/context/useAuthContext"
 import { useQuery } from "@tanstack/react-query"
 import { useApi } from "./useApi"
-import type { Post, User } from "@/types"
+import type { Post, Suggestions, User } from "@/types"
 
 export const useUserData = () => {
     const { email } = useAuthContext()
@@ -20,5 +20,11 @@ export const useUserData = () => {
         enabled: !!email
     })
 
-    return { getData, getUserAllPost }
+    const getFriendsSuggestion = useQuery({
+        queryKey: [email, "friendsSuggestion"],
+        queryFn: () => get<Suggestions>(`user/getFriendSuggestions/${email}`),
+        enabled: !!email
+    })
+
+    return { getData, getUserAllPost, getFriendsSuggestion }
 }
