@@ -128,10 +128,10 @@ def personal_posts(request, email):
 
         if posts_data:
             Logger.info("Personal Post data sent")
-            return JsonResponse(posts_data, safe=False)
+            return JsonResponse(posts_data, safe=False, status=200)
         else:
             Logger.info("Personal Post data not found")
-            return JsonResponse({'msg': 'Posts not found'}, status=404)
+            return JsonResponse([], safe=False, status=404)
 
     except Exception as e:
         Logger.info("Personal post")

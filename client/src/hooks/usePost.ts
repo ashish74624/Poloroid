@@ -1,10 +1,10 @@
-import { useAuthContext } from "@/context/useAuthContext"
 import { useApi } from "./useApi"
 import type { Post } from "@/types"
 import { useQuery } from "@tanstack/react-query"
+import { getEmailFromToken } from "@/lib/utils"
 
 export const usePost = () => {
-    const { email } = useAuthContext()
+    const email = getEmailFromToken()
 
     const { get } = useApi()
 
@@ -14,5 +14,11 @@ export const usePost = () => {
         enabled: !!email
     })
 
-    return { getUserAllPost }
+    const getPersonalPosts = useQuery({
+        queryKey: [email, "personalPosts"],
+        queryFn: () => get<Post[]>(`post/personalPosts/${email}`),
+        enabled: !!email
+    })
+
+    return { getUserAllPost, getPersonalPosts }
 }

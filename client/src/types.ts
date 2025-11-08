@@ -31,3 +31,14 @@ export interface FriendRequests {
     message: string,
     friendRequestUsers: User[]
 }
+
+export interface LoginResponse {
+    status: string,
+    user: User,
+    access: string;
+}
+
+export interface TokenPayload {
+    email: string;
+    exp: number;
+}

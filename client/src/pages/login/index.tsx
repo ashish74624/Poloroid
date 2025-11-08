@@ -37,15 +37,15 @@ export default function Login() {
         try {
             const validatedData = loginSchema.parse(formData);
             setErrors({});
-            loginMutation.mutate(validatedData
-
-                , {
-                    onSuccess: () => {
+            loginMutation.mutate(validatedData,
+                {
+                    onSuccess: (data) => {
                         setEmail(formData.email)
-                        navigate("/home");
+                        localStorage.setItem("token", data.access)
+                        navigate("/profile");
                     },
                 }
-            ); 
+            );
         } catch (error) {
             if (error instanceof z.ZodError) {
                 const fieldErrors: Partial<LoginFormData> = {};

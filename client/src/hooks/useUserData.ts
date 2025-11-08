@@ -1,10 +1,10 @@
-import { useAuthContext } from "@/context/useAuthContext"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useApi } from "./useApi"
 import { type FriendRequests, type Friends, type Suggestions, type User } from "@/types"
+import { getEmailFromToken } from "@/lib/utils"
 
 export const useUserData = () => {
-    const { email } = useAuthContext()
+    const email = getEmailFromToken()
 
     const { get, post } = useApi()
 

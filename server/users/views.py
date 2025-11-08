@@ -5,7 +5,10 @@ from django.http import JsonResponse,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from notifications.models import Notification
 import bcrypt
+from rest_framework_simplejwt.tokens import RefreshToken
 import logging
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny
 
 Logger = logging.getLogger(__name__) 
 
@@ -14,6 +17,7 @@ def hello(request):
     return HttpResponse('Hello')
 
 @csrf_exempt
+@permission_classes([AllowAny])
 def register(request):
     try:
         payload = json.loads(request.body)
@@ -54,6 +58,7 @@ def register(request):
         return JsonResponse({'status': 'error', 'msg': 'Internal Server Error', 'error': str(e)}, status=500)    
 
 @csrf_exempt
+@permission_classes([AllowAny])
 def login(request):
     try:
         payload = json.loads(request.body)
@@ -71,6 +76,9 @@ def login(request):
         is_password_valid = bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8'))
 
         if is_password_valid:
+            refresh = RefreshToken.for_user(user)
+            refresh['email'] = user.email
+            access_token = str(refresh.access_token)
             user_without_password = {
                 'email': user.email,
                 'firstName': user.first_name,
@@ -78,7 +86,7 @@ def login(request):
                 'profileImage': user.profile_image,
             }
             Logger.info("User Sent")
-            return JsonResponse({'status': 'ok', 'user': user_without_password})
+            return JsonResponse({'status': 'ok', 'user': user_without_password,'access': access_token})
         else:
             Logger.info("Invalid password")
             return JsonResponse({'status': 'error', 'msg': 'Invalid email or password'})
