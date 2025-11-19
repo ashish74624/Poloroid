@@ -15,3 +15,4 @@ server/server/__pycache__
 server/posts/__pycache__
 server/notifications/__pycache__
 server/socials/__pycache__
+.vscode

@@ -11,5 +11,6 @@ urlpatterns = [
     path('removeSuggestion/<int:id>/',views.remove_suggestion,name='remove_suggestion'),
     path('rejectRequest/<int:sender_id>/',views.reject_request,name='reject_request'),
     path('friends/<str:email>/',views.get_friends,name='get_friends'),
-    path('friendRequests/<str:email>/',views.get_friend_requests,name="get_friend_requests")
+    path('friendRequests/<str:email>/',views.get_friend_requests,name="get_friend_requests"),
+    path('update/<str:email>/',views.update,name="update")
 ]

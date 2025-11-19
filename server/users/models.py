@@ -4,6 +4,8 @@ from django.db import models
 class User(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100, blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
+    bio = models.CharField(blank=True, null=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     profile_image = models.URLField(blank=True, null=True)

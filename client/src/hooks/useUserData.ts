@@ -6,7 +6,7 @@ import { getEmailFromToken } from "@/lib/utils"
 export const useUserData = () => {
     const email = getEmailFromToken()
 
-    const { get, post } = useApi()
+    const { get, post, put } = useApi()
 
     const getData = useQuery({
         queryKey: [email],
@@ -40,5 +40,11 @@ export const useUserData = () => {
         enabled: !!email
     })
 
-    return { getData, getFriendsSuggestion, sendFriendRequest, getFriends, getFriendRequests }
+    const updateProfileMutation = useMutation({
+        mutationFn: ({ firstName, lastName, email, profileImage, location, bio }: { firstName?: string, lastName?: string, email?: string, profileImage?: string, location?: string, bio?: string }) =>
+            put(`user/update/${email}`, { firstName, lastName, email, profileImage, location, bio }),
+    });
+
+
+    return { getData, getFriendsSuggestion, sendFriendRequest, getFriends, getFriendRequests, updateProfileMutation }
 }

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BASE_URL } from "@/constant"
 import camelcaseKeys from "camelcase-keys";
+import snakecaseKeys from "snakecase-keys";
 
 export const useApi = () => {
 
@@ -25,7 +27,6 @@ export const useApi = () => {
         return camelcaseKeys(data, { deep: true });
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const post = async <T>(url: string, bodyData: Record<string, any>): Promise<T> => {
         const res = await fetch(`${BASE_URL}/${url}/`, {
             method: "POST",
@@ -37,6 +38,18 @@ export const useApi = () => {
         return camelcaseKeys(data, { deep: true });
     }
 
+    const put = async <T>(url: string, bodyData: Record<string, any>): Promise<T> => {
+        const snakeBody = snakecaseKeys(bodyData, { deep: true });
 
-    return { get, post }
+        const res = await fetch(`${BASE_URL}/${url}/`, {
+            method: "PUT",
+            headers: getHeaders(url),
+            body: JSON.stringify(snakeBody)
+        });
+
+        const data = await res.json();
+        return camelcaseKeys(data, { deep: true });
+    };
+
+    return { get, post, put }
 } 

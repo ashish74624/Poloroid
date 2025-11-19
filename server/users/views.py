@@ -92,7 +92,7 @@ def login(request):
             return JsonResponse({'status': 'error', 'msg': 'Invalid email or password'})
 
     except Exception as e:
-        Logger.error("Something broke in login")
+        Logger.error("Something broke in login, error = ",e)
         return JsonResponse({'status': 'error', 'msg': 'Internal Server Error', 'error': str(e)}, status=500)
 
 
@@ -106,10 +106,12 @@ def get_user_data(request,email):
             "last_name": user.last_name,
             "email": user.email,
             "place": user.place,
-            "profile_image": user.profile_image 
+            "profile_image": user.profile_image,
+            "location": user.location,
+            "bio": user.bio 
         })
     except Exception as e:
-        Logger.info('Could not fetch user data')   
+        Logger.info('Could not fetch user data, error = ',e)   
         return JsonResponse({"error":"Couldn't fetch user data"},status=500) 
     
 
@@ -150,7 +152,9 @@ def get_friends_suggestion(request, email):
                 "last_name": u.last_name,
                 "email": u.email,
                 "place": u.place,
-                "profile_image": u.profile_image or ""  # failsafe if null
+                "profile_image": u.profile_image or "",  # failsafe if null
+                "location": u.location,
+                "bio": u.bio
             }
             for u in suggestions
         ]
@@ -317,5 +321,30 @@ def get_friend_requests(request,email):
     except Exception as e:
         Logger.error('Unable to find friend request')
         return JsonResponse({'message':'Unable to find friend request'},status=500)    
+
+@csrf_exempt
+def update(request, email):
+    if request.method != "PUT":
+        return JsonResponse({'message': 'Invalid request method'}, status=405)
+
+    try:
+        user = get_object_or_404(User, email=email)
+        payload = json.loads(request.body or '{}')
+        
+        user.first_name = payload.get("first_name", user.first_name)
+        user.last_name = payload.get("last_name", user.last_name)
+        user.email = payload.get("email", user.email)
+        user.location = payload.get("location", user.location)
+        user.profile_image = payload.get("profile_image",user.profile_image)
+        user.bio = payload.get("bio", user.bio)
+
+        user.save()
+        return JsonResponse({'message': 'User updated successfully'}, status=200)
+
+    except Exception as e:
+        Logger.error(f'Unable to update user: {e}')
+        return JsonResponse({'message': 'Error updating user'}, status=500)
+ 
+
 
         

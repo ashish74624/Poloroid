@@ -4,6 +4,8 @@ export interface User {
     lastName: string,
     email: string;
     profileImage: string;
+    location: string;
+    bio: string;
 }
 
 export interface Post {

@@ -25,7 +25,7 @@ const Profile = () => {
                 <Card className="polaroid-frame mb-8">
                     <CardContent className="p-6">
                         <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6">
-                            <Avatar className="h-32 w-32 mx-auto md:mx-0">
+                            <Avatar className="h-16 w-16 md:h-32 md:w-32 ">
                                 <AvatarImage src={user?.profileImage} alt={user?.firstName} />
                                 <AvatarFallback className="text-2xl">{user?.firstName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                             </Avatar>

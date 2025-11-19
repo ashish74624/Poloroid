@@ -8,9 +8,8 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-// import { useAuthContext } from "@/context/useAuthContext";
 
-// ✅ Zod validation schema
+
 const signupSchema = z
     .object({
         firstName: z.string().min(1, "First name is required"),
@@ -29,12 +28,11 @@ const signupSchema = z
 type SignUpFormData = z.infer<typeof signupSchema>;
 
 export default function SignUp() {
-    const navigate = useNavigate(); // ✅ for redirecting
+    const navigate = useNavigate(); 
     const [formData, setFormData] = useState<SignUpFormData>({
         firstName: "",
         lastName: "",
         email: "",
-        // bio: "",
         password: "",
         confirmPassword: "",
     });
