@@ -42,7 +42,7 @@ export default function Login() {
                     onSuccess: (data) => {
                         setEmail(formData.email)
                         localStorage.setItem("token", data.access)
-                        navigate("/profile");
+                        navigate("/home");
                     },
                 }
             );
