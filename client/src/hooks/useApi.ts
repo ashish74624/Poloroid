@@ -7,6 +7,17 @@ export const useApi = () => {
 
     const exemptedUrls = ["login", "register"];
 
+    const handleResponse = async (res: Response) => {
+        const data = await res.json();
+
+        if (!res.ok) {
+            throw new Error(data?.msg || "Something went wrong");
+        }
+
+        return camelcaseKeys(data, { deep: true });
+    };
+
+
     const getHeaders = (url: string): HeadersInit => {
         const token = localStorage.getItem("token");
 
@@ -21,22 +32,24 @@ export const useApi = () => {
     }
 
     const get = async <T>(url: string): Promise<T> => {
-        const res = await fetch(`${BASE_URL}/${url}/`);
+        const res = await fetch(`${BASE_URL}/${url}/`, {
+            headers: getHeaders(url)
+        });
 
-        const data = await res.json();
-        return camelcaseKeys(data, { deep: true });
-    }
+        return handleResponse(res);
+    };
+
 
     const post = async <T>(url: string, bodyData: Record<string, any>): Promise<T> => {
         const res = await fetch(`${BASE_URL}/${url}/`, {
             method: "POST",
             headers: getHeaders(url),
             body: JSON.stringify(bodyData)
-        })
+        });
 
-        const data = await res.json();
-        return camelcaseKeys(data, { deep: true });
-    }
+        return handleResponse(res);
+    };
+
 
     const put = async <T>(url: string, bodyData: Record<string, any>): Promise<T> => {
         const snakeBody = snakecaseKeys(bodyData, { deep: true });
@@ -47,9 +60,9 @@ export const useApi = () => {
             body: JSON.stringify(snakeBody)
         });
 
-        const data = await res.json();
-        return camelcaseKeys(data, { deep: true });
+        return handleResponse(res);
     };
+
 
     return { get, post, put }
 } 

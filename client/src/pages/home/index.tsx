@@ -2,6 +2,7 @@ import PeopleYouMayKnow from "@/components/PeopleYouMayKnow";
 import PhotoPost from "@/components/PhotoPost";
 import { usePost } from "@/hooks/usePost";
 import { useUserData } from "@/hooks/useUserData";
+import UploadPost from "./components/UploadPost";
 
 
 
@@ -46,8 +47,9 @@ export default function Home() {
 
                 {/* Sidebar */}
                 <div className="lg:col-span-1">
-                    <div className="sticky top-24">
+                    <div className="sticky top-24 space-y-4">
                         <PeopleYouMayKnow />
+                        <UploadPost />
                     </div>
                 </div>
             </div>

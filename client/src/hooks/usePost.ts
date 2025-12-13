@@ -1,12 +1,12 @@
 import { useApi } from "./useApi"
 import type { Post } from "@/types"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { getEmailFromToken } from "@/lib/utils"
 
 export const usePost = () => {
     const email = getEmailFromToken()
 
-    const { get } = useApi()
+    const { get, post } = useApi()
 
     const getUserAllPost = useQuery({
         queryKey: [email, "posts"],
@@ -20,5 +20,10 @@ export const usePost = () => {
         enabled: !!email
     })
 
-    return { getUserAllPost, getPersonalPosts }
+    const createPost = useMutation({
+        mutationFn: ({ email, image, caption }: { email: string, image: string, caption: string }) => post('post/upload', { email, image, caption })
+    })
+
+
+    return { getUserAllPost, getPersonalPosts, createPost }
 }
