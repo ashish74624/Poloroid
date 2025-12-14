@@ -61,7 +61,7 @@ export default function Login() {
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-vintage film-grain bg-background">
+        <section className="min-h-screen flex items-center justify-center bg-gradient-vintage film-grain bg-background">
             <div className="max-w-md w-full mx-4">
                 <div className="bg-background/80 backdrop-blur-sm border border-border rounded-lg shadow-lg p-8">
                     <div className="text-center mb-8">
@@ -132,6 +132,6 @@ export default function Login() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

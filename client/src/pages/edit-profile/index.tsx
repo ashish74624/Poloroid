@@ -21,10 +21,9 @@ export default function EditProfile() {
     }
 
 
-
     return (
-        <div className="min-h-screen bg-background">
-            <main className="max-w-2xl mx-auto p-4">
+        <section className="min-h-screen bg-background">
+            <div className="max-w-2xl mx-auto p-4">
                 <div className="flex items-center mb-8">
                     <Button variant="ghost" size="icon" className="mr-4" asChild>
                         <Link to="/profile">
@@ -43,7 +42,7 @@ export default function EditProfile() {
                         <Form />
                     </CardContent>
                 </Card>
-            </main>
-        </div>
+            </div>
+        </section>
     );
 }

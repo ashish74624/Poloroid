@@ -1,4 +1,4 @@
-import { Heart, MoreHorizontal } from "lucide-react";
+import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
@@ -48,9 +48,9 @@ const PhotoPost = ({
                         <h3 className="font-semibold text-sm">{username}</h3>
                     </div>
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 ">
+                {/* <Button variant="ghost" size="icon" className="h-8 w-8 ">
                     <MoreHorizontal className="h-4 w-4" />
-                </Button>
+                </Button> */}
             </CardHeader>
 
             {/* Photo */}
