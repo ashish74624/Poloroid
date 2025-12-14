@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft } from "lucide-react";
@@ -25,9 +24,7 @@ export default function EditProfile() {
 
     return (
         <div className="min-h-screen bg-background">
-            <Navigation />
-
-            <main className="max-w-2xl mx-auto px-4 pt-24 pb-12">
+            <main className="max-w-2xl mx-auto p-4">
                 <div className="flex items-center mb-8">
                     <Button variant="ghost" size="icon" className="mr-4" asChild>
                         <Link to="/profile">

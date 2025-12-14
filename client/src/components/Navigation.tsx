@@ -1,10 +1,10 @@
-import { Home, Search, User, Users, Bell } from "lucide-react";
+import { Home, User, Users, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 const Navigation = () => {
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-sm border-b border-border">
+        <nav className="bg-card/95 backdrop-blur-sm border-b border-border">
             <div className="max-w-4xl mx-auto px-4 py-3">
                 <div className="flex items-center justify-between">
                     {/* Logo */}
@@ -15,12 +15,9 @@ const Navigation = () => {
                     {/* Navigation Icons */}
                     <div className="flex items-center space-x-4">
                         <Button variant="ghost" size="icon" className="hover:bg-accent" asChild>
-                            <Link to="/">
+                            <Link to="/home">
                                 <Home className="h-5 w-5" />
                             </Link>
-                        </Button>
-                        <Button variant="ghost" size="icon" className="hover:bg-accent">
-                            <Search className="h-5 w-5" />
                         </Button>
                         <Button variant="ghost" size="icon" className="hover:bg-accent" asChild>
                             <Link to="/friends">
