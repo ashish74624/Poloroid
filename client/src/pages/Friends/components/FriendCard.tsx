@@ -1,3 +1,5 @@
+import AcceptFriendRequestButton from "@/components/AcceptFriendRequestButton";
+import RejectFriendRequestButton from "@/components/RejectFriendRequestButton";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -33,8 +35,8 @@ export const FriendCard = ({ friend, type }: { friend: User; type: 'current' | '
                     <div className="flex space-x-2">
                         {type === 'request' && (
                             <>
-                                <Button size="sm" className="btn-vintage">Accept</Button>
-                                <Button size="sm" variant="outline">Decline</Button>
+                                <AcceptFriendRequestButton friendId={friend.id} />
+                                <RejectFriendRequestButton friendId={friend.id} />
                             </>
                         )}
                         {type === 'suggestion' && (

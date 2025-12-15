@@ -179,7 +179,7 @@ def add_friend(request, email):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-            friend_id = data.get('friendID')
+            friend_id = data.get('friendId')
             friend = get_object_or_404(User, id=friend_id)
 
             UserFriend.objects.create(user=user, friend=friend)

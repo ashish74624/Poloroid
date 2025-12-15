@@ -4,8 +4,8 @@ export interface User {
     lastName: string,
     email: string;
     profileImage: string;
-    location: string;
-    bio: string;
+    location?: string;
+    bio?: string;
 }
 
 export interface Post {
@@ -43,4 +43,17 @@ export interface LoginResponse {
 export interface TokenPayload {
     email: string;
     exp: number;
+}
+
+export interface Notification {
+    id: number,
+    sender: string,
+    type: string,
+    isRead: boolean,
+    createdAt: string,
+    senderProfileImage: string,
+    senderFirstName: string,
+    senderLastName: string,
+    senderFriendId: number,
+    senderEmailId: string
 }

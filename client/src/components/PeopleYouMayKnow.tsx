@@ -9,8 +9,9 @@ const PeopleYouMayKnow = () => {
 
     const { getFriendsSuggestion, sendFriendRequest } = useUserData()
 
-    const handleAddFriend = (friendID: number) => {
-        sendFriendRequest.mutate({ friendID }, {
+
+    const handleAddFriend = (friendId: number) => {
+        sendFriendRequest.mutate({ friendId }, {
             onSuccess: () => {
                 toast.success("Friend request sent")
             },

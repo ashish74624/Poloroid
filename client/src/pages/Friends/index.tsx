@@ -3,11 +3,17 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, UserPlus, Users } from "lucide-react";
 import { useUserData } from "@/hooks/useUserData";
 import { FriendCard } from "./components/FriendCard";
+import useNotification from "@/hooks/useNotification";
+import type { User } from "@/types";
 
 
 const Friends = () => {
 
-    const { getFriends, getFriendRequests, getFriendsSuggestion } = useUserData()
+    const { getFriends, getFriendsSuggestion } = useUserData()
+
+    const { getNotification } = useNotification()
+
+    const friendRequests = getNotification.data?.notifications
 
     return (
         <section className="min-h-screen bg-background">
@@ -24,7 +30,7 @@ const Friends = () => {
                         </TabsTrigger>
                         <TabsTrigger value="requests" className="flex items-center space-x-2">
                             <UserPlus className="h-4 w-4" />
-                            <span>Requests ({getFriendRequests.data?.friendRequestUsers.length})</span>
+                            <span>Requests ({friendRequests ? friendRequests.length : 0})</span>
                         </TabsTrigger>
                         <TabsTrigger value="suggestions" className="flex items-center space-x-2">
                             <Search className="h-4 w-4" />
@@ -42,10 +48,19 @@ const Friends = () => {
 
                     <TabsContent value="requests" className="mt-6">
                         <div className="space-y-4">
-                            {getFriendRequests.data?.friendRequestUsers && getFriendRequests.data?.friendRequestUsers.length > 0 ? (
-                                getFriendRequests.data?.friendRequestUsers.map((friend) => (
-                                    <FriendCard key={friend.id} friend={friend} type="request" />
-                                ))
+                            {friendRequests && friendRequests.length > 0 ? (
+                                friendRequests.map((friendRequest) => {
+                                    const friend:User = {
+                                        id: friendRequest.senderFriendId,
+                                        firstName: friendRequest.senderFirstName,
+                                        lastName: friendRequest.senderLastName,
+                                        profileImage: friendRequest.senderProfileImage,
+                                        email: friendRequest.senderEmailId
+                                    }
+                                    return (
+                                        <FriendCard key={friend.id} friend={friend} type="request" />
+                                    )
+                                })
                             ) : (
                                 <div className="text-center py-12">
                                     <UserPlus className="h-16 w-16 mx-auto text-muted-foreground mb-4" />

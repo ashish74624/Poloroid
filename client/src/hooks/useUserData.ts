@@ -22,7 +22,7 @@ export const useUserData = () => {
     })
 
     const sendFriendRequest = useMutation({
-        mutationFn: ({ friendID }: { friendID: number }) => post(`user/addFriend/${email}`, { friendID }),
+        mutationFn: ({ friendId }: { friendId: number }) => post(`notification/sendFriendRequestNotification/${friendId}`, { emailOfUser: email }),
         onSuccess: () => {
             getFriendsSuggestion.refetch()
         }
@@ -36,7 +36,7 @@ export const useUserData = () => {
 
     const getFriendRequests = useQuery({
         queryKey: [email, 'friendRequests'],
-        queryFn: () => get<FriendRequests>(`user/friendRequests/${email}`),
+        queryFn: () => get<FriendRequests>(`user/notifications/${email}`),
         enabled: !!email
     })
 
@@ -44,6 +44,8 @@ export const useUserData = () => {
         mutationFn: ({ firstName, lastName, email, profileImage, location, bio }: { firstName?: string, lastName?: string, email?: string, profileImage?: string, location?: string, bio?: string }) =>
             put(`user/update/${email}`, { firstName, lastName, email, profileImage, location, bio }),
     });
+
+
 
 
     return { getData, getFriendsSuggestion, sendFriendRequest, getFriends, getFriendRequests, updateProfileMutation }

@@ -22,10 +22,11 @@ def notifications(request, email):
                 "type": n.type,
                 "is_read": n.is_read,
                 "created_at": n.created_at,
-                "profile_image":n.sender.profile_image,
-                'first_name': n.sender.first_name,
-                'last_name': n.sender.last_name,
-                'friend_id':n.sender.id
+                "sender_profile_image":n.sender.profile_image,
+                'sender_first_name': n.sender.first_name,
+                'sender_last_name': n.sender.last_name,
+                'sender_friend_id':n.sender.id,
+                'sender_email_id':n.sender.email
             }
             for n in notif_qs
         ]
@@ -38,7 +39,7 @@ def notifications(request, email):
 
 
 @csrf_exempt
-def send_notification(request, id):  # id = friend user_id
+def send_friend_request_notification(request, id):  # id = friend user_id
 
     try:
         payload = json.loads(request.body)
