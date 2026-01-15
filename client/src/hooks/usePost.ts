@@ -3,7 +3,7 @@ import type { Post } from "@/types"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { getEmailFromToken } from "@/lib/utils"
 
-export const usePost = () => {
+export const usePost = (postId?: number) => {
     const email = getEmailFromToken()
 
     const { get, post } = useApi()
@@ -24,6 +24,16 @@ export const usePost = () => {
         mutationFn: ({ email, image, caption }: { email: string, image: string, caption: string }) => post('post/upload', { email, image, caption })
     })
 
+    const isPostLikedByCurrentUser = useQuery({
+        queryKey: ["isPostLikedByCurrentUser", email, postId],
+        queryFn: ({ queryKey }) => {
+            const [, , postId] = queryKey
+            return get(`post/getLikedUsers/${postId}`)
+        },
 
-    return { getUserAllPost, getPersonalPosts, createPost }
+        enabled: !!email && !!postId
+    })
+
+
+    return { getUserAllPost, getPersonalPosts, createPost, isPostLikedByCurrentUser }
 }

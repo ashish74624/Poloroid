@@ -35,6 +35,7 @@ export default function Home() {
                                 getUserAllPost.data?.map((post) => (
                                     <PhotoPost
                                         key={post.id}
+                                        id={post.id}
                                         username={`${user?.firstName} ${user?.lastName}`}
                                         userAvatar={post.profileImage}
                                         timeAgo={post.createdAt}

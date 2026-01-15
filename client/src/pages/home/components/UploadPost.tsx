@@ -11,7 +11,7 @@ export default function UploadPost() {
     const [file, setFile] = useState<File | null>(null);
     const [caption, setCaption] = useState('');
     const { uploadImage, uploading } = useCloudinaryUpload()
-    const { createPost  } = usePost()
+    const { createPost } = usePost()
     const email = getEmailFromToken()
 
 
@@ -49,14 +49,14 @@ export default function UploadPost() {
                 image: finalImageUrl,
                 caption: caption
             },
-            {
-                onSuccess: () => {
-                    toast.success("Post uploaded successfully");
-                },
-                onError: () => {
-                    toast.error("Unable to upload post at the moment");
+                {
+                    onSuccess: () => {
+                        toast.success("Post uploaded successfully");
+                    },
+                    onError: () => {
+                        toast.error("Unable to upload post at the moment");
+                    }
                 }
-            }
             )
         }
 
@@ -65,10 +65,10 @@ export default function UploadPost() {
 
     return (
         <Dialog>
-            <DialogTrigger className="w-full">
-                <Button size="lg" className="w-full">
-                    Add Post
-                </Button>
+            <DialogTrigger asChild className="w-full">
+                    <Button size="lg" className="w-full">
+                        Add Post
+                    </Button>
             </DialogTrigger>
             <DialogContent>
                 {file ?

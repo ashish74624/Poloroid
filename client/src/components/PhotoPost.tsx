@@ -3,8 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "./ui/card";
+import { usePost } from "@/hooks/usePost";
 
 interface PhotoPostProps {
+    id: number;
     username: string;
     userAvatar: string;
     timeAgo: string;
@@ -15,6 +17,7 @@ interface PhotoPostProps {
 }
 
 const PhotoPost = ({
+    id,
     username,
     userAvatar,
     // timeAgo,
@@ -23,6 +26,11 @@ const PhotoPost = ({
     caption,
     isLiked = false
 }: PhotoPostProps) => {
+
+    const { isPostLikedByCurrentUser } = usePost(id)
+
+    console.log(isPostLikedByCurrentUser.data)
+
     const [liked, setLiked] = useState(isLiked);
     const [likeCount, setLikeCount] = useState(likes);
 
@@ -74,15 +82,15 @@ const PhotoPost = ({
                     >
                         <Heart className={`h-5 w-5 ${liked ? 'fill-destructive text-destructive' : ''}`} />
                     </Button>
-                    <p className="font-semibold text-sm">{likeCount} likes</p>
+                    <span className="font-semibold text-sm">{likeCount} likes</span>
 
                 </div>
             </CardDescription>
 
             <CardFooter className="space-y-2 p-0">
-                <p className="text-sm">
+                <div className="text-sm">
                     <span className="font-semibold">{username}</span> {caption}
-                </p>
+                </div>
             </CardFooter>
         </Card>
     );
