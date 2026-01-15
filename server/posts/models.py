@@ -6,7 +6,7 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
     caption = models.TextField(blank=True, null=True)
     image = models.URLField(blank=True, null=True)
-    likes_count = models.PositiveIntegerField(default=0)  
+    likes_count = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -18,7 +18,7 @@ class PostLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="liked_posts")
 
     class Meta:
-        unique_together = ('post', 'user')
+        unique_together = ("post", "user")
 
     def __str__(self):
         return f"{self.user} liked {self.post}"

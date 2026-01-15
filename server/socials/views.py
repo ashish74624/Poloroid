@@ -6,7 +6,8 @@ from users.models import User
 from .models import Social
 import logging
 
-Logger = logging.getLogger(__name__) 
+Logger = logging.getLogger(__name__)
+
 
 # -------------------- SOCIALS -------------------- #
 @csrf_exempt
@@ -33,11 +34,12 @@ def add_social(request, email):
         Logger.info("Social links could not be added")
         return JsonResponse({"done": False, "error": str(e)}, status=500)
 
+
 @csrf_exempt
 def get_social(request, email):
     try:
         user = get_object_or_404(User, email=email)
-        social = get_object_or_404(Social,user=user)
+        social = get_object_or_404(Social, user=user)
 
         if social:
             data = {
