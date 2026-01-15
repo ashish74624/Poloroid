@@ -15,9 +15,6 @@ export default function Home() {
         return <>Loading...</>
     }
 
-    if (getUserAllPost.data?.length === 0) {
-        return <>No Posts Available</>
-    }
 
     const user = getData.data
 
@@ -30,18 +27,23 @@ export default function Home() {
                         Latest Moments
                     </h2>
                     <div className="space-y-8">
-                        {getUserAllPost.data?.map((post) => (
-                            <PhotoPost
-                                key={post.id}
-                                username={`${user?.firstName} ${user?.lastName}`}
-                                userAvatar={post.profileImage}
-                                timeAgo={post.createdAt}
-                                imageUrl={post.image}
-                                likes={Number(post.likesCount)}
-                                caption={post.caption}
-                                isLiked={true}
-                            />
-                        ))}
+                        {
+                            getUserAllPost.data?.length === 0
+                                ?
+                                <>No Posts Available</>
+                                :
+                                getUserAllPost.data?.map((post) => (
+                                    <PhotoPost
+                                        key={post.id}
+                                        username={`${user?.firstName} ${user?.lastName}`}
+                                        userAvatar={post.profileImage}
+                                        timeAgo={post.createdAt}
+                                        imageUrl={post.image}
+                                        likes={Number(post.likesCount)}
+                                        caption={post.caption}
+                                        isLiked={true}
+                                    />
+                                ))}
                     </div>
                 </div>
 
