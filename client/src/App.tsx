@@ -16,7 +16,7 @@ function App() {
           Where your memories are always in focus
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in">
+        <div className="flex flex-row gap-4 justify-center items-center animate-fade-in">
           <Link to='/login'>
             <Button>
               Login

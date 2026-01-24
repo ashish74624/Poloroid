@@ -106,16 +106,16 @@ export default function Login() {
                             {errors.password && <p className="mt-1 text-sm text-destructive">{errors.password}</p>}
                         </div>
 
-                        <div className="flex items-center justify-end">
-                            {/* TODO: Add Remember me feature */}
-                            {/* <label className="flex items-center text-sm text-foreground">
+                        {/* TODO: Add Remember me feature */}
+                        {/* <div className="flex items-center justify-end">
+                            <label className="flex items-center text-sm text-foreground">
                                 <input type="checkbox" className="h-4 w-4 text-primary border-input rounded mr-2" />
                                 Remember me
-                            </label> */}
+                            </label>
                             <a href="#" className="text-sm font-medium text-primary hover:text-primary/80">
                                 Forgot password?
                             </a>
-                        </div>
+                        </div> */}
 
                         <Button type="submit" className="w-full" onSubmit={handleSubmit}>
                             {loginMutation.isPending ? 'Signing in...' : 'Sign in'}
