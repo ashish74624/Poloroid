@@ -59,7 +59,7 @@ const Navigation = () => {
                     <div className="flex items-center space-x-4">
                         {
                             navItems.slice(0, navItems.length - 1).map((navItem) => (
-                                <NavItem {...navItem} />
+                                <NavItem key={navItem.helperText} {...navItem} />
                             ))
                         }
                         <Dialog>
