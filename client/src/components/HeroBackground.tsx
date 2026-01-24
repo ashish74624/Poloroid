@@ -1,4 +1,3 @@
-import React from 'react'
 import heroImage from "../assets/polorid-hero.jpg"
 
 export default function HeroBackground() {

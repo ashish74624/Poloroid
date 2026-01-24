@@ -2,7 +2,7 @@ import PeopleYouMayKnow from "@/components/PeopleYouMayKnow";
 import PhotoPost from "@/components/PhotoPost";
 import { usePost } from "@/hooks/usePost";
 import UploadPost from "./components/UploadPost";
-
+import Loading from "@/components/Loading";
 
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
     const { getUserAllPost } = usePost()
 
     if (getUserAllPost.isLoading || getUserAllPost.isPending) {
-        return <>Loading...</>
+        return <Loading />
     }
 
 
