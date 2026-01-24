@@ -138,7 +138,7 @@ def personal_posts(request, email):
             return JsonResponse(posts_data, safe=False, status=200)
         else:
             Logger.info("Personal Post data not found")
-            return JsonResponse([], safe=False, status=404)
+            return JsonResponse([], safe=False, status=200)
 
     except Exception as e:
         Logger.info("Personal post")
@@ -180,7 +180,7 @@ def liked_by(request, id):
         post = get_object_or_404(Post, id=id)
 
         # get all User objects who liked this post
-        liked_users = User.objects.filter(liked_posts__post=post).values(
+        liked_users = User.objects.filter(liked_posts__post=post).values_list(
             "email", flat=True
         )
 
@@ -193,4 +193,27 @@ def liked_by(request, id):
                 "error": str(e),
             },
             status=500,
+        )
+
+def liked_by(request, id):
+    try:
+        post = get_object_or_404(Post, id=id)
+
+        liked_emails = list(
+            User.objects
+                .filter(liked_posts__post=post)
+                .values_list("email", flat=True)
+        )
+
+        return JsonResponse(liked_emails, safe=False)
+
+    except Exception as e:
+        print(f"Could not generate list of users who liked this post {str(e)}")
+
+        return JsonResponse(
+            {
+                "msg": "Could not generate list of users who liked this post",
+                "error": str(e),
+            },
+            status=500
         )

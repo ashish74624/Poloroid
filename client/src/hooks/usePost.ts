@@ -26,13 +26,16 @@ export const usePost = (postId?: number) => {
 
     const isPostLikedByCurrentUser = useQuery({
         queryKey: ["isPostLikedByCurrentUser", email, postId],
-        queryFn: ({ queryKey }) => {
+        queryFn: async ({ queryKey }) => {
             const [, , postId] = queryKey
-            return get(`post/getLikedUsers/${postId}`)
+            const likedUsers = await get<string[]>(`post/getLikedUsers/${postId}`)
+            console.log(`email in isPostLikedByCurrentUser ${email}`)
+            return email ? likedUsers.includes(email) : false
         },
 
         enabled: !!email && !!postId
     })
+
 
 
     return { getUserAllPost, getPersonalPosts, createPost, isPostLikedByCurrentUser }

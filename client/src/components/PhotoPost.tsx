@@ -1,9 +1,12 @@
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "./ui/card";
 import { usePost } from "@/hooks/usePost";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { getEmailFromToken } from "@/lib/utils";
+import { useApi } from "@/hooks/useApi";
 
 interface PhotoPostProps {
     id: number;
@@ -13,7 +16,6 @@ interface PhotoPostProps {
     imageUrl: string;
     likes: number;
     caption: string;
-    isLiked?: boolean;
 }
 
 const PhotoPost = ({
@@ -24,25 +26,57 @@ const PhotoPost = ({
     imageUrl,
     likes,
     caption,
-    isLiked = false
 }: PhotoPostProps) => {
-
+    const email = getEmailFromToken()
+    const queryClient = useQueryClient()
     const { isPostLikedByCurrentUser } = usePost(id)
+    const { post } = useApi()
 
-    console.log(isPostLikedByCurrentUser.data)
+    const [liked, setLiked] = useState(false);
 
-    const [liked, setLiked] = useState(isLiked);
+
     const [likeCount, setLikeCount] = useState(likes);
 
+    const handleLikePost = useMutation({
+        mutationFn: () => post(`post/like/${id}`, { emailOfUser: email }),
+
+        onMutate: () => {
+            setLiked(prev => !prev)
+            setLikeCount(prev => prev + (liked ? -1 : 1));
+        },
+
+        onError: () => {
+            setLiked(prev => !prev)
+            setLikeCount(prev => prev + (liked ? 1 : -1));
+        },
+
+        onSettled: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["isPostLikedByCurrentUser", email, id]
+            });
+            queryClient.invalidateQueries({
+                queryKey: ["getUserAllPost"]
+            })
+        }
+    })
+
     const handleLike = () => {
+        handleLikePost.mutate()
         if (liked) {
-            setLiked(false);
-            setLikeCount(prev => prev - 1);
+            setLiked(false)
+            
         } else {
-            setLiked(true);
+            setLiked(true)
             setLikeCount(prev => prev + 1);
         }
     };
+
+    useEffect(() => {
+        if (typeof isPostLikedByCurrentUser.data === "boolean") {
+            setLiked(isPostLikedByCurrentUser.data);
+        }
+    }, [isPostLikedByCurrentUser.data]);
+
 
     return (
         <Card className="max-w-md mx-auto border animate-fade-in bg-card border-border shadow-soft p-4 space-y-1.5 ">
@@ -56,9 +90,6 @@ const PhotoPost = ({
                         <h3 className="font-semibold text-sm">{username}</h3>
                     </div>
                 </div>
-                {/* <Button variant="ghost" size="icon" className="h-8 w-8 ">
-                    <MoreHorizontal className="h-4 w-4" />
-                </Button> */}
             </CardHeader>
 
             {/* Photo */}

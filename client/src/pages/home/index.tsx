@@ -1,13 +1,11 @@
 import PeopleYouMayKnow from "@/components/PeopleYouMayKnow";
 import PhotoPost from "@/components/PhotoPost";
 import { usePost } from "@/hooks/usePost";
-import { useUserData } from "@/hooks/useUserData";
 import UploadPost from "./components/UploadPost";
 
 
 
 export default function Home() {
-    const { getData } = useUserData();
 
     const { getUserAllPost } = usePost()
 
@@ -15,8 +13,6 @@ export default function Home() {
         return <>Loading...</>
     }
 
-
-    const user = getData.data
 
     return (
         <section className="max-w-6xl mx-auto p-4 ">
@@ -36,13 +32,12 @@ export default function Home() {
                                     <PhotoPost
                                         key={post.id}
                                         id={post.id}
-                                        username={`${user?.firstName} ${user?.lastName}`}
+                                        username={`${post?.firstName} ${post?.lastName}`}
                                         userAvatar={post.profileImage}
                                         timeAgo={post.createdAt}
                                         imageUrl={post.image}
                                         likes={Number(post.likesCount)}
                                         caption={post.caption}
-                                        isLiked={true}
                                     />
                                 ))}
                     </div>
