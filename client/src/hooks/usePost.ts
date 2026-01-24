@@ -29,7 +29,6 @@ export const usePost = (postId?: number) => {
         queryFn: async ({ queryKey }) => {
             const [, , postId] = queryKey
             const likedUsers = await get<string[]>(`post/getLikedUsers/${postId}`)
-            console.log(`email in isPostLikedByCurrentUser ${email}`)
             return email ? likedUsers.includes(email) : false
         },
 
