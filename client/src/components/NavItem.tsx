@@ -1,16 +1,10 @@
 import { Button } from './ui/button'
 import { Link } from 'react-router-dom'
-import type React from 'react'
 import { HoverCard, HoverCardContent, HoverCardTrigger } from './ui/hover-card';
+import type { NavItemInterface } from '@/types';
 
-interface NavItemInterface {
-    NavIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-    helperText: string;
-    src?: string;
-    badge?: boolean;
-}
 
-export default function NavItems({ NavIcon, helperText, src, badge }: NavItemInterface) {
+export default function NavItem({ NavIcon, helperText, src, badge }: NavItemInterface) {
     const content = <span className="relative inline-flex">
         <NavIcon className="h-5 w-5" />
         {

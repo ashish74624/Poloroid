@@ -57,3 +57,10 @@ export interface Notification {
     senderFriendId: number,
     senderEmailId: string
 }
+
+export interface NavItemInterface {
+    NavIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+    helperText: string;
+    src?: string;
+    badge?: boolean;
+}
