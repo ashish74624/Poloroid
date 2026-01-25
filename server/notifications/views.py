@@ -5,6 +5,9 @@ from django.shortcuts import get_object_or_404
 from users.models import User
 from .models import Notification
 from users.models import FriendRequest
+import logging
+
+Logger = logging.getLogger(__name__)
 
 
 @csrf_exempt
@@ -20,21 +23,26 @@ def notifications(request, email):
                 "type": n.type,
                 "is_read": n.is_read,
                 "created_at": n.created_at,
-                "profile_image":n.sender.profile_image,
-                'first_name': n.sender.first_name,
-                'last_name': n.sender.last_name,
-                'friend_id':n.sender.id
+                "sender_profile_image": n.sender.profile_image,
+                "sender_first_name": n.sender.first_name,
+                "sender_last_name": n.sender.last_name,
+                "sender_friend_id": n.sender.id,
+                "sender_email_id": n.sender.email,
             }
             for n in notif_qs
         ]
 
-        return JsonResponse( {"status":"ok", "notifications":notifications_list}, safe=False)
+        Logger.info("Notifications  sent")
+        return JsonResponse(
+            {"status": "ok", "notifications": notifications_list}, safe=False
+        )
     except Exception as e:
+        Logger.error("Notifications error ", str(e))
         return JsonResponse({"status": "not ok", "msg": str(e)})
 
 
 @csrf_exempt
-def send_notification(request, id):  # id = friend user_id
+def send_friend_request_notification(request, id):  # id = friend user_id
 
     try:
         payload = json.loads(request.body)
@@ -44,11 +52,7 @@ def send_notification(request, id):  # id = friend user_id
         receiver = get_object_or_404(User, id=id)
 
         # Create notification
-        Notification.objects.create(
-            user=receiver,
-            sender=sender,
-            type="friend_request"
-        )
+        Notification.objects.create(user=receiver, sender=sender, type="friend_request")
 
         # Create a FriendRequest as well (to match your mongo `request` push)
         FriendRequest.objects.create(sender=sender, receiver=receiver)

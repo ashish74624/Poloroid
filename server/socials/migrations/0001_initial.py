@@ -9,18 +9,33 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('users', '0001_initial'),
+        ("users", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Social',
+            name="Social",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('instagram', models.URLField(blank=True, default='')),
-                ('linkedin', models.URLField(blank=True, default='')),
-                ('github', models.URLField(blank=True, default='')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='socials', to='users.user')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("instagram", models.URLField(blank=True, default="")),
+                ("linkedin", models.URLField(blank=True, default="")),
+                ("github", models.URLField(blank=True, default="")),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="socials",
+                        to="users.user",
+                    ),
+                ),
             ],
         ),
     ]

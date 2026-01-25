@@ -3,7 +3,16 @@ hide.txt
 hide2.txt
 hide3.txt
 client/.env.local
+client/.next
 */.env
 server/.env
 venv
 server/db.sqlite3
+client_next_js
+.env
+server/users/__pycache__
+server/server/__pycache__
+server/posts/__pycache__
+server/notifications/__pycache__
+server/socials/__pycache__
+.vscode
