@@ -7,6 +7,7 @@ import { usePost } from "@/hooks/usePost";
 import { useUserData } from "@/hooks/useUserData";
 import UserStats from "./components/UserStats";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import Loading from "@/components/Loading";
 
 
 const Profile = () => {
@@ -14,6 +15,10 @@ const Profile = () => {
     const { getPersonalPosts } = usePost()
 
     const { getData } = useUserData()
+
+    if (getPersonalPosts.isPending || getPersonalPosts.isLoading || getData.isPending || getData.isLoading) {
+        return <Loading />
+    }
 
     const user = getData.data
 

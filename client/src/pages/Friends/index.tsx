@@ -5,6 +5,7 @@ import { useUserData } from "@/hooks/useUserData";
 import { FriendCard } from "./components/FriendCard";
 import useNotification from "@/hooks/useNotification";
 import type { User } from "@/types";
+import Loading from "@/components/Loading";
 
 
 const Friends = () => {
@@ -14,6 +15,10 @@ const Friends = () => {
     const { getNotification } = useNotification()
 
     const friendRequests = getNotification.data?.notifications
+
+    if (getFriends.isPending || getFriends.isLoading || getFriendsSuggestion.isPending || getFriendsSuggestion.isLoading) {
+        return <Loading />
+    }
 
     return (
         <section className="min-h-screen bg-background">
@@ -50,7 +55,7 @@ const Friends = () => {
                         <div className="space-y-4">
                             {friendRequests && friendRequests.length > 0 ? (
                                 friendRequests.map((friendRequest) => {
-                                    const friend:User = {
+                                    const friend: Partial<User> = {
                                         id: friendRequest.senderFriendId,
                                         firstName: friendRequest.senderFirstName,
                                         lastName: friendRequest.senderLastName,

@@ -1,9 +1,14 @@
 import useNotification from "@/hooks/useNotification";
 import { NotificationItem } from "./components/NotificationItem";
+import Loading from "@/components/Loading";
 
 
 const Notifications = () => {
     const { getNotification } = useNotification()
+
+    if (getNotification.isPending || getNotification.isLoading) {
+        return <Loading />
+    }
 
     const notifications = getNotification?.data?.notifications
 

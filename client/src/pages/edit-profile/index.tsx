@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom"
 import { useUserData } from "@/hooks/useUserData";
 import Form from "./components/Form";
+import Loading from "@/components/Loading";
 
 
 export default function EditProfile() {
@@ -14,9 +15,7 @@ export default function EditProfile() {
 
     if (isLoading || !user) {
         return (
-            <div className="min-h-screen flex items-center justify-center text-lg font-medium">
-                Loading your profile...
-            </div>
+            <Loading />
         );
     }
 

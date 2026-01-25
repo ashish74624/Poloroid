@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { User } from "@/types";
 import { UserPlus } from "lucide-react";
 
-export const FriendCard = ({ friend, type }: { friend: User; type: 'current' | 'request' | 'suggestion' }) => {
+export const FriendCard = ({ friend, type }: { friend: Partial<User>; type: 'current' | 'request' | 'suggestion' }) => {
     return (
         <Card className="polaroid-frame">
             <CardContent className="p-4">
@@ -16,7 +16,7 @@ export const FriendCard = ({ friend, type }: { friend: User; type: 'current' | '
                             <Avatar className="h-12 w-12">
                                 <AvatarImage src={friend.profileImage} alt={friend.firstName} />
                                 <AvatarFallback>
-                                    {friend.firstName.split(' ').map(n => n[0]).join('')}
+                                    {friend?.firstName?.split(' ').map(n => n[0]).join('')}
                                 </AvatarFallback>
                             </Avatar>
 
@@ -35,8 +35,8 @@ export const FriendCard = ({ friend, type }: { friend: User; type: 'current' | '
                     <div className="flex space-x-2">
                         {type === 'request' && (
                             <>
-                                <AcceptFriendRequestButton friendId={friend.id} />
-                                <RejectFriendRequestButton friendId={friend.id} />
+                                <AcceptFriendRequestButton friendId={friend.id ?? 0} />
+                                <RejectFriendRequestButton friendId={friend.id ?? 0} />
                             </>
                         )}
                         {type === 'suggestion' && (
