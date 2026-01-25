@@ -4,7 +4,8 @@ import { Heart, MessageCircle, UserPlus, Users } from "lucide-react";
 import type { Notification } from "@/types"
 import AcceptFriendRequestButton from "@/components/AcceptFriendRequestButton";
 import RejectFriendRequestButton from "@/components/RejectFriendRequestButton";
-import timeAgo from "@/utils/timeago";
+import timeAgo from "@/utils/timeAgo";
+
 
 
 
