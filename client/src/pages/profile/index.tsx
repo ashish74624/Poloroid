@@ -48,11 +48,11 @@ const Profile = () => {
                                 </div>
                                 <p className="text-muted-foreground">{user?.email}</p>
 
-                                <p className="text-sm mb-4 max-w-md">{user?.bio}</p>
+                                <p className="text-sm max-w-md">{user?.bio}</p>
                             </div>
                         </div>
                         {/* Stats */}
-                        <UserStats />
+                        <UserStats user={user} />
                     </CardContent>
                 </Card>
 

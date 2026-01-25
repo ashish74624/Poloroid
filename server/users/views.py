@@ -9,6 +9,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 import logging
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
+from posts.models import Post
 
 Logger = logging.getLogger(__name__)
 
@@ -114,6 +115,14 @@ def login(request):
 def get_user_data(request, email):
     try:
         user = get_object_or_404(User, email=email)
+        user_friends = UserFriend.objects.filter(user=user)
+        user_posts = Post.objects.filter(user=user)
+
+        total_likes = 0
+
+        for post in user_posts:
+            total_likes+=post.likes_count
+
         return JsonResponse(
             {
                 "id": user.id,
@@ -124,6 +133,9 @@ def get_user_data(request, email):
                 "profile_image": user.profile_image,
                 "location": user.location,
                 "bio": user.bio,
+                "friends":len(user_friends),
+                "posts":len(user_posts),
+                "total_likes":total_likes
             }
         )
     except Exception as e:

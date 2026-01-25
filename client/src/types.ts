@@ -4,6 +4,9 @@ export interface User {
     lastName: string,
     email: string;
     profileImage: string;
+    friends: number;
+    posts: number;
+    totalLikes: number;
     location?: string;
     bio?: string;
 }
