@@ -4,7 +4,7 @@ import { Button } from '../../components/ui/button';
 import { z } from 'zod';
 import { useAuth } from '../../hooks/useAuth';
 import { useAuthContext } from '@/context/useAuthContext';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // Zod schema for login form validation
 const loginSchema = z.object({
@@ -125,9 +125,9 @@ export default function Login() {
                     <div className="mt-6 text-center">
                         <p className="text-sm text-muted-foreground">
                             Don't have an account?{' '}
-                            <a href="/signup" className="font-medium text-primary hover:text-primary/80">
+                            <Link to="/signup" className="font-medium text-primary hover:text-primary/80">
                                 Sign up
-                            </a>
+                            </Link>
                         </p>
                     </div>
                 </div>
