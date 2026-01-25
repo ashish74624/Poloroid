@@ -1,11 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import { Search, UserPlus, Users } from "lucide-react";
 import { useUserData } from "@/hooks/useUserData";
 import { FriendCard } from "./components/FriendCard";
 import useNotification from "@/hooks/useNotification";
 import type { User } from "@/types";
 import Loading from "@/components/Loading";
+import type { TabTriggerItemProps } from "./components/TabTriggerItem";
+import TabTriggerItem from "./components/TabTriggerItem";
 
 
 const Friends = () => {
@@ -20,6 +22,24 @@ const Friends = () => {
         return <Loading />
     }
 
+    const triggerItems: TabTriggerItemProps[] = [
+        {
+            NavIcon: Users,
+            text: `Friends (${getFriends.data?.friends.length})`,
+            value: "all"
+        },
+        {
+            NavIcon: UserPlus,
+            text: `Requests (${friendRequests ? friendRequests.length : 0})`,
+            value: "requests"
+        },
+        {
+            NavIcon: Search,
+            text: "Suggestions",
+            value: "suggestions"
+        },
+    ]
+
     return (
         <section className="min-h-screen bg-background">
             <div className="max-w-4xl mx-auto p-4">
@@ -29,18 +49,11 @@ const Friends = () => {
 
                 <Tabs defaultValue="all" className="w-full">
                     <TabsList className="grid w-full grid-cols-3">
-                        <TabsTrigger value="all" className="flex items-center space-x-2">
-                            <Users className="h-4 w-4" />
-                            <span>All Friends ({getFriends.data?.friends.length})</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="requests" className="flex items-center space-x-2">
-                            <UserPlus className="h-4 w-4" />
-                            <span>Requests ({friendRequests ? friendRequests.length : 0})</span>
-                        </TabsTrigger>
-                        <TabsTrigger value="suggestions" className="flex items-center space-x-2">
-                            <Search className="h-4 w-4" />
-                            <span>Suggestions</span>
-                        </TabsTrigger>
+                        {
+                            triggerItems.map((item, i) => (
+                                <TabTriggerItem key={i} {...item} />
+                            ))
+                        }
                     </TabsList>
 
                     <TabsContent value="all" className="mt-6">
