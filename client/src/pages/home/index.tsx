@@ -19,10 +19,15 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Photo Feed */}
                 <div className="lg:col-span-2">
-                    <h2 className="text-2xl font-display font-bold mb-8 text-center">
-                        Latest Moments
-                    </h2>
-                    <div className="space-y-8">
+                    <div className="flex md:justify-center justify-between items-center">
+                        <h2 className="text-2xl font-display font-bold text-center">
+                            Latest Moments
+                        </h2>
+                        <div className="md:hidden inline-block h-fit">
+                            <UploadPost />
+                        </div>
+                    </div>
+                    <div className="space-y-8 mt-8">
                         {
                             getUserAllPost.data?.length === 0
                                 ?

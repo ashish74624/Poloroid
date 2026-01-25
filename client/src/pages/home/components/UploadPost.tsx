@@ -5,6 +5,7 @@ import { usePost } from '@/hooks/usePost';
 import { getEmailFromToken } from '@/lib/utils';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { Plus } from "lucide-react";
 
 export default function UploadPost() {
 
@@ -66,9 +67,13 @@ export default function UploadPost() {
     return (
         <Dialog>
             <DialogTrigger asChild className="w-full">
-                    <Button size="lg" className="w-full">
-                        Add Post
-                    </Button>
+                <Button
+                    variant="outline" size="lg"
+                    className="w-6 h-10 md:w-full md:bg-primary md:text-primary-foreground md:hover:bg-primary/90"
+                >
+                    <span className='hidden md:inline'>Add Post</span>
+                    <Plus className='h-4 w-4 inline md:hidden' />
+                </Button>
             </DialogTrigger>
             <DialogContent>
                 {file ?
