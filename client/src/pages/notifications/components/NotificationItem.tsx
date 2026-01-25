@@ -4,6 +4,7 @@ import { Heart, MessageCircle, UserPlus, Users } from "lucide-react";
 import type { Notification } from "@/types"
 import AcceptFriendRequestButton from "@/components/AcceptFriendRequestButton";
 import RejectFriendRequestButton from "@/components/RejectFriendRequestButton";
+import timeAgo from "@/utils/timeago";
 
 
 
@@ -55,7 +56,9 @@ export const NotificationItem = ({ notification }: { notification: Notification 
                                     <span className="font-semibold">{`${notification.senderFirstName} ${notification.senderLastName}`}</span>{" "}
                                     <span className="text-muted-foreground">{getMessage()}</span>
                                 </p>
-                                <p className="text-xs text-muted-foreground mt-1">{notification.createdAt}</p>
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    {timeAgo(notification.createdAt)}
+                                </p>
                             </div>
 
                             {notification.type === 'friend_request' && (
