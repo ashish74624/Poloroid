@@ -62,13 +62,6 @@ const PhotoPost = ({
 
     const handleLike = () => {
         handleLikePost.mutate()
-        if (liked) {
-            setLiked(false)
-            
-        } else {
-            setLiked(true)
-            setLikeCount(prev => prev + 1);
-        }
     };
 
     useEffect(() => {
@@ -109,6 +102,7 @@ const PhotoPost = ({
                         variant="ghost"
                         size="icon"
                         className="h-8 w-8 hover:bg-accent transition-colors"
+                        disabled={handleLikePost.isPending}
                         onClick={handleLike}
                     >
                         <Heart className={`h-5 w-5 ${liked ? 'fill-destructive text-destructive' : ''}`} />

@@ -44,7 +44,7 @@ export default function Home() {
                 </div>
 
                 {/* Sidebar */}
-                <div className="lg:col-span-1">
+                <div className="lg:col-span-1 hidden lg:block ">
                     <div className="sticky top-4 space-y-4">
                         <PeopleYouMayKnow />
                         <UploadPost />

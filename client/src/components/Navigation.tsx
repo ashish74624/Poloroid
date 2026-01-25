@@ -1,10 +1,11 @@
-import { Home, User, Users, Bell, LogOut } from "lucide-react";
+import { Home, User, Users, Bell, LogOut, Menu } from "lucide-react";
 import useNotification from "@/hooks/useNotification";
 import NavItem from "./NavItem";
 import type { NavItemInterface } from '@/types';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from "./ui/dialog";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 
 const Navigation = () => {
@@ -56,7 +57,41 @@ const Navigation = () => {
                         poloroid
                     </h1>
 
-                    <div className="flex items-center space-x-4">
+                    <Sheet>
+                        <SheetTrigger className="block md:hidden"><Menu /></SheetTrigger>
+                        <SheetContent className=" pt-[10%] ">
+                            {
+                                navItems.slice(0, navItems.length - 1).map((navItem) => (
+                                    <NavItem key={navItem.helperText} {...navItem} />
+                                ))
+                            }
+                            <Dialog>
+                                <DialogTrigger>
+                                    <NavItem {...navItems[navItems.length - 1]} />
+                                </DialogTrigger>
+                                <DialogContent>
+                                    <DialogHeader>
+                                        Are you sure ?
+                                    </DialogHeader>
+                                    <DialogDescription className=" space-x-4 ">
+                                        <Button variant="destructive" className="text-white"
+                                            onClick={handleLogOut}
+                                        >
+                                            Yes
+                                        </Button>
+                                        <DialogClose asChild >
+                                            <Button variant="outline">
+                                                Close
+                                            </Button>
+                                        </DialogClose>
+                                    </DialogDescription>
+                                </DialogContent>
+                            </Dialog>
+                        </SheetContent>
+                    </Sheet>
+
+                    <div className="md:flex items-center space-x-4  hidden">
+
                         {
                             navItems.slice(0, navItems.length - 1).map((navItem) => (
                                 <NavItem key={navItem.helperText} {...navItem} />
