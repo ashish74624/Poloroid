@@ -36,6 +36,17 @@ export const usePost = (postId?: number) => {
         }
     })
 
+    const deletePost = useMutation({
+        mutationFn: ({ id }: { id: number }) => post('post/delete', { id }),
+        onSuccess: () => {
+            toast.success("Post deleted successfully")
+            getPersonalPosts.refetch()
+        },
+        onError: () => {
+            toast.error("Unable to delete post")
+        }
+    })
+
     const isPostLikedByCurrentUser = useQuery({
         queryKey: ["isPostLikedByCurrentUser", email, postId],
         queryFn: async ({ queryKey }) => {
@@ -49,5 +60,5 @@ export const usePost = (postId?: number) => {
 
 
 
-    return { getUserAllPost, getPersonalPosts, createPost, isPostLikedByCurrentUser }
+    return { getUserAllPost, getPersonalPosts, createPost, isPostLikedByCurrentUser, deletePost }
 }

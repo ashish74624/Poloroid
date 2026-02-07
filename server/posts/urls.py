@@ -10,4 +10,5 @@ urlpatterns = [
     path("upload/", views.create_post, name="upload"),
     path("getImages/<str:email>/", views.all_posts, name="get_images"),
     path("getLikedUsers/<int:id>/", views.liked_by, name="liked_by"),
+    path("delete/",views.delete_post,name="delete_post")
 ]

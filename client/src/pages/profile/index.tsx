@@ -1,18 +1,19 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Heart, Edit } from "lucide-react";
+import { Heart, Edit, Delete } from "lucide-react";
 import { Link } from "react-router-dom";
 import { usePost } from "@/hooks/usePost";
 import { useUserData } from "@/hooks/useUserData";
 import UserStats from "./components/UserStats";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import Loading from "@/components/Loading";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTrigger } from "@/components/ui/dialog";
 
 
 const Profile = () => {
 
-    const { getPersonalPosts } = usePost()
+    const { getPersonalPosts, deletePost } = usePost()
 
     const { getData } = useUserData()
 
@@ -21,6 +22,10 @@ const Profile = () => {
     }
 
     const user = getData.data
+
+    const handleDelete = (id: number) => {
+        deletePost.mutate({ id })
+    }
 
     return (
         <section className="min-h-screen bg-background">
@@ -76,11 +81,34 @@ const Profile = () => {
                                             className="w-full h-48 object-cover rounded"
                                         />
                                     </div>
-                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center rounded-lg">
+                                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center rounded-lg">
                                         <div className="flex items-center text-white">
                                             <Heart className="h-5 w-5 mr-2" />
                                             <span className="font-semibold">{post.likesCount}</span>
                                         </div>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <button className=" absolute top-4 right-4 ">
+                                                    <Delete className="h-5 w-5 text-red-600" />
+                                                </button>
+                                            </DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    Are you sure you want to delete this post ?
+                                                </DialogHeader>
+                                                <DialogDescription className=" space-x-4" >
+                                                    <Button onClick={() => handleDelete(post.id)} >
+                                                        Yes
+                                                    </Button>
+                                                    <DialogClose asChild>
+                                                        <Button variant="outline">
+                                                            Cancel
+                                                        </Button>
+                                                    </DialogClose>
+                                                </DialogDescription>
+                                            </DialogContent>
+                                        </Dialog>
+
                                     </div>
                                 </div>
                             ))

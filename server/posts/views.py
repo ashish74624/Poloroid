@@ -230,3 +230,27 @@ def liked_by(request, id):
             },
             status=500
         )
+
+
+@csrf_exempt
+def delete_post(request):
+    try:
+        payload = json.loads(request.body.decode("utf-8"))
+        post_id = payload.get("id")
+
+        if not post_id:
+            return JsonResponse({"error": "Post ID is required"}, status=400)
+
+        post = Post.objects.get(id=post_id)
+        post.delete()
+
+        return JsonResponse({"msg": "Post Deletion Successful"}, status=200)
+
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found"}, status=404)
+
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON payload"}, status=400)
+
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
