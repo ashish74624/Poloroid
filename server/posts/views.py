@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from .models import Post, PostLike
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import F
+from posts.ai.moderation import is_hateful
 import json
 import logging
 
@@ -161,17 +162,29 @@ def create_post(request):
         if not email or not image:
             return JsonResponse({"msg": "Email and image are required"}, status=400)
 
+        if is_hateful(caption):
+            return JsonResponse(
+                {"msg": "Caption contains hateful or abusive language"},
+                status=400
+            )
+
         current_user = get_object_or_404(User, email=email)
 
-        Post.objects.create(user=current_user, caption=caption, image=image)
+        Post.objects.create(
+            user=current_user,
+            caption=caption,
+            image=image
+        )
 
         Logger.info("Post created")
         return JsonResponse({"msg": "Post created"}, status=201)
+
     except Exception as e:
         Logger.error("Could not upload post")
         return JsonResponse(
             {"msg": "Could not upload post", "error": str(e)}, status=500
         )
+
 
 
 @csrf_exempt

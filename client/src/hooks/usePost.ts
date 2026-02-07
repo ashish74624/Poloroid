@@ -2,6 +2,7 @@ import { useApi } from "./useApi"
 import type { Post } from "@/types"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { getEmailFromToken } from "@/lib/utils"
+import toast from 'react-hot-toast';
 
 export const usePost = (postId?: number) => {
     const email = getEmailFromToken()
@@ -21,7 +22,18 @@ export const usePost = (postId?: number) => {
     })
 
     const createPost = useMutation({
-        mutationFn: ({ email, image, caption }: { email: string, image: string, caption: string }) => post('post/upload', { email, image, caption })
+        mutationFn: ({ email, image, caption }: { email: string, image: string, caption: string }) => post('post/upload', { email, image, caption }),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        onError: (error: any) => {
+            const serverMsg =
+                error?.response?.data?.msg || error?.message || "Unable to upload post at the moment";
+
+            toast.error(serverMsg);
+        },
+
+        onSuccess: () => {
+            toast.success("Post uploaded successfully");
+        }
     })
 
     const isPostLikedByCurrentUser = useQuery({

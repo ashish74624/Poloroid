@@ -49,16 +49,7 @@ export default function UploadPost() {
                 email: email,
                 image: finalImageUrl,
                 caption: caption
-            },
-                {
-                    onSuccess: () => {
-                        toast.success("Post uploaded successfully");
-                    },
-                    onError: () => {
-                        toast.error("Unable to upload post at the moment");
-                    }
-                }
-            )
+            })
         }
 
     }
