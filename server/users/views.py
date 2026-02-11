@@ -77,7 +77,7 @@ def login(request):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             Logger.info("User not found")
-            return JsonResponse({"status": "error", "msg": "Invalid email or password"})
+            return JsonResponse({"status": "error", "msg": "Invalid email or password"},status=401)
 
         Logger.info("User found !")
         # user.password is stored hashed (bcrypt hash)
