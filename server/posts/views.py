@@ -158,15 +158,17 @@ def create_post(request):
         email = payload.get("email")
         caption = payload.get("caption", "")
         image = payload.get("image")
-
+        print("#1")
         if not email or not image:
             return JsonResponse({"msg": "Email and image are required"}, status=400)
+        print("#2")
 
         if is_hateful(caption):
             return JsonResponse(
                 {"msg": "Caption contains hateful or abusive language"},
                 status=400
             )
+        print("#3")
 
         current_user = get_object_or_404(User, email=email)
 
@@ -175,12 +177,13 @@ def create_post(request):
             caption=caption,
             image=image
         )
+        print("#4")
 
         Logger.info("Post created")
         return JsonResponse({"msg": "Post created"}, status=201)
 
     except Exception as e:
-        Logger.error("Could not upload post")
+        Logger.error(f"Could not upload post, error: {str(e)}")
         return JsonResponse(
             {"msg": "Could not upload post", "error": str(e)}, status=500
         )
