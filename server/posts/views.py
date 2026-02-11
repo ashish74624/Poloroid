@@ -38,7 +38,6 @@ def all_posts(request, email):
         #     return JsonResponse(json.loads(posts_json), safe=False)
 
         if all_posts.exists():
-            # 👇 return only "fields" directly
             posts_data = list(
                 all_posts.annotate(
                     email=F("user__email"),  # alias
@@ -158,17 +157,17 @@ def create_post(request):
         email = payload.get("email")
         caption = payload.get("caption", "")
         image = payload.get("image")
-        print("#1")
+        
         if not email or not image:
             return JsonResponse({"msg": "Email and image are required"}, status=400)
-        print("#2")
+        
 
         if is_hateful(caption):
             return JsonResponse(
                 {"msg": "Caption contains hateful or abusive language"},
                 status=400
             )
-        print("#3")
+        
 
         current_user = get_object_or_404(User, email=email)
 
@@ -177,7 +176,7 @@ def create_post(request):
             caption=caption,
             image=image
         )
-        print("#4")
+       
 
         Logger.info("Post created")
         return JsonResponse({"msg": "Post created"}, status=201)
