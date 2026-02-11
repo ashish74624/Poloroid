@@ -56,6 +56,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://poloroid.vercel.app",
+]
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
