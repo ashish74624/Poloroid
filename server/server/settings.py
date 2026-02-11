@@ -57,9 +57,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = [
-    "https://poloroid.vercel.app",
-]
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 
