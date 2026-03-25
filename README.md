@@ -34,12 +34,3 @@ Poloroid is a modern social media platform that allows users to connect, share m
 
 ---
 
-## Getting Started
-
-To run Poloroid on your local machine, follow these steps:
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/ashish74624/MERNsocial.git
-cd MERNsocial
